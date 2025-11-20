@@ -1,0 +1,10 @@
+<%= turbo_stream.append params[:fields_id] do %>
+  <%= render partial: "filters/prepare_filter_fields",
+             locals: { filters: params[params[:scope]] } %>
+<% end %>
+
+<%= turbo_stream.after params[:fields_id] do %>
+  <div data-controller="autoclick"
+       data-autoclick-target-value="##{params[:search_form_id]} button, ##{params[:search_form_id]} .search-form-submit"></div>
+<% end %>
+

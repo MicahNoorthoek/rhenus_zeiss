@@ -1,0 +1,391 @@
+<style>
+.border-settings {
+  border-bottom: 1.5px solid black;
+}
+
+.position {
+  float: left;
+}
+
+.accordion {
+  padding-top: 50px;
+}
+
+
+.accordionDiv {
+  display: flex;
+  justify-content: center;
+}
+
+label {
+  font-weight: 600;
+}
+
+
+</style>
+
+
+<div class="content-squish-screens-less-strict">
+  <div class="row">
+    <div class="col-4" style="float:left;">
+      <div class="warehousewithdrawalsuniqueidentifier" style="background-color: #f4f4f4; padding: 20px; border-left: 3px solid #000000;">
+
+        <h1>Shipments</h1>
+
+        <%= form_for warehouse_withdrawals_path do |f| %>
+          <div class="row justify-content-center" style="text-align: center;">
+            <div class="col">
+              <div class="form-group">
+                <%= f.label :releasedate, "Release Date *", class: "position" %>
+                <%= f.date_field :releasedate, value: @withdrawal_params.try(:dig, "releasedate"), class: 'form-control', id: 'releasedate' %><br>
+                <p id='select-releasedate-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required<p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center" style="text-align: center; margin-top: -10px;">
+            <div class="col">
+              <div class="form-group">
+                <%= f.label :client, "Client *", class: "position" %>
+                <%= f.text_field :client, value: @withdrawal_params.try(:dig, "client"), class: 'form-control', id: 'client' %><br>
+                <p id='select-client-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required<p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center" style="text-align: center; margin-top: -10px;">
+            <div class="col">
+              <div class="form-group">
+                <%= f.label :clientpo, "Client PO *", class: "position" %>
+                <%= f.text_field :clientpo, value: @withdrawal_params.try(:dig, "clientpo"), class: 'form-control', id: 'clientpo' %><br>
+                <p  id='select-clientpo-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-center" style="text-align: center; margin-top: -10px;">
+            <div class="col-4">
+              <div class="form-group">
+                <%= f.label :cartons30lb, "Cartons 30LB*", class: "position" %>
+                <%= f.text_field :cartons30lb, value: @withdrawal_params.try(:dig, "cartons30lb"), class: 'form-control', id: 'cartons30lb' %><br>
+                <p  id='select-cartons30lb-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= f.label :cartons10lb, "Cartons 10LB*", class: "position" %>
+                <%= f.text_field :cartons10lb, value: @withdrawal_params.try(:dig, "cartons10lb"), class: 'form-control', id: 'cartons10lb' %><br>
+                <p  id='select-cartons10lb-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <%= f.label :cartons5lb, "Cartons 5LB*", class: "position" %>
+                <%= f.text_field :cartons5lb, value: @withdrawal_params.try(:dig, "cartons5lb"), class: 'form-control', id: 'cartons5lb' %><br>
+                <p  id='select-cartons5lb-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Add a div for the submit button -->
+          <div class="row justify-content-center" style="text-align: center;">
+            <div class="col text-center">
+              <div class='position-centerish' style='height:30px;'>
+                <%= f.submit 'Record Shipment', class: 'btn btn-sm btn-primary', style: "width:auto;" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-8" style="float:right;">
+      <div class="" style="background-color: #f4f4f4; padding: 20px;">
+
+        <h1>Shipments History</h1>
+
+        <div class="row justify-content-center" style="text-align: center;">
+          <% if @shipments.any? %>
+            <div class="table-responsive resptbl-class">
+              <table id="ftztable" class="table table-striped table-sm table-hover display responsive no-wrap">
+                  <thead>
+                    <tr>
+                      <th colspan="1" style="text-align:center;">Actions</th>
+                      <th>Release Date</th>
+                      <th>Client</th>
+                      <th>Client PO</th>
+                      <th>Cartons 30LB</th>
+                      <th>Cartons 10LB</th>
+                      <th>Cartons 5LB</th>
+                      <!--<th colspan="1" style="text-align:center;">Details</th>-->
+                    </tr>
+                  </thead>
+                  <tbody id="myTable">
+                    <% @shipments.each do |f| %>
+                      <tr>
+                        <td colspan="1" style="text-align:center;">
+                          <%= link_to '<i class="fas fa-pencil-alt fa-md center" aria-hidden="true" style="float: none; padding-left: 9px;"></i>'.html_safe, update_withdrawal_path(clientpo: f.clientpo), method: :get, remote: true, class: "icon-edit" %>
+                          <%= link_to '<i class="fas fa-trash-alt fa-md center" aria-hidden="true" style="float: none; color: #d50015; padding-left: 9px;"></i>'.html_safe, verify_delete_path(caller: "warehouse_withdrawals", client: f.client), method: :get, remote: true, class: "icon-delete" %>
+                        </td>
+                        <td><%= f.releasedate %></td>
+                        <td><%= f.client %></td>
+                        <td><%= f.clientpo %></td>
+                        <td><%= f.cartons30lb %></td>
+                        <td><%= f.cartons10lb %></td>
+                        <td><%= f.cartons5lb %></td>
+<!--
+                        <%# if 1 == 1 %>
+                          <td colspan="1" style="text-align:center;"> 
+                            <%#= link_to 'Add Details', receipts_details_path(clientpo: f.clientpo), class: "btn btn-light btn-sm btn-search", style: "margin-right: 10px;" %>  
+                          </td>
+                        <%# else %>
+                        <td colspan="1" style="text-align:center;">
+                            <button style="text-decoration: underline dashed; font-style: italic;" type="button" class="popoverBtn btn" data-bs-custom-class="custom-popover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Once a receipt has been depleted, it may no longer be edited or deleted.">
+                              N/A
+                            </button>
+                          </td>
+                        <%# end %>
+-->
+                        <tr>
+                          <td class="justify-content-center pad-tr border-settings" colspan="7" style="text-align:center;">
+                            <%= link_to 'Add Details', receipts_details_path(clientpo: f.clientpo), class: "btn btn-light btn-sm btn-search", style: "margin-right: 5px;" %>
+                            <%= link_to 'Copy Details', receipts_details_path(clientpo: f.clientpo), class: "btn btn-light btn-sm btn-search", style: "margin-right: 5px;" %>
+                            <%= link_to 'Select Details', receipts_details_path(clientpo: f.clientpo), class: "btn btn-light btn-sm btn-search", style: "margin-right: 5px;" %>
+                            <%= link_to 'Copy SPC', receipts_details_path(clientpo: f.clientpo), class: "btn btn-light btn-sm btn-search" %>
+                          </td>
+
+                        </tr>
+                      </tr>
+                    <% end %>
+                  </tbody>
+              </table>
+            </div>
+            <div class="ftz_pagination">
+
+              <%= will_paginate @shipments, :previous_label => 'prev', :next_label => 'next', param_name: 'withdrawals_page' %>
+
+            </div>
+          <% else %>
+            <span style="font-style:italic;">No recorded shipments yet</span>
+            <br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- END CARD BODY -->
+
+
+</div>
+<br>
+<br>
+<script>
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+  const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+  var buttons = document.querySelectorAll(".popoverBtn");
+
+  buttons.forEach(function(button) {
+
+    button.addEventListener("mouseover", function() {
+      // Simulate a click when hovering over the button
+      this.click();
+    });
+
+    button.addEventListener("mouseout", function() {
+      this.click();
+    });
+  
+  });
+
+  $(document).ready(function() {
+    
+    $("#up-arrow").hide()
+
+    var errors_array = []
+
+    var releasedate = $("#releasedate").val()
+    var client = $("#client").val()
+    var clientpo = $("#clientpo").val()
+    var cartons30lb = $("#cartons30lb").val()
+    var cartons10lb = $("#cartons10lb").val()
+    var cartons5lb = $("#cartons5lb").val()
+
+    if (releasedate === null || releasedate === undefined || releasedate === '') {
+      errors_array.push('releasedate')
+    }
+
+    if (client === null || client === undefined || client === '') {
+      errors_array.push('client');
+    }
+
+    if (clientpo === null || clientpo === undefined || clientpo === '') {
+      errors_array.push('clientpo');
+    }
+
+    if (cartons30lb === null || cartons30lb === undefined || cartons30lb === '') {
+      errors_array.push('cartons30lb');
+    }
+
+    if (cartons10lb === null || cartons10lb === undefined || cartons10lb === '') {
+      errors_array.push('cartons10lb');
+    }
+
+    if (cartons5lb === null || cartons5lb === undefined || cartons5lb === '') {
+      errors_array.push('cartons5lb');
+    }
+
+
+
+    if (errors_array.length > 0) {
+      $("input[type='submit']").prop("disabled", true);
+    }
+    checkError(errors_array)
+
+
+    $("#releasedate").on("change click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-releasedate-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'releasedate');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        if (errors_array.includes('releasedate')) {
+          checkError(errors_array)
+        } else {
+          errors_array.push('releasedate')
+          checkError(errors_array)
+        }
+      }
+    })
+
+    $("#client").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-client-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'client');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('client')
+        checkError(errors_array)
+      }
+    })
+
+
+    $("#clientpo").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-clientpo-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'clientpo');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('clientpo')
+        checkError(errors_array)
+      }
+    })
+
+  
+
+    $("#cartons30lb").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-cartons30lb-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'cartons30lb');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('cartons30lb')
+        checkError(errors_array)
+      }
+    })
+
+    $("#cartons10lb").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-cartons10lb-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'cartons10lb');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('cartons10lb')
+        checkError(errors_array)
+      }
+    })
+
+    $("#cartons5lb").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-cartons5lb-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'cartons5lb');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('cartons5lb')
+        checkError(errors_array)
+      }
+    })
+
+    function checkError(errors_array) {
+      //console.log(errors_array)
+      if (errors_array.length <= 0) {
+        $("input[type='submit']").prop("disabled", false);
+        $("#select-releasedate-error").hide();
+        $("#select-client-error").hide();
+        $("#select-clientpo-error").hide();
+        $("#select-cartons30lb-error").hide();
+        $("#select-cartons10lb-error").hide();
+        $("#select-cartons5lb-error").hide();
+        $('.warehousewithdrawalsuniqueidentifier').removeClass('progress-border-bad').addClass('progress-border-good');
+        
+      } else {
+        $('.warehousewithdrawalsuniqueidentifier').removeClass('progress-border-good').addClass('progress-border-bad');
+        $("input[type='submit']").prop("disabled", true);
+        for (error of errors_array) {
+
+          switch (error) {
+            case "releasedate":
+              $("#select-releasedate-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "client":
+              $("#select-client-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "clientpo":
+              $("#select-clientpo-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "cartons30lb":
+              $("#select-cartons30lb-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "cartons10lb":
+              $("#select-cartons10lb-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "cartons5lb":
+              $("#select-cartons5lb-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+          }
+        }
+      }
+    }
+
+    function initiateValidate() {
+      $("input[type='submit']").prop("disabled", false);
+      $('.warehousewithdrawalsuniqueidentifier').removeClass('progress-border-bad').addClass('progress-border-good');
+    }
+
+    
+  });
+</script>

@@ -1,0 +1,5 @@
+$('.modal.in').modal('hide');
+$('.dynamic-modal').html('<%= j render "thoughts" %>')
+$('.dynamic-modal .modal').modal('show');
+modalId = $('.dynamic-modal .modal').attr("id");
+applySelect2(modalId)

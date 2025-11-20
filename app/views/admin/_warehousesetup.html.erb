@@ -1,0 +1,72 @@
+<style>
+  .space {
+    padding: 0 10px 0 10px;
+  }
+
+  .rowspace {
+    /*text-align: center;*/
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
+
+  tr:nth-child(even) {
+  background-color: #f2f2f2; /* light gray color for even rows */
+}
+
+</style>
+
+<div class="modal fade" id="conbalModal" tabindex="-1" role="dialog" aria-labelledby="conbalModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: #fff;">
+      <div class="modal-header editmdhd">
+        <h1 class="modal-title justify-content-center" style="font-size: 25px; align-items: center !important; text-align:center !important;" id="">Non-Reported Fully Depleted Receipts</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <br>
+
+          <div class="row justify-content-center">
+            <!-- table main table content -->
+            <div style="width:95%;">
+              <table class="data-table" cellpadding="0" cellspacing="0" style = "border:none !important;">
+                <thead>
+                  <tr>
+                    <th class="wms-table-header space" style="width:600px;">Entry Number</th>
+                    <th class="wms-table-header space" style="width:600px;">Entry Date</th>
+                    <th class="wms-table-header space" style="width:600px;">Total Qty On Hand</th>
+                    <th class="wms-table-header space" style="width:600px;">Reported Status</th>
+                    <th class="wms-table-header space" style="width:600px;">Closed Reported Date</th>
+                  </tr>
+                </thead>
+              <tbody>
+              <%  @warehousereceiptheaders.each do |f| %>
+              <tr style = "border:none;">
+                <td class="rowspace" style = "border: none !important;"><%= f.receiptentrynumber %></td>
+                <td class="rowspace" style = "border: none !important;"><%= f.entrydate.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                <td class="rowspace" style = "border: none !important;"><%= f.quantityonhand %></td>
+                <% if f.closedreporteddate.present? %>
+                  <td class="rowspace" style = "border: none !important;">REPORTED</td>
+                <% else %>
+                  <td class="rowspace" style = "border: none !important;">NOT REPORTED</td>
+                <% end %>
+                <td class="rowspace" style = "border: none !important;"><%= f.closedreporteddate.strftime('%Y-%m-%d %H:%M:%S') %></td>
+              </tr>
+              <% end %>
+              </tbody>
+              </table>
+              </div>
+            <!-- End table main table content -->
+        </div>
+      </div>
+
+        <div class="modal-footer editmdft">
+
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+  </div>
+ </div>

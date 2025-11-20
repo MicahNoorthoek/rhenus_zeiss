@@ -1,0 +1,13 @@
+<% if @c %>
+<br><br>
+  <div class="container">
+      <div class="alert alert-secondary alert-dismissible" role="alert">
+      <ul>
+        <li><%= model.count %></li>
+        <ul>
+          <button type="button" class="btn-sm close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+<% end %>

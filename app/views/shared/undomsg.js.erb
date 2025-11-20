@@ -1,0 +1,4 @@
+$('.modal.in').modal('hide');
+$('.dynamic-modal').html('<%= j render "shared/undomsg" %>')
+$('.dynamic-modal .modal').modal('show');
+modalId = $('.dynamic-modal .modal').attr("id");

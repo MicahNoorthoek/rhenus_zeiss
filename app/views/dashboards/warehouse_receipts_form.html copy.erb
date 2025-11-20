@@ -1,0 +1,475 @@
+<style>
+  .accordion {
+    padding-top: 50px;
+  }
+
+
+  .accordionDiv {
+    display: flex;
+    justify-content: center;
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+
+</style>
+
+
+<div class="warehousereceiptsuniqueidentifier content-squish-screens" style="background-color: #f4f4f4; padding: 20px; border-left: 3px solid #000000;">
+
+  <h1>Warehouse Receipts</h1>
+
+  <%= form_for warehouse_receipts_path do |f| %>
+    <div class="row justify-content-center" style="text-align: center; margin-bottom:20px;">
+      <div class="col-4">
+        <div class="form-group">
+          <%= f.label :spc, "SPC *" %>
+          <%= f.text_field :spc, value: @receipts_params.try(:dig, "spc"), class: 'form-control', id: 'spc' %><br>
+          <p id='select-spc-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required<p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :releasedate, "Release Date *" %>
+          <%= f.datetime_local_field :releasedate, value: @receipts_params.try(:dig, "releasedate"), class: 'form-control', id: 'releasedate' %><br>
+          <p id='select-releasedate-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required<p>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :client, "Client *" %>
+          <%= f.text_field :client, value: @receipts_params.try(:dig, "client"), class: 'form-control', id: 'client' %><br>
+          <p id='select-client-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required<p>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :clientpo, "Client PO *" %>
+          <%= f.text_field :clientpo, value: @receipts_params.try(:dig, "clientpo"), class: 'form-control', id: 'clientpo' %><br>
+          <p  id='select-clientpo-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :caja, "Caja *" %>
+          <%= f.text_field :caja, value: @receipts_params.try(:dig, "caja"), class: 'form-control', id: 'caja' %><br>
+          <p  id='select-caja-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :sello, "Sello *" %>
+          <%= f.text_field :sello, value: @receipts_params.try(:dig, "sello"), class: 'form-control', id: 'sello' %><br>
+          <p  id='select-sello-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :cartons30lb, "30LB Cartons *" %>
+          <%= f.text_field :cartons30lb, value: @receipts_params.try(:dig, "cartons30lb"), class: 'form-control', id: 'cartons30lb' %><br>
+          <p  id='select-cartons30lb-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :cartons10lb, "10LB Cartons *" %>
+          <%= f.text_field :cartons10lb, value: @receipts_params.try(:dig, "cartons10lb"), class: 'form-control', id: 'cartons10lb' %><br>
+          <p id='select-cartons10lb-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :cartons5lb, "5LB Cartons *" %>
+          <%= f.text_field :cartons5lb, value: @receipts_params.try(:dig, "cartons5lb"), class: 'form-control', id: 'cartons5lb' %><br>
+          <p id='select-cartons5lb-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add a div for the submit button -->
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class='position-centerish' style='height:50px;'>
+          <%= f.submit 'Record Receipt', class: 'btn btn-sm btn-primary', style: "width:50%;" %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
+<!-- END CARD BODY -->
+
+<div class="accordionDiv">
+<div class="accordion" id="accordionExample" style="width: 90vw;">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        Warehouse Receipts History - make regular table and not dropdown
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <% if @receipts.any? %>
+          <div class="table-responsive resptbl-class" style="overflow-x: visible !important;">
+            <table id="ftztable" class="table table-striped table-sm table-hover display responsive no-wrap">
+                <thead>
+                  <tr>
+                    <th>SPC</th>
+                    <th>Release Date</th>
+                    <th>Client</th>
+                    <th>Client PO</th>
+                    <th>Caja</th>
+                    <th>Sello</th>
+                    <th>Cartons 30LB</th>
+                    <th>Cartons 10LB</th>
+                    <th>Cartons 5LB</th>
+                    <th colspan="1" style="text-align:center;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                  <% @receipts.each do |f| %>
+                    <tr>
+                      <td><%= f.spc %></td>
+                      <td><%= f.releasedate %></td>
+                      <td><%= f.client %></td>
+                      <td><%= f.clientpo %></td>
+                      <td><%= f.caja %></td>
+                      <td><%= f.sello %></td>
+                      <td><%= f.cartons30lb %></td>
+                      <td><%= f.cartons10lb %></td>
+                      <td><%= f.cartons5lb %></td>
+                      <td colspan="1" style="text-align:center;">
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-light btn-sm btn-search dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions
+                          </button>
+                          <ul class="dropdown-menu" style="background: #fff; position: absolute; z-index: 1050;">
+                            <div class="row justify-content-center" style="text-align: center;">
+                              <div class="col-4 justify-content-center" style="text-align: center; margin-left: -20px;">
+                                <%= link_to '<i class="fas fa-pencil-alt fa-md center" aria-hidden="true" style="float: none; padding-top: 20px !important;"></i>'.html_safe, update_receipts_path(spc: f.spc), method: :get, class: "icon-edit dropdown-item" %>
+                              </div>
+                              <div class="col-4 justify-content-center" style="text-align: center;">
+                                <li><%= link_to '<i class="fas fa-trash-alt fa-md center" aria-hidden="true" style="float: none; color: #d50015;"></i>'.html_safe, verify_delete_path(caller: "warehouse_receipts", spc: f.spc, client: f.client, clientpo: f.clientpo), method: :get, remote: true, class: "icon-delete dropdown-item" %></li>
+                              </div>
+                            
+                              <li><hr class="dropdown-divider"></li>
+                              <li><%= link_to 'Archive', archive_receipt_path(spc: f.spc), class: "dropdown-item" %></li>
+                              <li><%= link_to 'Add Details', receipts_details_path(spc: f.spc), class: "dropdown-item" %></li>
+                              <li><%= link_to 'Nothing', receipts_details_path(spc: f.spc), class: "dropdown-item" %></li>
+                              </div>
+                            </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+            </table>
+          </div>
+          <div class="ftz_pagination">
+
+            <%= will_paginate @receipts, :previous_label => 'prev', :next_label => 'next', param_name: 'receipts_page' %>
+
+          </div>
+      <% else %>
+        <span style="font-style:italic;">No recorded receipts yet</span>
+        <br>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+<br>
+<br>
+<script>
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+  const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+  var buttons = document.querySelectorAll(".popoverBtn");
+
+  buttons.forEach(function(button) {
+
+    button.addEventListener("mouseover", function() {
+      // Simulate a click when hovering over the button
+      this.click();
+    });
+
+    button.addEventListener("mouseout", function() {
+      this.click();
+    });
+  
+  });
+
+  $(document).ready(function() {
+    
+    $("#up-arrow").hide()
+
+    var errors_array = []
+
+    var spc = $("#spc").val()
+    var releasedate = $("#releasedate").val()
+    var client = $("#client").val()
+    var clientpo = $("#clientpo").val()
+    var caja = $("#caja").val()
+    var sello = $("#sello").val()
+    var cartons30lb = $("#cartons30lb").val()
+    var cartons10lb = $("#cartons10lb").val()
+    var cartons5lb = $("#cartons5lb").val()
+
+    if (spc === null || spc === undefined || spc === '') {
+      errors_array.push('spc')
+    }
+
+    if (releasedate === null || releasedate === undefined || releasedate === '') {
+      errors_array.push('releasedate')
+    }
+
+    if (client === null || client === undefined || client === '') {
+      errors_array.push('client');
+    }
+
+    if (clientpo === null || clientpo === undefined || clientpo === '') {
+      errors_array.push('clientpo');
+    }
+
+    if (caja === null || caja === undefined || caja === '') {
+      errors_array.push('caja');
+    }
+
+    if (sello === null || sello === undefined || sello === '') {
+      errors_array.push('sello');
+    }
+
+    if (cartons30lb === null || cartons30lb === undefined || cartons30lb === '') {
+      errors_array.push('cartons30lb');
+    }
+
+    if (cartons10lb === null || cartons10lb === undefined || cartons10lb === '') {
+      errors_array.push('cartons10lb');
+    }
+
+    if (cartons5lb === null || cartons5lb === undefined || cartons5lb === '') {
+      errors_array.push('cartons5lb');
+    }
+
+
+
+    if (errors_array.length > 0) {
+      $("input[type='submit']").prop("disabled", true);
+    }
+    checkError(errors_array)
+
+
+    $("#spc").on("click keyup", function() {// && this.value >= 1
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-spc-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'spc');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('spc')
+        checkError(errors_array)
+      }
+    })
+
+    $("#releasedate").on("change click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-releasedate-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'releasedate');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        if (errors_array.includes('releasedate')) {
+          checkError(errors_array)
+        } else {
+          errors_array.push('releasedate')
+          checkError(errors_array)
+        }
+      }
+    })
+
+    $("#client").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-client-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'client');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('client')
+        checkError(errors_array)
+      }
+    })
+
+
+    $("#clientpo").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-clientpo-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'clientpo');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('clientpo')
+        checkError(errors_array)
+      }
+    })
+
+    $("#caja").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-caja-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'caja');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('caja')
+        checkError(errors_array)
+      }
+    })
+
+    $("#sello").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-sello-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'sello');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('sello')
+        checkError(errors_array)
+      }
+    })
+
+    $("#cartons30lb").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-cartons30lb-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'cartons30lb');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('cartons30lb')
+        checkError(errors_array)
+      }
+    })
+
+    $("#cartons10lb").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-cartons10lb-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'cartons10lb');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('cartons10lb')
+        checkError(errors_array)
+      }
+    })
+
+    $("#cartons5lb").on("click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+
+        $("#select-cartons5lb-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'cartons5lb');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('cartons5lb')
+        checkError(errors_array)
+      }
+    })
+
+    function checkError(errors_array) {
+      //console.log(errors_array)
+      if (errors_array.length <= 0) {
+        $("input[type='submit']").prop("disabled", false);
+        $("#select-spc-error").hide()
+        $("#select-releasedate-error").hide();
+        $("#select-client-error").hide();
+        $("#select-clientpo-error").hide();
+        $("#select-caja-error").hide();
+        $("#select-sello-error").hide();
+        $("#select-cartons30lb-error").hide();
+        $("#select-cartons10lb-error").hide();
+        $("#select-cartons5lb-error").hide();
+        $('.warehousereceiptsuniqueidentifier').removeClass('progress-border-bad').addClass('progress-border-good');
+        
+      } else {
+        $('.warehousereceiptsuniqueidentifier').removeClass('progress-border-good').addClass('progress-border-bad');
+        $("input[type='submit']").prop("disabled", true);
+        for (error of errors_array) {
+
+          switch (error) {
+            case "spc":
+              $("#select-spc-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "releasedate":
+              $("#select-releasedate-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "client":
+              $("#select-client-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "clientpo":
+              $("#select-clientpo-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "caja":
+              $("#select-caja-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "sello":
+              $("#select-sello-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "cartons30lb":
+              $("#select-cartons30lb-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "cartons10lb":
+              $("#select-cartons10lb-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "cartons5lb":
+              $("#select-cartons5lb-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+          }
+        }
+      }
+    }
+
+    function initiateValidate() {
+      $("input[type='submit']").prop("disabled", false);
+      $('.warehousereceiptsuniqueidentifier').removeClass('progress-border-bad').addClass('progress-border-good');
+    }
+
+    
+  });
+</script>

@@ -1,0 +1,73 @@
+<turbo-frame id="verify_user_modal">
+<div class="modal fade" id="verifyUserModal" tabindex="-1" role="dialog" aria-labelledby="conbalModalLabel" aria-hidden="true" data-backdrop="static">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: #fff;">
+      <div class="modal-header editmdhd">
+        <h1 class="modal-title justify-content-center" style="font-size: 25px; align-items: center !important; text-align:center !important; text-shadow: none;" id="">Create New User</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <div class="row justify-content-center">
+            <!-- table main table content -->
+
+            <div class="row">
+
+              <div class="col">
+                <div class="card" style="width: 40rem;">
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush ">
+                      <li class="list-group-item list-group-emails">
+                        <%= form_for @verifiedusers, data: { turbo: false } do |f| %>
+
+                          <%= f.label :email, "Verify Email"%>
+                          <%= f.text_field :email, class: "form-control formemail", autofocus: true, required: true%><br>
+                          <%= f.submit "Verify New User", class: 'btn btn btn-light btn-sm btn-new btn-authorizeuser', style: 'padding-left: 0px !important; margin-left: 0px !important;'%>
+                        <% end %>
+
+                      </li>
+                      <br>
+                      <br>
+                      <br>
+                      
+                    </ul>
+
+                  </div>
+                </div>
+
+
+
+
+              </div>
+
+            </div>
+            <!-- End table main table content -->
+        </div>
+      </div>
+
+        <div class="modal-footer editmdft">
+
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+  </div>
+ </div>
+
+ <script>
+
+  document.addEventListener("turbo:frame-load", function(event) {
+    console.log("Frame loaded: " + event.target.id);
+    if (event.target.id === "verify_user_modal") {
+      var modalElement = document.getElementById("verifyUserModal");
+      if (modalElement) {
+        var modal = new bootstrap.Modal(modalElement);
+        modal.show();
+      }
+    }
+  });
+
+
+</script>
+</turbo-frame>

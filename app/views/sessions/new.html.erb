@@ -1,0 +1,85 @@
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+<style media="screen">
+  .criteria-display-smplbw {
+    display: flex;
+  }
+</style>
+
+<div class="jumbotron login-bg-container" data-controller="sessions">
+  <div class="d-flex justify-content-center flex-row mb-3">
+    <div class="ieformatting">
+      <div class="row login-fg-container">
+
+        <!-- Left Side -->
+        <div class="col-lg-4 login-ls">
+          <div class="welcome" style="text-shadow: none;">
+            SPC-WMS
+          </div>
+          <div class="details" style="text-shadow: none;">
+            Release Version 2
+          </div>
+        </div>
+
+        <!-- Right Side (Login Form) -->
+        <div class="col-sm" id="parent" style="background-color: #edeeeb">
+          <div class="d-flex p-2 login-fg-rs col-12">
+            
+            <% if 1 == 1 %><%# if @login_block == false %>
+              <div class="col-xxl-5" style="padding-top: 110px;">
+                <div class="login-input p-5 bg-body-tertiary rounded-4">
+                  
+                  <div class="d-flex p-2 justify-content-center">
+                    <h2 class="fw-bold login-text">Login</h2>
+                  </div>
+
+                  <%= form_with url: login_path, method: :post, scope: :session, html: { class: "form-horizontal", role: "form", autocomplete: "off" } do |f| %>
+
+                    <!-- Username -->
+                    <div class="d-flex p-2 justify-content-center">
+                      <div class="form-group login-username d-flex justify-content-center">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                          <%= f.text_field :username, class: "form-control", placeholder: "Enter username", autofocus: true, required: true %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="d-flex justify-content-center">
+                      <div class="form-group login-password">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
+                          <%= f.password_field :password, class: "form-control", placeholder: "Enter password", autocomplete: "off", required: true %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-flex justify-content-center">
+                      <div class="col-5 login-submit-btn" style="width: 180px; padding-top: 30px;">
+                        <%= f.submit "Log In", class: 'btn btn-outline-success w-100' %>
+                      </div>
+                    </div>
+
+                  <% end %>
+
+                </div>
+              </div>
+              
+            <% else %>
+              <!-- Maintenance Mode -->
+              <div class="col-8" style="padding-top: 60px;">
+                <h4> SPC is currently undergoing maintenance. We will be back online soon. </h4>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

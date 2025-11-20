@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+    <!-- PDF-specific styles -->
+    <%= wicked_pdf_stylesheet_link_tag "pdf" %>
+    <%= wicked_pdf_javascript_include_tag "number_pages" %>
+</head>
+  <body onload='number_pages'>
+    <div id="header">
+       <%= wicked_pdf_image_tag 'mysite.jpg' %>
+    </div>
+    <div id="content">
+       <%= yield %>
+    </div>
+  </body>
+</html>
+

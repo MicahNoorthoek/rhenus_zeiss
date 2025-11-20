@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--<link href='https://fonts.googleapis.com/css?family=Libre Barcode 39' rel='stylesheet'>-->
+<style type="text/css">
+  .page-break { display:block; clear:both; page-break-after:always; }
+
+  .row-style:nth-child(odd) {
+  background-color: #f2f2f2; /* light gray color for even rows */
+  }
+
+  #tank_span {
+    padding-top: 7px;
+    padding-left: 125px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .withdrawawlformheader {
+    background-color: #c6d9f1;
+    padding: 0px 0px 2px 10px;
+    margin-bottom: 20px;
+  }
+
+  .header-text {
+    padding-top: 7px;
+    padding-right: 700px;
+    font-size: 33.28px;
+    font-weight: normal;
+  }
+
+  .under-header-text {
+    font-weight: bold;
+  }
+
+/*  IMPORTANT CODE TO ENSURE NO OVERLAP WITH MULTIPLE PAGES */
+  thead {
+  display: table-header-group
+}
+
+tfoot {
+  display: table-row-group
+}
+
+tr {
+  page-break-inside: avoid
+}
+
+.text-style {
+  font-size: 13.5px;
+}
+
+</style>
+</head>
+<body>
+<div class="wms-main-div_no_shadow">
+
+  <%= render '/warehousewithdrawals/withdrawal_statement_reportpdf', withdrawal: @withdrawal_statement%>
+<!--<%#= render '/warehousewithdrawals/withdrawal_statement_reportpdf', statuses: statuses, customers: customers, statusct: statusct, client: client %>-->
+
+</div>
+</body>

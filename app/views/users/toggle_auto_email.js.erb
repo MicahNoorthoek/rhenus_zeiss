@@ -1,0 +1,7 @@
+console.log(<%= @user.auto_email %>);
+<% if @user.auto_email == true %>
+    $(".user-<%= @user.id %> > a").removeClass('fa-toggle-off').addClass('fa-toggle-on')
+<% else %>
+    $(".user-<%= @user.id %> > a").removeClass('fa-toggle-on').addClass('fa-toggle-off')
+<% end %>
+$("#user-status-<%= @user.id %>").html("<%= @user.auto_email %>")

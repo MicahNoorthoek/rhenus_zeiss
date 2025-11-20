@@ -1,0 +1,2 @@
+class UserWarehouseRole < ApplicationRecord
+end

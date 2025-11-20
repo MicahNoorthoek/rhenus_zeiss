@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "dashboard_content" do %>
+    <div id="dashboard_content">
+      <%= @generate_reports %>
+      Warehouse: <%= @selected_warehouse %>
+    </div>
+  <% end %>

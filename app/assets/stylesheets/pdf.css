@@ -1,0 +1,503 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial;
+    font-size: 14px;
+    /*background: #eee;*/
+    background: #ffffff;
+}
+
+
+
+.main-div {
+    width: 1000px;
+    margin: auto;
+    padding: 10px;
+    /* border: 1px #6f6d6d solid; */
+    background: #fff;
+    box-shadow: 1px 2px 3px 1px #dfdfdf;
+}
+
+.main-div_no_shadow {
+    width: 98%;
+    margin: auto;
+    padding: 10px;
+    /* border: 1px #6f6d6d solid; */
+    background: #fff;
+
+}
+.wms-main-div_no_shadow {
+    width: 95%;
+    margin: auto;
+    padding: 10px;
+    /* border: 1px #6f6d6d solid; */
+    background: #fff;
+
+}
+.recent-bin {
+  font-size: 12px;
+  font-weight: bold;
+
+}
+.putaway-draft {
+  font-size: 30px;
+  color: red;
+  text-align: center;
+}
+.reprint {
+  font-size: 20px;
+  color: red;
+  text-align: center;
+}
+.wms-red {
+  color: red;
+}
+.wms-rush {
+  font-size: 35px !important;
+}
+.wms-header {
+  float:left;
+  font-size: 20px;
+  font-weight: bold;
+}
+.wms-header-sm {
+  float:left;
+  font-size: 15px;
+  font-weight: bold;
+}
+.wms-ticket-type {
+  font-size: 16px;
+  font-weight: bold;
+}
+.wms-pkg-slip {
+  font-size: 20px;
+  font-weight: bold;
+  padding-left: 28%;
+}
+.wms-pkg-slip-shade{
+  background-color: #f2f2f2;
+}
+
+.wms-bold {
+  font-weight: bold;
+}
+.wms-bold-lg {
+  font-weight: bold;
+  font-size: 15px;
+}
+.wms-break-line {
+  padding-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+
+.wms-break-line-special {
+  padding-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 4px solid black;
+}
+.inv-wms-break-line {
+  padding-top: 3px;
+
+  border-bottom: 2px solid black;
+}
+.wms-break-space {
+  padding-top: 3px;
+  margin-bottom: 3px;
+
+}
+.wms-table-header {
+  text-align: left;
+  padding-right: 20px;
+}
+.wms-increase-font {
+  font-size: 18px !important;
+
+}
+.wms-larger-font {
+  font-size: 14px !important;
+
+}
+.wms-table-header-nopadding {
+    text-align: left;
+}
+.wms-description{
+
+  padding-left: 30px !important;
+}
+.wms-description-sm {
+  font-size: 12px !important;
+}
+.wms-table-cell{
+  text-align: left;
+  border:none !important;
+  padding-right: 20px;
+}
+.wms-table-cell-nopadding{
+  text-align: left;
+  border:none !important;
+}
+.wms-table-cell-form{
+
+  border-bottom: 1px solid black !important;
+}
+.wms-table-cell-form-padding {
+  border-bottom: 1px solid black !important;
+  width:102% !important
+
+}
+.wms-table-cell-form-add-bin {
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  border-bottom: 1px solid black !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+.wms-table-cell-box{
+
+  border: 1px solid black !important;
+  width: 50px;
+  height: 30px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.wms-table-cell-nobox{
+
+  border: none !important;
+  width: 50px;
+  height: 30px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.right-border-bold {
+    border-right: 3px solid black !important;
+
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.right-border-bold-none{
+  border-right: 3px solid black !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+
+
+
+}
+
+
+
+
+.header-div {
+    display: flex
+}
+
+.logo {
+    width: 150px;
+}
+
+.header-text {
+    flex: 1;
+    font-weight: bold;
+    text-align: center
+}
+
+    .header-text div {
+        font-weight: normal
+    }
+
+.header-right {
+    width: 170px;
+    font-size: 10px;
+}
+
+.sub-header {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center
+}
+
+.sub-sub-header {
+    font-size: 14px;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.body-div {
+    padding: 10px;
+    font-size: 12px;
+}
+
+.text-right {
+    font-size: 12px;
+    text-align: right;
+    margin-right: 50px;
+    padding-top: 15px;
+    font-weight: bold;
+}
+
+.data-table {
+    width: 100%;
+    /*border-top: 1.5px #000000 solid;*/
+    /*border-right: 1px #000000 solid;THISONE*/
+    font-size: 12px;
+}
+
+.font-size {
+    font-size: 15px;
+}
+
+.data-table tr td {
+    padding: 5px;
+    /*border-left: 1.5px #000000 solid;
+    border-bottom: 1.5px #000000 solid;*/
+    vertical-align: center;
+    text-align: center;
+}
+
+.data-table tr th {
+    padding: 5px;
+    border-left: 1.5px #000000 solid;
+    border-bottom: 1.5px #000000 solid;
+    vertical-align: top;
+}
+
+.data-table tr td td {
+    /*border: 0px;*/
+    vertical-align: center;
+}
+
+.data-table-noborder {
+    width: 100%;
+    font-size: 12px;
+    border:none;
+}
+
+
+.data-table-noborder tr td {
+    padding: 5px;
+    border:none;
+    vertical-align: top;
+    text-align: left;
+}
+
+.data-table-noborder tr th {
+    padding: 5px;
+    border:none;
+    vertical-align: top;
+}
+
+.data-table-noborder tr td td {
+    border: 0px;
+    vertical-align: top;
+}
+
+
+.text-box {
+    width: 97%;
+    border: 1px #ccc solid;
+    background: #fbfbfb;
+    padding: 2px;
+}
+
+table {
+    width: 100%;
+}
+
+.display-flex-row {
+    display: flex
+}
+
+.display-flex {
+    display: flex;
+    margin-right: 15px
+}
+
+.display-flex-row {
+    font-size: 12px;
+}
+
+.margin-text {
+    margin: 6px 7px 0px 1px;
+    white-space: nowrap;
+}
+
+.padding5 {
+    padding: 5px;
+    padding-right: 10px;
+}
+
+.height {
+    height: 1px;
+    background: #ccc;
+    margin: 5px 0px
+}
+
+.text-align {
+    font-style: italic;
+    text-align: center;
+    font-size: 11px
+}
+
+.thalign-center {
+    text-align: center
+}
+
+textarea {
+    resize: none;
+    height: 50px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.td-text-bold {
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center !important;
+}
+
+.td-boarder {
+    padding: 0px !important
+}
+
+    .td-boarder td {
+        border-left: 1px #9a9999 solid !important;
+        border-top: 1px #9a9999 solid !important
+    }
+
+.text-size {
+    text-align: center;
+    padding: 15px 0;
+}
+
+.checkbox-sign {
+  list-style-type: none;
+  list-style-position: outside;
+  padding: 0px;
+  float: left;
+  font-size: 25px;
+  position: relative;
+  top: -37px !important;
+  margin-left: -5px;
+}
+
+input[type="checkbox"] + label {
+  display: inline-block;
+  padding: 6.5px;
+  cursor: pointer;
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+  margin-bottom: -2px;
+  height: 4px !important;
+  width: 4px !important;
+}
+
+.checkbox-level-text {
+  margin-top: -20px;
+  margin-left: 25px;
+}
+
+.total-values-for-e214report {
+  float: left;
+  padding-left: 80px;
+
+}
+
+
+.main-div {
+  margin: auto;
+  max-width: 750px;
+  background: #fff;
+  box-shadow: 1px 2px 3px 1px #dfdfdf;
+  padding:20px;
+}
+.header-div{ display:flex; font-size:18px}
+.header-left{ flex:1;}
+.header-right-report {
+  flex: 1;
+  text-align:right;
+}
+.color-red{
+    color:#ff0000;
+    display:block;
+    font-size:13px;
+}
+.text-ceter{
+  text-align:center;
+  font-size:24px;
+}
+.marging-top {
+  margin-top: 55px;
+  border-bottom: 3px #a3ecc0 solid;
+  padding-bottom: 5px;
+}
+.small-div{
+  width:250px;
+  margin:auto;
+  padding:30px 0px;
+}
+
+.big-div {
+  width: 500px;
+  margin: auto;
+  padding: 10px 0px;
+}
+.price-tbl {
+  width: 100%;
+  border-top: 1px #ccc solid;
+  border-right: 1px #ccc solid;
+}
+.price-tbl tr td {
+  padding:5px;
+  border-bottom: 1px #ccc solid;
+  border-left: 1px #ccc solid;
+}
+
+
+.data-table-7501 {
+    width: 100%;
+    border-top: 1px #9a9999 solid;
+    border-right: 1px #9a9999 solid;
+    font-size: 12px;
+}
+
+.font-size {
+    font-size: 15px;
+}
+
+.data-table-7501 tr td {
+    padding: 5px;
+    border-left: 1px #9a9999 solid;
+    border-bottom: 1px #9a9999 solid;
+    vertical-align: top;
+    text-align: left;
+}
+
+.data-table-7501 tr th {
+    padding-top:5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    border-left: 1px #9a9999 solid;
+    border-bottom: 1px #9a9999 solid;
+    vertical-align: top;
+}
+
+.data-table-7501 tr td td {
+    border: 0px;
+    vertical-align: top;
+}
+
+.data-table-7501 tr td th tbody {
+    page-break-inside: avoid !important;
+}

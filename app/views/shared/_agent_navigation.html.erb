@@ -1,0 +1,64 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">
+    <%= link_to agent_root_path do %>
+      <%= image_tag 'logo.png' %>
+    <% end %>
+  </h5>
+
+  <% unless current_user %>
+    <%= link_to "Sign In", agent_login_path, class: "btn btn-primary" %>
+  <% else %>
+  <div class="dropdown">
+    <a class="dropdown-toggle d-flex align-items-center avtar-dropdown" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     <h3 class="profile-name">
+      <%= current_user.email %>
+      <span>Agent</span>
+     </h3>
+      <div class="chat_avatar">
+        <%= image_tag "user-profile.png" %>
+      </div>
+    </a>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <%= link_to('Logout', logout_path, method: :delete, class: "dropdown-item") %>
+      <!-- <a class="dropdown-item" href="#">Another action</a> -->
+      <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+    </div>
+  </div>
+  <% end %>
+
+  <nav class="my-2 my-md-0 mr-md-3 b_l">
+    <a class="p-2 text-dark" href="#"><%= image_tag 'settings.png' %></a>
+    <a class="p-2 text-dark" href="#"><%= image_tag 'question.png' %></a>
+  </nav>
+</div>
+
+
+
+    <!-- <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
+        <h5 class="my-0 mr-md-auto font-weight-normal">
+            <a href="index.html"><img src="images/logo.png" /></a>
+        </h5>
+
+        <div class="dropdown show">
+            <a class="dropdown-toggle d-flex align-items-center avtar-dropdown" href="#"  id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <h3 class="profile-name">
+                Shawn K. Mason
+                <span>Agent</span>
+               </h3>
+                <div class="chat_avatar">
+                    <img src="images/user-profile.png" />
+                </div>
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </div>
+        <nav class="my-2 my-md-0 mr-md-3 b_l">
+            <a class="p-2 text-dark" href="#"><img src="images/settings.png" /></a>
+            <a class="p-2 text-dark" href="#"><img src="images/question.png" /></a>
+        </nav>
+    </div> -->

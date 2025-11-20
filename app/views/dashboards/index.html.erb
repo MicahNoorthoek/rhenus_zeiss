@@ -1,0 +1,74 @@
+<html lang="en">
+<body class="container-fluid" style="width:100vw !important;">
+    <% @selectedwarehouse = Selectedwarehouse.where(userid: @current_user.id).pluck(:warehouse).first %>
+    <% @availableRoles = UserWarehouseRole.where(warehouse: @selectedwarehouse, user_email: @current_user.email).order(orderid: :asc).all %>
+    
+    <% if @availableRoles.any? %>
+      <div class="alert alert-dark content-squish-screens" style="text-align: center;" role="alert">
+        Welcome!
+      </div>
+    <% else %>
+      <div class="alert alert-dark content-squish-screens" style="text-align: center;" role="alert">
+        Account Setup Pending
+      </div>
+    <% end %>
+
+
+             <%#=render 'infodashboard' %>
+             <%#= render 'ftz_board_reports/ftz_board_report' %>
+
+
+            <!--
+              COMMENTED OUT BY Micah Noorthoek @ 11/10/2023
+              CURRENTLY USING DIFFERENT DASHBOARD DESIGN/FORMAT/LAYOUT
+                   <div class="container-fluid text-center">
+                    <div class="row align-items-start" >
+                      <div class="col">
+                        <%#= render 'dashboard_display_nonreported' %>
+                      </div>
+                      <div class="col-6">
+                        <%#= render 'dashboard_display_balances' %>
+                      </div>
+                    </div>
+                  </div>
+               -->
+
+
+
+<script>
+  $(document).ready(function() {
+
+    if ('<%= @generate_reports %>' == 'CLEAREDTOREPORT') {
+      downloadPDF("/generate_annual", function() {
+        <% @generate_reports = '' %>
+        <% session[:ftzboardreports] = '' %>
+        $('.element').hide();
+      });
+
+
+    }
+
+    function downloadPDF(url, callback) {
+      var req = new XMLHttpRequest();
+      req.open("GET", url, true);
+      req.responseType = "blob";
+
+      req.onload = function (event) {
+        var blob = req.response;
+        console.log(blob.size);
+        var contentDisposition = req.getResponseHeader('Content-Disposition');
+        var filename = contentDisposition.match(/filename="(.+)"/)[1];
+        var link=document.createElement('a');
+        link.href=window.URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+
+        if (typeof callback === "function") {
+          callback();
+        }
+      };
+
+      req.send();
+    }
+  });
+</script>

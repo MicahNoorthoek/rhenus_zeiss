@@ -1,0 +1,15 @@
+  <head>
+  </head>
+     <body>
+      <div class="alert  alert-format" role="alert">
+        <% if !current_user.undo_shipments_lock? %>
+          There are currently unprocessed receipts, shipments, production completions or production issues.
+          Please return to the Active Corrections and make the necessary corrections.  Once corrections are made please click Corrections Complete.
+        <% else %>
+        <% username = User.where(undo_shipments_lock:false).pluck(:username).flatten.join('') %>
+          <%="Records are being undone and corrected by #{username}. Changes cannot be made until the corrections are completed."%>
+        <% end %>
+
+      </div>
+
+    </body>

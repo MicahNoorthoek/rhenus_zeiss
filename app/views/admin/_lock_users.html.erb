@@ -1,0 +1,27 @@
+<div class="modal fade" id="conbalModal" tabindex="-1" role="dialog" aria-labelledby="conbalModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: #fff;">
+      <div class="modal-header editmdhd">
+        <h1 class="modal-title justify-content-center" style="font-size: 25px; align-items: center !important; text-align:center !important; text-shadow: none;" id="">Lock All Users</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <% curauth = SelectedAuthorization.pluck(:selected_authorization) %>
+        <br>
+        <div class="row justify-content-center">
+            <p>Warning: If you proceed, once logged out all users including yourself will be unable to log back in.</p>
+        </div>
+      </div>
+
+        <div class="modal-footer editmdft">
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+        <%= link_to finalize_lock_users_path, class: 'btn btn-light btn-sm btn-format' do %>
+          Continue
+        <% end %>
+        
+
+      </div>
+
+    </div>
+  </div>
+ </div>

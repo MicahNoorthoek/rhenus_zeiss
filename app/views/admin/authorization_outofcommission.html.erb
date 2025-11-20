@@ -1,0 +1,55 @@
+<br>
+<h5>Authorize New Users</h5>
+<% curauth = SelectedAuthorization.pluck(:selected_authorization) %>
+<div class="row">
+  <div class="col-2">
+    <% if curauth == [false] %>
+    <%= link_to "Authorize", authorize_user_path, class: "btn btn-light btn-sm btn-format", data: {confirm: "Are you sure you want to authorize new users?"}%>
+    <% else %>
+    <%= link_to "Unauthorize", authorize_user_path, class: "btn btn-light btn-sm btn-format", data: {confirm: "Are you sure you want to unauthorize new users?"}%>
+    <% end %>
+
+
+  </div>
+  <div class="col">
+
+
+    <ul class="list-group list-group-flush ">
+      <li class="list-group-item list-group-emails">
+        <%= form_for @verifiedusers do |f| %>
+
+          <%= f.label :email, "Email"%>
+          <%= f.text_field :email, class: "form-control formemail", autofocus: true, required: true%><br><br>
+          <%= f.submit "Verify New User", data:{confirm: "Are you sure you want to create a new verified user and send link to create account?"}, class: 'btn btn btn-light btn-sm btn-new btn-authorizeuser'%>
+        <% end %>
+
+      </li>
+      <br><br>
+      <li class="list-group-item list-group-emails">
+        <%= bootstrap_form_for @selectedemail  do |f| %>
+
+
+          <%= f.select :email, (@currentusers.collect { |c| [c.email] }), class: 'form_collect'%>
+          <br>
+          <%= f.submit "Resend Email",data:{confirm: "Are you sure you want to resend link to create account?"}, class: 'btn btn btn-light btn-sm btn-new btn-authorizeuser'%>
+        <% end %>
+
+      </li>
+
+      <br><br>
+      <li class="list-group-item list-group-user">
+        <%= bootstrap_form_for :password, url: passwords_path  do |f| %>
+          <%= f.select :email, (@restpasswordusers.collect { |c| [c.email] }), class: 'form_collect'%>
+          <br>
+          <%= hidden_field_tag(:forget_password, 'forget_password') %>
+          <%= f.submit "Send Forgot password Email", class: 'btn btn btn-light btn-sm btn-new btn-authorizeuser'%>
+        <% end %>
+
+      </li>
+
+    </ul>
+
+
+  </div>
+
+</div>

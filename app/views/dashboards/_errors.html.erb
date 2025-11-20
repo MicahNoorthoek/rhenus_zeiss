@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<body>
+  <% treccount = @bbase.count%>
+  <% reccount = @recs.total_entries %>
+  <% tconcount = @cbase.count%>
+  <% concount = @convey.total_entries %>
+  <% tpartcount = @critical_parts.count%>
+  <% partcount = @parts.total_entries %>
+  <% tshipcount = @shbase.count%>
+  <% shipcount = @ship.total_entries %>
+  <% tadjcount = @abase.count%>
+  <% adjcount = @adj.total_entries %>
+  <% tiscount = @pibase.count %>
+  <% iscount = @prodis.total_entries %>
+  <% tprodcount = @pcbase.count %>
+  <% prodcount = @prodcomp.total_entries %>
+  <% tbalcount =   @qbase.count %>
+  <% balcount =   @bals.total_entries %>
+  <% tscrapcount = @sbase.count %>
+  <%# tpttcount =   @pttbase.count %>
+  <% scrapcount = @scrap.total_entries %>
+  <%# tvencount = @critical_vendors.count%>
+  <%# vencount =   @ven.total_entries %>
+  <% tpartchangecount =   @pncbase.count %>
+  <% tbinchangecount =   @bncbase.count %>
+  <% partchangecount =   @part_changes.total_entries %>
+  <% tpartnotfoundcount = @notfoundbase.count%>
+  <% partnotfoundcount = @partsnotfound.total_entries %>
+  <% tncritacl_partscount = @noncritical_parts.count %>
+  <% ncritical_partscount = @nonparts.total_entries%>
+  <%# tncritical_vendorscount = @noncritical_vendors.count %>
+  <%# ncritical_vendorscount = @nonven.total_entries%>
+  <%# tncritical_shortagecount = @noncritical_shortagescount.count %>
+  <% #ncritical_shortagecount = @nonshort.total_entries%>
+  <%# paccount = @pacnotice.total_entries %>
+  <%# genorcount = @genordernotice.total_entries %>
+  <%# estwardetailscount = @estwardetails.count %>
+  <% tsalecount =   @salbase.count %>
+  <% tbomcount =   @bombase.count %>
+
+
+
+<div class="dashtable">
+  <div class="row">
+    <div class="col">
+      <h6 class = "pghead2">Errors</h6>
+    </div>
+    <div class="col">
+     
+    </div>
+  </div>
+  
+
+<div class="row" id="errorsTab">
+  <div class="col">
+    <div class="critical-row-headformat">
+
+      <ul class="nav nav-tabs" id="criticalTab" role="tablist">
+          <% if  @raw_table_count > 0 %>
+            <% raw_receipts_count = @rrbase.count %>
+            <% if raw_receipts_count > 0 %>
+              <%= render partial: 'shared/li_count_tab', locals: {error_table: 'raw_receipts',error_count: raw_receipts_count,error_title: 'Raw Receipts'}%>              
+            <% end %>
+          <% end %>
+
+          <% if  @raw_table_count > 0 %>
+            <% raw_sales_orders_count = @sobase.count %>
+            <% if raw_sales_orders_count > 0 %>
+              <%= render partial: 'shared/li_count_tab', locals: {error_table: 'raw_sales_orders',error_count: raw_sales_orders_count,error_title: 'Raw Sales Orders'}%>              
+            <% end %>
+          <% end %>
+          <% if tpartnotfoundcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="partsnotfound-tab" data-toggle="tab" href="#partsnotfound" role="tab" aria-controls="partsnotfound" aria-selected="false">New Parts(<%= "#{partnotfoundcount}" %>)</a>
+              </li>
+            <% end %>
+            <% if tpartcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="parts-tab" data-toggle="tab" href="#parts" role="tab" aria-controls="parts" aria-selected="false">Parts(<%= "#{partcount}" %>)</a>
+              </li>
+            <% end %>
+
+            <% if treccount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="rec-tab" data-toggle="tab" href="#rec" role="tab" aria-controls="rec" aria-selected="true">Receipts(<%= "#{reccount}" %>)</a>
+              </li>
+            <% end %>
+            <% if tconcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="convey-tab" data-toggle="tab" href="#convey" role="tab" aria-controls="profile" aria-selected="false">Conveyances(<%= "#{concount}" %>)</a>
+              </li>
+            <% end %>
+
+            <% if tshipcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="ship-tab" data-toggle="tab" href="#ship" role="tab" aria-controls="ship" aria-selected="false">Shipments(<%= "#{shipcount}" %>)</a>
+              </li>
+            <% end %>
+            <% if tadjcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="adj-tab" data-toggle="tab" href="#adj" role="tab" aria-controls="adj" aria-selected="false">Adjustments(<%= "#{adjcount}" %>)</a>
+              </li>
+            <% end %>
+
+            <% if tbalcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="erbal-tab" data-toggle="tab" href="#erbal" role="tab" aria-controls="erbal" aria-selected="false">Balances(<%= "#{balcount}" %>)</a>
+              </li>
+            <% end %>
+
+
+            <% if tpartchangecount  > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="erpartchanges-tab" data-toggle="tab" href="#erpartchanges" role="tab" aria-controls="erpartchanges" aria-selected="false">Part Number Changes(<%= "#{partchangecount}" %>)</a>
+              </li>
+            <% end %>
+
+            <% if tbinchangecount  > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="erbinchanges-tab" data-toggle="tab" href="#erbinchanges" role="tab" aria-controls="erbinchanges" aria-selected="false">Bin Number Changes(<%= "#{tbinchangecount}" %>)</a>
+              </li>
+            <% end %>
+
+            <% if tsalecount  > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="ersale-tab" data-toggle="tab" href="#ersale" role="tab" aria-controls="ersale" aria-selected="false">Sales Orders(<%= "#{tsalecount}" %>)</a>
+              </li>
+            <% end %>
+            <% if tscrapcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="erscrap-tab" data-toggle="tab" href="#erscrap" role="tab" aria-controls="erscrap" aria-selected="false">Scraps(<%= "#{scrapcount}" %>)</a>
+              </li>
+            <% end %>
+            <% if tprodcount > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="erprodcomp-tab" data-toggle="tab" href="#erprodcomp" role="tab" aria-controls="erprodcomp" aria-selected="false">Production Completions(<%= "#{prodcount}" %>)</a>
+              </li>
+            <% end %>
+
+            <% if tbomcount  > 0 %>
+              <li class="nav-item">
+                <a class="nav-link navcolor" id="erbom-tab" data-toggle="tab" href="#erbom" role="tab" aria-controls="erbom" aria-selected="false">Bill Of Materials(<%= "#{tbomcount}" %>)</a>
+              </li>
+            <% end %>
+      </ul>
+    </div>
+  </div>
+  
+
+</div>
+
+
+
+
+
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane" id="partsnotfound" role="tabpanel" aria-labelledby="partsnotfound-tab"><%= render 'partsnotfound'%></div>
+  <div class="tab-pane" id="rec" role="tabpanel" aria-labelledby="rec-tab"><%= render 'receiptserrors'%></div>
+  <div class="tab-pane" id="convey" role="tabpanel" aria-labelledby="convey-tab"><%= render 'conveyerrors'%></div>
+  <div class="tab-pane" id="parts" role="tabpanel" aria-labelledby="parts-tab"><%= render 'parterrors'%></div>
+  <div class="tab-pane" id="ship" role="tabpanel" aria-labelledby="ship-tab"><%= render 'shiperrors'%></div>
+  <div class="tab-pane" id="adj" role="tabpanel" aria-labelledby="adj-tab"><%= render 'adjerrors'%></div>
+  <div class="tab-pane" id="erprodcomp" role="tabpanel" aria-labelledby="erprodcomp-tab"><%= render 'prodcomperrors'%></div>
+  <div class="tab-pane" id="erprodis" role="tabpanel" aria-labelledby="erprodis-tab"><%= render 'prodiserrors'%></div>
+  <div class="tab-pane" id="erbal" role="tabpanel" aria-labelledby="erbal-tab"><%= render 'balerrors'%></div>
+  <div class="tab-pane" id="erscrap" role="tabpanel" aria-labelledby="erscrap-tab"><%= render 'scraperrors'%></div>
+  <div class="tab-pane" id="erpartchanges" role="tabpanel" aria-labelledby="erpartchanges-tab"><%= render 'partchangeserrors'%></div>
+  <div class="tab-pane" id="erbinchanges" role="tabpanel" aria-labelledby="erbinchanges-tab"><%= render 'binchangeserrors'%></div>
+
+
+  <div class="tab-pane" id="ersale" role="tabpanel" aria-labelledby="ersale-tab"><%= render 'saleserrors'%></div>
+  <div class="tab-pane" id="erbom" role="tabpanel" aria-labelledby="erbom-tab"><%= render 'bomerrors'%></div>
+
+  <% if  @raw_table_count > 0 %>
+    <% @tableurl = 'dashboard' %>
+    <div class="tab-pane" id="raw_receipts" role="tabpanel" aria-labelledby="raw_receipts-tab"><%= render 'raw_fed_receipts/table'%></div>
+
+    <div class="tab-pane" id="raw_sales_orders" role="tabpanel" aria-labelledby="raw_sales_orders-tab"><%= render 'raw_fed_sales_orders/table'%></div>
+  <% end %>
+
+
+
+
+</div>
+</body>
+</div>

@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+</head>
+<style>
+  .admin-btn {
+    margin: 20px;
+  }
+
+  .admin-link {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+  }
+</style>
+<body style="">
+<div class="content-squish">
+            <div class = "container">
+              <h6 class = "pghead" >Admin Playground</h6>
+              <!--
+              <%# if @maintenance_lock.present? %>
+                <%# lock_val = @maintenance_lock.try(:maintenace_lock) ? 'on' : 'off' %>
+                <%# link_text = "<i class='fas fa-toggle-#{lock_val} fa-2x center' style='padding-top: 9px;' aria-hidden='true'></i>".html_safe %>
+                <br><br>
+                <%# f = @maintenance_lock %>
+              <div class="col-sm-6 maintenance-<%#= f.try(:id) %>">
+                <b style="font-size: 16px;">Performance Maintenance:</b> <%#= link_to link_text, toggle_maintenance_lock_maintenace_lock_path(f), method: :patch, remote: true, class: "icon-toggle " %>
+              </div>
+              -->
+              <hr>
+              <% if logged_in? && current_user.admin? %>
+              <div class="row">
+                <div class="col-sm admin-btn">
+                  <%= link_to 'Manage Users', smplbw_users_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                </div>
+                <div class="col-sm admin-btn">
+                  <%= link_to 'Client Setup', client_setup_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                  
+                </div>
+                <div class="col-sm admin-btn">
+                  <%= link_to 'System Logs', system_log_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                </div>
+                <!--
+                <div class="col-sm admin-btn">
+                  <%#= link_to 'All Receipts', all_receipt_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                </div>
+                -->
+              </div>
+<!--
+              <div class="row">
+                <div class="col-sm admin-btn">
+                  <%#= link_to 'All Withdrawals', all_withdrawals_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                </div>
+                <div class="col-sm admin-btn">
+                  <%#= link_to 'Receipt Headers', receipt_headers_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                </div>
+                <div class="col-sm admin-btn">
+                  <%#= link_to 'Withdrawal Headers', withdrawals_headers_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                </div>
+                <div class="col-sm admin-btn">
+                  <%#= link_to 'Reported Balances', balances_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                </div>
+              </div>
+-->
+              <% end %>
+            </div><!-- container -->
+</div>
+</body>

@@ -1,0 +1,61 @@
+<%= form_with scope: params[:scope].to_sym, url: prepare_filter_fields_url, remote: true do |f| %>
+  <% if params[:field_type] == "number" %>
+    <%= f.hidden_field :field_name, value: params[:filed_name] %>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_eq', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Is Equal to", :value => "_eq" %>
+    </div>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_gt', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Greater than", :value => "_gt" %>
+    </div>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_lt', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Less than", :value => "_lt" %>
+    </div>
+
+    <%= f.text_field :field_value, class: "form-control input-sm mt-2", placeholder: "Search..."%>
+  <% elsif params[:field_type] == "date"%>
+    <%= f.hidden_field :field_name, value: params[:filed_name] %>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_eq', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Is Equal to", :value => "_eq" %>
+    </div>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_gt', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Greater than", :value => "_gt" %>
+    </div>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_lt', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Less than", :value => "_lt" %>
+    </div>
+      <%= f.date_field :field_value, class: "form-control input-sm mt-2"%>
+  <% else %>
+    <%= f.hidden_field :field_name, value: params[:filed_name] %>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_eq', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Is", :value => "_eq"  %>
+    </div>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_not_eq', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Is not", :value => "_not_eq"  %>
+    </div>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_cont', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Contains value", :value => "_cont"  %>
+    </div>
+    <div class="d-flex">
+      <%= f.radio_button :filter_type, '_start', class: "radio-buttom-filter" %>
+      <%= f.label :filter_type, "Begins With", :value => "_start"  %>
+    </div>
+    <%= f.text_field :field_value, class: "form-control filter-search-filed input-sm mt-2", placeholder: "Search..."%>
+  <% end %>
+  <%= hidden_field_tag :scope, params[:scope] %>
+  <%= hidden_field_tag :search_form_id, params[:search_form_id] %>
+  <%= hidden_field_tag :fields_id, params[:fields_id] %>
+  <%= hidden_field_tag :filter_form_id, params[:filter_form_id] %>
+  <br>
+  <div>
+    <button class="btn btn-filter" style="height:30px;" id="add-filter" type="submit">Apply Filter</button>
+  </div>
+<% end %>

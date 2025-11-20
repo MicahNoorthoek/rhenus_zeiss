@@ -1,0 +1,19 @@
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+
+<br><br>
+<div class="content">
+<% if @user.errors.any? %>
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <% end %>
+    </ul>
+<% end %>
+
+<p>Please enter your new information to edit.</p>
+
+<%= render 'form' %>
+
+

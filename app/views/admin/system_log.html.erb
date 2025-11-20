@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <style>
+     .searchform {
+        width: 30%;
+      }
+
+     .form-control:focus {
+        border-color: #979796;
+        box-shadow: none;
+        radius: 0;
+      }
+
+     .linktext{
+        color: #404040;
+        border: none;
+        background-color: none;
+      }
+    </style>
+  </head>
+  <body>
+
+
+      <div class="content-squish-screens">
+        <h6 class = "pghead2" style="margin-bottom:40px;"><a style="color:#0061e0; font-style:italic;" href="<%= admin_path %>">Admin</a> / System Logs</h6>
+
+        <div class="row">
+          <div class="col padding-adjust">
+            <%= search_form_for @s, as: :system_logs, url: system_log_path  do |f| %>
+              <div class="row">
+                <div class="col-7 padding-adjust">
+                <div class="input-group">
+                  <%= f.text_field :procedure_name_cont, class: "form-control input-sm", placeholder: "Search by Procedure Name..."%>
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" style="height:30px; background-color: #c7d785;" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                  </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <%= link_to "Clear Search", request.path, class:"cancel-button btn btn-light btn-sm btn-search" %>
+                </div>
+              </div> <!-- end second row -->
+            <% end %>
+          </div>
+          <div class="col">
+          </div>
+        </div><!-- end row-->
+
+        <div class="table-responsive resptbl-class">
+          <table id="ftztable" class="table table-striped table-sm table-hover display responsive no-wrap">
+            <thead class="thead-dark">
+              <thead>
+                <tr>
+                  <th>Procedure Name</th>
+                  <th>Log Message</th>
+                  <th>Log Date</th>
+                </tr>
+              </thead>
+              <tbody id="myTable">
+                <% @system_logs.each do |f| %>
+                  <tr>
+                    <td><%= f.procedure_name %></td>
+                    <td><%= f.log_message %></td>
+                    <td><%= f.log_date %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </thead>
+          </table>
+        </div>
+
+
+        <div class="ftz_pagination">
+
+          <%= will_paginate @system_logs, :previous_label => 'prev', :next_label => 'next', param_name: 'system_logs_page' %>
+
+        </div>
+
+
+      </div>
+
+  </body>
+</html>

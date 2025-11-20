@@ -1,0 +1,366 @@
+<style>
+  .accordion {
+    padding-top: 50px;
+  }
+
+
+  .accordionDiv {
+    display: flex;
+    justify-content: center;
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  #select-releasedate-error {
+    color: #d9534f; 
+    font-size: 13px;
+    display: none;
+    margin-top: 5px;
+  }  
+
+  .form-control {
+  box-shadow: 0 !important;
+  -webkit-box-shadow: 0 !important;
+  -moz-box-shadow: 0 !important;
+  -o-box-shadow: 0 !important;
+  -ms-box-shadow: 0 !important;
+}
+
+</style>
+
+
+<div class="warehousereceiptsuniqueidentifier content-squish-screens" style="box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); background-color: #ffff; padding: 20px; border-left: 3px solid #000000;">
+
+  <h1 style="font-size: 30px; !important;">Warehouse Receipts</h1>
+
+  <%= form_for warehouse_receipts_path, data: { turbo: false } do |f| %>
+    <div class="row justify-content-center" style="text-align: center; margin-bottom:20px;">
+      <div class="col-4">
+        <div class="form-group">
+          <%= f.label :spc, "SPC *" %>
+          <%= f.text_field :spc, value: @receipts_params.try(:dig, "spc"), class: 'form-control', id: 'spc' %>
+          <% if flash[:danger].to_s.include?('archived receipt already exists for entered SPC') %>
+            <a><%= link_to "View Archive", warehouse_archive_path(archivedreceipts: { spc_or_clientpo_cont: @receipts_params.try(:dig, "spc") }) + '#outsidereceipt', style: "text-decoration: underline; color: blue;" %></a><br>
+          <% end %>
+          <br>
+          <p id='select-spc-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required<p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :releasedate, "Release Date *" %>
+          <%= f.date_field :releasedate, value: @receipts_params.try(:dig, "releasedate"), class: 'form-control', id: 'releasedate' %><br>
+          <p id='select-releasedate-error' style='float:left; display:none; font-size: 13px; margin-top: -20px !important;'>*Required</p>
+        </div>
+      </div>
+
+      <div class="col-3">
+  <div class="form-group" style="padding-bottom: 20px;">
+    <%= f.label :client, "Client", class: "position" %>
+    <%= text_field_tag :client, @receipt_params.try(:dig, "client"), 
+    class: "form-control mb-3", 
+    id: "client_select_dropdown", 
+    data: { clients: @client.collect(&:client).to_json.html_safe } %>
+
+  </div>
+</div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :clientpo, "Client PO" %>
+          <%= f.text_field :clientpo, value: @receipts_params.try(:dig, "clientpo"), class: 'form-control', id: 'clientpo' %><br>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :caja, "Caja" %>
+          <%= f.text_field :caja, value: @receipts_params.try(:dig, "caja"), class: 'form-control', id: 'caja' %><br>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :sello, "Sello" %>
+          <%= f.text_field :sello, value: @receipts_params.try(:dig, "sello"), class: 'form-control', id: 'sello' %><br>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :cartons30lb, "30LB Cartons" %>
+          <%= f.number_field :cartons30lb, value: @receipts_params.try(:dig, "cartons30lb"), class: 'form-control', id: 'cartons30lb' %><br>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :cartons10lb, "10LB Cartons" %>
+          <%= f.number_field :cartons10lb, value: @receipts_params.try(:dig, "cartons10lb"), class: 'form-control', id: 'cartons10lb' %><br>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group" style="padding-bottom: 20px;">
+          <%= f.label :cartons5lb, "5LB Cartons" %>
+          <%= f.number_field :cartons5lb, value: @receipts_params.try(:dig, "cartons5lb"), class: 'form-control', id: 'cartons5lb' %><br>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add a div for the submit button -->
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <div class='position-centerish' style='height:50px;'>
+          <%= f.submit 'Record Receipt', class: 'btn btn-sm btn-primary', style: "width:50%;" %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
+<!-- END CARD BODY -->
+<br><br>
+<div class="content-squish-screens" style="background-color: #f4f4f4; padding: 20px;">
+      <h2 style="border-bottom: 1px solid #000000; font-size: 24px;">
+        Active
+      </h2>
+    
+        <% if @receipts.any? %>
+          <div class="table-responsive resptbl-class" style="overflow-x: visible !important;">
+            <table id="ftztable" class="table table-striped table-sm table-hover display responsive no-wrap">
+                <thead>
+                  <tr>
+                    <th>SPC</th>
+                    <th>Release Date</th>
+                    <th>Client</th>
+                    <th>Client PO</th>
+                    <th>Caja</th>
+                    <th>Sello</th>
+                    <th>Cartons 30LB</th>
+                    <th>Cartons 10LB</th>
+                    <th>Cartons 5LB</th>
+                    <th colspan="1" style="text-align:center;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="myTable">
+                  <% @receipts.each do |f| %>
+                    <tr>
+                      <td><%= f.spc %></td>
+                      <td><%= f.releasedate %></td>
+                      <td><%= f.client %></td>
+                      <td><%= f.clientpo %></td>
+                      <td><%= f.caja %></td>
+                      <td><%= f.sello %></td>
+                      <td><%= f.cartons30lb %></td>
+                      <td><%= f.cartons10lb %></td>
+                      <td><%= f.cartons5lb %></td>
+                      <td colspan="1" style="text-align:center;">
+                        <div class="btn-group dropend">
+                          <button type="button" class="btn btn-light btn-sm btn-search dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions
+                          </button>
+                          <ul class="dropdown-menu" style="background: #fff; position: absolute; z-index: 1050;">
+                            <div class="row justify-content-center" style="text-align: center;">
+                              <div class="col-4 justify-content-center" style="text-align: center; margin-left: -20px;">
+                                <%= link_to '<i class="fas fa-pencil-alt fa-md center" aria-hidden="true" style="float: none; padding-top: 20px !important;"></i>'.html_safe, update_receipts_path(spc: f.spc), method: :get, class: "icon-edit dropdown-item" %>
+                              </div>
+                              <div class="col-4 justify-content-center" style="text-align: center;">
+                                <li><%= link_to '<i class="fas fa-trash-alt fa-md center" aria-hidden="true" style="float: none; color: #d50015;"></i>'.html_safe, verify_delete_path(caller: "warehouse_receipts", spc: f.spc), data: { turbo_frame: "delete_modal_frame" }, class: "icon-delete dropdown-item" %></li>
+                              </div>
+                            
+                              <li><hr class="dropdown-divider"></li>
+                              <% @result = SpcReceipt.where(spc: f.spc).where(warehouse: @userWarehouse).select("SUM(COALESCE(cartons30lb, 0) + COALESCE(cartons10lb, 0) + COALESCE(cartons5lb, 0)) AS total_sum").take %>
+                              <% if @result.total_sum > 0 %>
+                                <li><%= link_to 'Add Details', receipts_details_path(spc: f.spc), class: "dropdown-item" %></li>
+                              <% else %>
+                                <li><%= link_to 'Add Details', verify_delete_path(caller: "empty_headerqty", spc: f.spc), remote: true, class: "dropdown-item" %></li>
+                              <% end %>
+                              <!--<li><%#= link_to 'Positive Release', receipts_details_path(spc: f.spc), class: "dropdown-item" %></li>-->
+                              <li><%= link_to 'Archive', archive_receipt_path(spc: f.spc), class: "dropdown-item", data: { turbo: false, confirm: "Archive this receipt?" } %></li>
+                              </div>
+                            </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+            </table>
+          </div>
+          <div class="ftz_pagination">
+
+            <%= will_paginate @receipts, :previous_label => 'prev', :next_label => 'next', param_name: 'receipts_page' %>
+
+          </div>
+      <% else %>
+        <span style="font-style:italic;">No recorded receipts yet</span>
+        <br>
+      <% end %>
+    </div>
+
+<br>
+<br>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+<script>
+  //document.addEventListener("turbolinks:load", function() {
+  //  $('#client_select_dropdown').select2();
+  //});
+
+  //document.addEventListener("DOMContentLoaded", function() {
+  //  $('#client_select_dropdown').select2({
+  //    tags: true,  
+  //    placeholder: "Select Client",
+  //    allowClear: true
+  //  });
+  //});
+
+  document.addEventListener("turbo:load", function () {
+
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+    var buttons = document.querySelectorAll(".popoverBtn");
+
+    buttons.forEach(function(button) {
+
+      button.addEventListener("mouseover", function() {
+        // Simulate a click when hovering over the button
+        this.click();
+      });
+
+      button.addEventListener("mouseout", function() {
+        this.click();
+      });
+    
+    });
+  });
+
+  document.addEventListener("turbo:load", function() {
+    const currentDate = new Date();
+    const oneWeekAgo = new Date(currentDate);
+    oneWeekAgo.setDate(currentDate.getDate() - 7);  
+    const oneWeekLater = new Date(currentDate);
+    oneWeekLater.setDate(currentDate.getDate() + 7); 
+  
+    const minDate = oneWeekAgo//.toISOString().split('T')[0];
+    const maxDate = oneWeekLater//.toISOString().split('T')[0];
+  
+    $('#releasedate').attr('min', minDate);
+    $('#releasedate').attr('max', maxDate);
+  
+    $("#releasedate").on("change", function() {
+      var selectedDate = new Date(this.value);
+      if (selectedDate < oneWeekAgo || selectedDate > oneWeekLater) {
+        $("#select-releasedate-error").text("Please select a date within one week from today.").show();
+        this.value = ''; 
+      } else {
+        $("#select-releasedate-error").hide();
+      }
+    });
+  });
+
+  document.addEventListener("turbo:load", function() {
+    
+    $("#up-arrow").hide()
+
+    var errors_array = []
+
+    var spc = $("#spc").val()
+    var releasedate = $("#releasedate").val()
+
+
+    if (spc === null || spc === undefined || spc === '') {
+      errors_array.push('spc')
+    }
+
+    if (releasedate === null || releasedate === undefined || releasedate === '') {
+      errors_array.push('releasedate')
+    }
+
+
+
+
+    if (errors_array.length > 0) {
+      $("input[type='submit']").prop("disabled", true);
+    }
+    checkError(errors_array)
+
+
+    $("#spc").on("click keyup", function() {// && this.value >= 1
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-spc-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'spc');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        errors_array.push('spc')
+        checkError(errors_array)
+      }
+    })
+
+    $("#releasedate").on("change click keyup", function() {
+      $('.element').hide();
+      if (this.value !== null && this.value !== undefined && this.value !== '') {
+        $("#select-releasedate-error").hide().removeClass("text-danger criteria-display-smplbw");
+        errors_array = errors_array.filter(item => item !== 'releasedate');
+        if (errors_array.length <= 0) {
+          initiateValidate()
+        }
+      } else {
+        if (errors_array.includes('releasedate')) {
+          checkError(errors_array)
+        } else {
+          errors_array.push('releasedate')
+          checkError(errors_array)
+        }
+      }
+    })
+
+    function checkError(errors_array) {
+      //console.log(errors_array)
+      if (errors_array.length <= 0) {
+        $("input[type='submit']").prop("disabled", false);
+        $("#select-spc-error").hide()
+        $("#select-releasedate-error").hide();
+        $('.warehousereceiptsuniqueidentifier').removeClass('progress-border-bad').addClass('progress-border-good');
+        
+      } else {
+        $('.warehousereceiptsuniqueidentifier').removeClass('progress-border-good').addClass('progress-border-bad');
+        $("input[type='submit']").prop("disabled", true);
+        for (error of errors_array) {
+
+          switch (error) {
+            case "spc":
+              $("#select-spc-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+            case "releasedate":
+              $("#select-releasedate-error").show().addClass("text-danger criteria-display-smplbw");
+              break;
+          }
+        }
+      }
+    }
+
+    function initiateValidate() {
+      $("input[type='submit']").prop("disabled", false);
+      $('.warehousereceiptsuniqueidentifier').removeClass('progress-border-bad').addClass('progress-border-good');
+    }
+
+    
+  });
+
+
+
+</script>

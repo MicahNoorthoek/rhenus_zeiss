@@ -1,0 +1,30 @@
+<style>
+.line-with-icon {
+  position: relative; /* Create a positioning context */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.line {
+  width: 100%; /* Full width line */
+  border: none;
+  border-top: 2px solid #000; /* Style the line */
+  position: absolute; /* Position it relative to the container */
+  top: -90%;
+}
+
+.icon {
+  position: relative; /* Position the icon */
+  padding: 0 10px; /* Padding to create space around the icon */
+  z-index: 1; /* Ensure the icon is above the line */
+}
+
+</style>
+
+
+<div class="line-with-icon">
+  <hr class="line">
+  <i class="fa fa-star icon"></i>
+</div>

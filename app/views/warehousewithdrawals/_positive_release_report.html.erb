@@ -1,0 +1,99 @@
+<turbo-frame id="positive_release_modal"  data-turbo="false">
+  <div class="modal fade" id="conbalModal" tabindex="-1" role="dialog" aria-labelledby="conbalModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header editmdhd">
+          <div class="text-center w-100">
+            <h1 class="modal-title" style="font-size: 20px;">Generate Positive Release Report</h1>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <br>
+          <div class="row justify-content-center" style="text-align:center;">
+            <div class="form-group col-9">
+              <%= form_for set_up_positive_release_report_path, html: {  target: "_top",  data: { turbo: false, turbo_frame: "_top" } } do |f| %>
+                <p style="font-size: 15px; margin-bottom: 2px;"><strong>Client:</strong> <%= params[:client] %></p>
+                <p style="font-size: 15px;"><strong>Client PO:</strong> <%= params[:clientpo] %></p>
+                <%= f.hidden_field :client, value: params[:client] %>
+                <%= f.hidden_field :clientpo, value: params[:clientpo] %>
+                <%= f.hidden_field :releasedate, value: params[:releasedate] %>
+                <br>
+                <div class="row">
+                  <div class="col-6">
+                    <%= f.submit 'Download PDF', name: 'commit', class: 'btn btn-primary w-100' %>
+                  </div>
+                  <div class="col-6">
+                    <%= f.submit 'Download Excel', name: 'commit', class: 'btn btn-primary w-100' %>
+                  </div>
+                </div>
+                <div class="row justify-content-center" style="text-align:center;">
+                  <div class="col-6" id="loading">
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div> 
+  </div>
+
+<script>
+// Initialize  form 
+function setupPositiveReleaseForm() {
+  // cache original button text
+  $("input[type='submit'][name='commit']").each(function() {
+    $(this).data("originalText", $(this).val());
+  });
+
+  function updateButtonText() {
+    if ($(window).width() < 1200) {
+      $("input[type='submit'][name='commit']").each(function() {
+        const txt = $(this).data("originalText");
+        $(this).val(txt.includes("PDF") ? "PDF" : "Excel");
+      });
+    } else {
+      $("input[type='submit'][name='commit']").each(function() {
+        $(this).val($(this).data("originalText"));
+      });
+    }
+  }
+  updateButtonText();
+  $(window)
+    .off("resize.positiveRelease")
+    .on("resize.positiveRelease", updateButtonText);
+
+  // loading indicator + auto‐hide
+  $("#conbalModal form")
+    .off("submit.positiveRelease")
+    .on("submit.positiveRelease", function() {
+      $("#loading").html(
+        '<p style="padding:30px 0 0;color:red">Generating report…</p>'
+      );
+      setTimeout(() => {
+        const bs = bootstrap.Modal.getInstance(
+          document.getElementById("conbalModal")
+        );
+        if (bs) bs.hide();
+      }, 1000);
+    });
+}
+
+// Show the modal when Turbo replaces the frame
+document.addEventListener("turbo:frame-load", function(e) {
+  if (e.target.id === "positive_release_modal") {
+    setupPositiveReleaseForm();
+    new bootstrap.Modal(
+      document.getElementById("conbalModal")
+    ).show();
+  }
+});
+</script>
+</turbo-frame>
+
+

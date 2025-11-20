@@ -1,0 +1,100 @@
+<turbo-frame id="delete_modal_frame">
+<style>
+.makeBold {
+  font-weight: 600;
+}
+</style>
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color: #fff;">
+      <div class="modal-header">
+        <h5 class="modal-title">Are You Sure?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+      <% if @caller == "receipts_details" %>
+        <p>Are you sure you want to delete this receipt details record?</p>
+        <p><span class="makeBold">SPC:</span> <span id="spc"><%=@spc%></span></p>
+	      <p><span class="makeBold">Details ID:</span> <span id="id"><%=@id%></span></p>
+
+      <% elsif @caller == "warehouse_withdrawals" %>
+        <p>Are you sure you want to delete this shipment record?</p>
+        <p><span class="makeBold">Client PO:</span> <span id="clientpo"><%=@clientpo%></span></p>
+
+      <% elsif @caller == "warehouse_receipts" %>
+        <p>Are you sure you want to delete this receipt record?</p>
+        <p><span class="makeBold">SPC:</span> <span id="spc"><%=@spc%></span></p>
+        
+      <% elsif @caller == "shipments_details" %>
+        <p>Are you sure you want to delete this shipment details record?</p>
+        <p><span class="makeBold">Client PO:</span> <span id="clientpo"><%=@clientpo%></span></p>
+	      <p><span class="makeBold">Details ID:</span> <span id="id"><%=@id%></span></p>
+
+      <% elsif @caller == "warehouse_production" %>
+        <p>Are you sure you want to delete this product record?</p>
+        <p><span class="makeBold">Production Identifier:</span> <span id="production_identifier"><%=@production_identifier%></span></p>  
+      
+      <% elsif @caller == "production_details" %>
+        <p>Are you sure you want to delete this product details record?</p>
+        <p><span class="makeBold">SPC:</span> <span id="spc"><%=@spc%></span></p>
+        <p><span class="makeBold">Production ID:</span> <span id="id"><%=@id%></span></p>
+
+      <% elsif @caller == "empty_headerqty" %>
+        <p>There is no quantity assigned on the header level for this receipt - (SPC: <%=@spc%>).</p>
+
+      <% elsif @caller == "user_creation" %>
+        <p><%= @message %></p>
+      <% else %>
+        <p>Error in delete request. Please try again</p>
+      <% end %>
+      </div>
+      <div class="modal-footer">
+        <% if @caller == "delete_firmscode" %>
+          <%= link_to edit_user_firmscode_path(email: @firmsEmail), remote: true, class: 'btn btn-sm btn-secondary', 'data-bs-dismiss': 'modal' do %>
+            Cancel
+          <% end %>
+        <% else %>
+          <% if @caller != "empty_headerqty" %>
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <% end %>
+        <% end %>
+
+        <% if @caller == "receipts_details" %>
+          <%= link_to "Delete", delete_receipt_details_path(id: @id), method: :delete, data: { turbo_frame: "_top" }, class: "btn btn-danger btn-sm" %>
+
+        <% elsif @caller == "warehouse_withdrawals" %>
+          <%= link_to "Delete", delete_shipments_path(clientpo: @clientpo), method: :delete, data: { turbo_frame: "_top" }, class: "btn btn-danger btn-sm" %>
+          
+        <% elsif @caller == "warehouse_receipts" %>
+          <%= link_to "Delete", delete_receipt_path(spc: @spc), method: :delete, data: { turbo_frame: "_top" }, class: "btn btn-danger btn-sm" %> 
+
+        <% elsif @caller == "shipments_details" %>
+          <%= link_to "Delete", delete_shipments_details_path(id: @id), method: :delete, data: { turbo_frame: "_top" }, class: "btn btn-danger btn-sm" %> 
+
+        <% elsif @caller == "warehouse_production" %>
+          <%= link_to "Delete", delete_production_path(production_identifier: @production_identifier), method: :delete, data: { turbo_frame: "_top" }, class: "btn btn-danger btn-sm" %>
+          
+        <% elsif @caller == "production_details" %>
+          <%= link_to "Delete", delete_productions_details_path(id: @id), method: :delete, data: { turbo_frame: "_top" }, class: "btn btn-danger btn-sm" %>  
+
+        <% elsif @caller == "empty_headerqty" %>
+          <%= link_to "Add Header Quantity", update_receipts_path(spc: @spc), method: :get, remote: true, class: "btn btn-sm btn-secondary", style: "color: white;" %>  
+          <a style="padding-left: 10px;"><%= link_to "Continue to Details", receipts_details_path(spc: @spc), style: "text-decoration: underline; color: blue;" %></a>
+        
+        <% elsif @caller == "user_creation" %>
+          <%= link_to "Continue", authorize_user_path, method: :get, data: { turbo: false }, class: "btn btn-light btn-sm btn-format" %>
+
+        <% else %>
+          <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal"><%=@caller%></button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  new bootstrap.Modal(
+    document.getElementById("deleteConfirmationModal")
+  ).show();
+</script>
+</turbo-frame>

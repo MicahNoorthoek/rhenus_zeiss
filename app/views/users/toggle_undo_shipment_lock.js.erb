@@ -1,0 +1,7 @@
+console.log(<%= @user.undo_shipments_lock %>);
+<% if @user.undo_shipments_lock == true %>
+    $(".user-<%= @user.id %> > a").removeClass('fa-toggle-off').addClass('fa-toggle-on')
+<% else %>
+    $(".user-<%= @user.id %> > a").removeClass('fa-toggle-on').addClass('fa-toggle-off')
+<% end %>
+$("#user-status-<%= @user.id %>").html("<%= @user.undo_shipments_lock %>")

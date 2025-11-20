@@ -1,0 +1,7 @@
+console.log(<%= @user.user_lock %>);
+<% if @user.user_lock == true %>
+    $(".user-<%= @user.id %> > a").removeClass('fa-toggle-off').addClass('fa-toggle-on')
+<% else %>
+    $(".user-<%= @user.id %> > a").removeClass('fa-toggle-on').addClass('fa-toggle-off')
+<% end %>
+$("#user-status-<%= @user.id %>").html("<%= @user.user_lock %>")

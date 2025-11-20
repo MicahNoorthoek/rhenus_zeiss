@@ -1,0 +1,18 @@
+<div class="custom-filters" data-scope="<%= data_scope %>" data-search-form-id="<%= data_search_form_id%>" data-custom-search-form-fields="<%= data_custom_search_form_fields %>" data-filter-form-id="<%= data_filter_form_id %>">
+    <!-- <i class="fas fa-plus fa-2x custom-filter-plus-icon" id="<%#= filter_icon_id %>"></i> -->
+    <div class="d-flex  custom-filter-tags ">
+      <div class="custom-filter-main-div hide" id="<%= filter_div_id %>">
+        <div>
+          <% options_details.each do |k| %>
+            <p id="filter_<%= k[:field_name] %>" class="filter-columns-p" field_name="<%= k[:field_name] %>" field_type="<%= k[:field_type] %>"><a><b><%= k[:display_name] %></b></a></p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="custom-filter-sub-div hide" id="<%= sub_filter_div_id %>">
+      </div>
+    </div>
+
+
+</div>
+

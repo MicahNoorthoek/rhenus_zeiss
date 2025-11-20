@@ -1,0 +1,6 @@
+<%= label_tag "usersetup[multiform][#{current_index}][roles]", "Roles", class: "required position" %>
+<div class="input-group mb-3">
+    <%= text_field_tag "usersetup[multiform][#{current_index}][roles]", usersetup.warehouse, class: "form-control", placeholder: "", autofocus: true,  required: true%>
+    <span class="input-group-text adding-user-roles-btn add-nested-fields-for-roles"><i class="fa-solid fa-plus"></i></span>
+</div>
+

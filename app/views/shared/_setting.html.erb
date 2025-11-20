@@ -1,0 +1,101 @@
+<div id="settingFedReceipt" class="modal fade">
+ <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header editmdhd">
+        <h5 class="modal-title" id="exampleModalLongTitle"><%= @table_name %> Column Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+
+
+
+      <div class="modal-body" style="max-height: 400px;overflow-y: auto;">
+        <ul class="list-group sortable" id="sortable">
+          Default Columns
+          <% @default_columns.each do |default_column| %>
+            <li class="list-group-item">
+              <div class="d-flex w-100">
+                <div class="lable-container">
+                  <%= default_column %>
+                </div>
+                <div class="checkbox-container">
+                  <%= check_box_tag 'column_setting[is_select]', true, true, disabled: true %>
+                </div>
+              </div>
+            </li>
+          <% end %>  
+        </ul>
+
+        <% if @selected_columns.count > 0 %>
+          <ul class="list-group sortable" id="sortable">
+            Selected Columns (Please drag and drop to move columns)
+            <% @selected_columns.each do |column| %>
+              <li class="list-group-item" id="<%= column.sortable_id %>">
+                <%= form_for column, url: @url, remote: true, method: 'post', html: { class: 'd-flex w-100' }  do |f|%>
+                  <%= f.hidden_field :id, value: f.object.id %>
+                  <div class="lable-container">
+                    <%= column.table_detail.column_name %>
+                  </div>
+                  <div class="checkbox-container">
+                    <%= f.hidden_field :table_detail_id, value: column.id %> 
+                    <%= check_box_tag 'column_setting[is_select]', true, true %>
+                  </div>
+                  <%= f.hidden_field :user_id, value: current_user.id %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <% if @available_columns.count != @selected_columns.count %>
+          <ul class="list-group available-container">
+            <div class="d-flex w-100 available-container-title">
+              <div class="lable-container">
+                Available Columns
+              </div>
+              <div class="form-check">
+                Select All
+              </div>
+              <div class="checkbox-container">
+                <input type="checkbox" class="form-check-input select-all" id="exampleCheck1">              
+              </div>
+            </div>
+
+            <% @available_columns.each do |column| %>
+              <% if !@selected_columns.pluck(:table_detail_id).include?(column.id) %>
+                <li class="list-group-item sub-container">
+                  <%= form_for ColumnSetting.new, url: @url, remote: true, html: { class: 'd-flex w-100' }  do |f|%>
+                    <%= f.hidden_field :id, value: f.object.id %>
+                    <div class="lable-container">
+                      <%= column.column_name %>
+                    </div>
+                    <div class="checkbox-container">
+                      <%= f.hidden_field :table_detail_id, value: column.id %> 
+                      <%= check_box_tag 'column_setting[is_select]', true, false, class: 'single-select' %>
+                    </div>
+                    <%= f.hidden_field :user_id, value: current_user.id %>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+      <div class="modal-footer editmdft">
+
+
+        <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary sbmit-button"  data-dismiss="modal">Save</button>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+

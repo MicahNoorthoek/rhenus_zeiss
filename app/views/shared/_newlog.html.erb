@@ -1,0 +1,28 @@
+<head>
+
+
+</head>
+
+   <body>
+
+
+          <% @newlog.each do |f| %>
+           <% if f.title.present? %>
+            <% if !f.title.include? "PG::" %>
+             <div class="alert alert-dismissible alert-format" role="alert">
+
+               <%= f.title %>
+
+
+               <button type="button" class="btn-sm close closeflash" data-dismiss="alert" aria-label="Close" style = "margin-top: 1px !important;"
+                 onclick = <% UserLog.where(:id => f.id).update(:status => 'CLOSED') %>>
+                   <span aria-hidden="true">&times;</span>
+               </button>
+
+
+             </div>
+            <% end %>
+          <% end %>
+        <% end %>
+
+  </body>

@@ -1,0 +1,79 @@
+
+wb = xlsx_package.workbook
+
+puts "Release Date: #{@release_date}, Client: #{@client}, Client PO: #{@clientpo}"
+
+
+wb.add_worksheet(name: 'Positive Release Report') do |sheet|
+
+  title_style = wb.styles.add_style(sz: 12, font_name: "Aptos Narrow", alignment: { horizontal: :left, wrap_text: true })
+  header_style = wb.styles.add_style(sz: 11, font_name: "Aptos Narrow", alignment:{ horizontal: :left, wrap_text: true})
+  body_style = wb.styles.add_style(sz: 10, font_name: "Aptos Narrow",  alignment:{ horizontal: :left, wrap_text: true})
+  small_text_style = wb.styles.add_style(sz: 8, font_name: "Aptos Narrow", alignment: { horizontal: :left, vertical: :top, wrap_text: true })
+
+  sheet.column_widths 1, 1.5, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2 
+
+  sheet.add_row [nil,'Positive Release - Shipments'], style: title_style
+  sheet.merge_cells("B1:C1")
+  sheet.add_row []
+
+  sheet.add_row [nil, 'Warehouse:',nil, @userWarehouse, nil, 'Date:',nil, @release_date], style: header_style
+  sheet.merge_cells("B3:C3") 
+  sheet.merge_cells("D3:E3")  
+  sheet.merge_cells("F3:G3")
+  sheet.merge_cells("H3:I3")
+  
+  sheet.add_row [nil, 'Customer:', nil, @client, nil, 'Client PO:',nil, @clientpo], style: header_style
+  sheet.merge_cells("B4:C4")  
+  sheet.merge_cells("D4:E4")  
+  sheet.merge_cells("F4:G4") 
+  sheet.merge_cells("H4:I4") 
+
+  sheet.add_row []
+
+  sheet.add_row [nil, 'SPC', nil, 'Codigo', nil, 'Pallet', nil, 'Lot', nil, 'LBO', nil, 'Freezer#', nil, 'Rack#', nil, 'Side', nil, 'Location', nil, 'Quantity'], style: header_style
+
+  @positive_release_report_data.each do |record|
+    sheet.add_row [
+      nil,
+      record['spc'], nil, 
+      record['codigo'], nil, 
+      record['pallet'], nil, 
+      record['lot'], nil, 
+      record['lbo'], nil, 
+      record['freezernum'], nil, 
+      record['racknum'], nil, 
+      record['side'], nil, 
+      record['location'], nil, 
+      record['quantity']
+    ], style: body_style
+  end  
+
+  sheet.add_row []
+  sheet.add_row [nil, 'Total Cases Released:',nil, @total_cases], style: header_style
+
+  sheet.add_row []
+
+  sheet.add_row [nil, 'INTEGRITY OF THE CASES:', nil, 'GOOD', nil, 'BAD'], style: header_style
+  sheet.merge_cells("B#{sheet.rows.size}:C#{sheet.rows.size}")
+  
+  sheet.add_row [nil, 'WAS SAMPLE TAKEN FOR EVERY LOT?', nil, 'YES', nil, 'NO'], style: header_style
+  sheet.merge_cells("B#{sheet.rows.size}:C#{sheet.rows.size}") 
+  
+  sheet.add_row [nil, 'WAS THE LABEL REVIEW COMPLETED?', nil, 'YES', nil, 'NO'], style: header_style
+  sheet.merge_cells("B#{sheet.rows.size}:C#{sheet.rows.size}") 
+
+  sheet.add_row [nil, 'SPECIAL INSTRUCTIONS:', nil], style: header_style
+  sheet.merge_cells("B#{sheet.rows.size}:C#{sheet.rows.size}") 
+  sheet.add_row []
+  sheet.add_row []
+  sheet.add_row []
+
+  sheet.add_row [nil, 'Trailer #: _____________ ', nil], style: body_style
+  sheet.add_row [nil, 'Seal #: _____________ ', nil], style: body_style
+  sheet.add_row []
+  sheet.add_row [nil, 'Loaded By: ______________________ ', nil], style: body_style
+  sheet.add_row [nil, 'Revised By: _______________________', nil], style: body_style
+
+
+end

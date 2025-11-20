@@ -1,0 +1,24 @@
+<div class="modal fade" id="conbalModal" tabindex="-1" role="dialog" aria-labelledby="conbalModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header editmdhd">
+        <h1 class="modal-title" style="font-size: 30px;">Path to reprint reports</h1>
+      </div>
+      <div class="modal-body">
+        <h4 style="font-weight:600;">Selected Number: <span style="font-weight:normal !important;"><%= @withdrawal_entry_number%><span></h4>
+        <blockquote class="blockquote text-center">
+          <p style="font-size:17px;">I think we might need a new postgres function to make this part work. That way minimial processing is done in ruby on rails. <br>The reports heavily depend on postgres tables/views being populate and I don't think we want to do that on the ruby on rails side.<br> Furthermore, do we want to generate the running balance report AND the withdrawal statement report? Or just one of them? Or let the user select which one/all?</p>
+          <footer class="blockquote-footer">Micah Noorthoek <cite title="Source Title">My Thoughts</cite></footer>
+        </blockquote>
+
+      </div>
+
+        <div class="modal-footer editmdft">
+        <button type="button" id="reportedBalancesClose" class="btn btn-secondary" onComplete="$('#divId').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();"
+        class="close" data-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+  </div>
+ </div>

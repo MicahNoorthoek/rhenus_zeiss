@@ -1,0 +1,2 @@
+class ProcedureMessage < ApplicationRecord
+end

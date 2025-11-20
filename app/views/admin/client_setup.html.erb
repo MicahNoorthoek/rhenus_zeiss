@@ -1,0 +1,718 @@
+<HEAD>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</HEAD>
+
+<style>
+  .nice-text-field {
+   padding: 5px;
+   border: none; /* Remove default border */
+   border-radius: 4px;
+   font-size: 14px;
+   width: auto;
+   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+   }
+
+  .wms-table-header {
+      text-align: center;
+  }
+
+  .icon-cancel-warehouse {
+    margin-top: 5px;
+    color: #d50015;
+    display: none;
+  }
+  .icon-cancel-warehouse:hover {
+    cursor: pointer;
+  }
+
+  .icon-finish-edit-warehouse {
+    margin-right: -105px;
+    padding-bottom: -20px;
+    display: none;
+  }
+  .icon-finish-edit-warehouse:hover {
+    cursor: pointer;
+  }
+
+  .icon-edit-warehouse {
+    margin-top: 5px;
+  }
+  .icon-edit-warehouse:hover {
+    cursor: pointer;
+  }
+
+  .row-space {
+    padding: 5px 0 5px 0;
+  }
+
+/* styles for partnumber stuff */
+  .icon-cancel-partnumber {
+    margin-top: 5px;
+    color: #d50015;
+    display: none;
+  }
+  .icon-cancel-partnumber:hover {
+    cursor: pointer;
+  }
+
+  .icon-finish-edit-partnumber {
+    margin-right: -130px;
+    padding-bottom: -20px;
+    display: none;
+  }
+  .icon-finish-edit-partnumber:hover {
+    cursor: pointer;
+  }
+
+  .icon-edit-partnumber {
+    margin-top: 5px;
+  }
+  .icon-edit-partnumber:hover {
+    cursor: pointer;
+  }
+
+  /* styles for conversion stuff */
+  .icon-cancel-conversions {
+    margin-top: 5px;
+    color: #d50015;
+    display: none;
+  }
+  .icon-cancel-conversions:hover {
+    cursor: pointer;
+  }
+
+  .icon-finish-edit-conversions {
+    margin-right: -115px;
+    padding-bottom: -20px;
+    display: none;
+  }
+  .icon-finish-edit-conversions:hover {
+    cursor: pointer;
+  }
+
+  .icon-edit-conversions {
+    margin-top: 5px;
+  }
+  .icon-edit-conversions:hover {
+    cursor: pointer;
+  }
+  .client-setup-options{
+    border-radius: 4px;
+    height: 30px;
+  }
+</style>
+
+<h6 class = "pghead2" style="margin-bottom:40px;"><a style="color:#0061e0; font-style:italic;" href="<%= admin_path %>">Admin</a> / Client Setup</h6>
+
+<!-- START USER FIRMS CODE RESTRICTION SETTINGS -->
+
+<!-- END USER FIRMS CODE RESTRICTION SETTINGS -->
+
+<h6 class = "pghead2" style="margin-bottom:40px;"></h6>
+<h1 style="text-align: center;"></h1>
+<div class="container content-squish-screens">
+
+<div class="dropdown">
+  <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Add Information
+  </button>
+  <div class="dropdown-menu" style="background-color: #ffffff; margin-top:5px; width: 720px; border-radius: 2px;" aria-labelledby="dropdownMenuButton">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-3">
+          <%= link_to 'Essential Config Data', smplbw_add_client_path, remote: true, class: "dropdown-item btn btn-sm btn-undo-ship btn-complete client-setup-options", style: "margin: 0 11px 0 -15px;" %>
+        </div>
+        <div class="col-3">
+          <%= link_to 'Warehouse Data', add_new_warehousedata_path, remote: true, class: "dropdown-item btn btn-sm btn-undo-ship btn-complete client-setup-options", style: "margin-left: -13px; margin-right: 1px;" %>
+        </div>
+        <div class="col-3">
+          <%= link_to 'Part Number', add_new_partnumber_path, remote: true, class: "dropdown-item btn btn-sm btn-undo-ship btn-complete client-setup-options", style: "margin-left: -10px; margin-right: 1px;" %>
+        </div>
+        <div class="col-3">
+          <%= link_to 'Conversion', add_new_conversion_path, remote: true, class: "dropdown-item btn btn-sm btn-undo-ship btn-complete client-setup-options", style: "margin-left: -7px; margin-right: 1px;" %>
+        </div>
+      </div>
+    </div>
+    
+   
+    
+    
+  </div>
+</div>
+
+
+<hr>
+<br>
+<% if @form300referencedata.any? %>
+<% @form300referencedata.each do |f| %>
+  <div class="row">
+      <div class="card" style="width: 100%;">
+        <div class="card-body justify-content-center" style="text-align:center;">
+          <p class="card-text">
+            <div class="row">
+                <div class="col-sm" style="border-right: 1px solid lightgray;">
+                  <span style="font-weight:600;">Company Name:</span><br>
+                  <%= f.companyname || ' ' %>
+                </div>
+
+
+                <div class="col-sm" style="border-right: 1px solid lightgray;">
+                  <span style="font-weight:600;">Address:</span><br>
+                  <%= f.streetaddress || ' ' %><br>
+                  <%= f.city || ' ' %>,
+                  <%= f.state || ' ' %>
+                  <%= f.zipcode || ' ' %>
+                </div>
+
+
+                <div class="col-sm">
+                  <span style="font-weight:600;">IRS Identification Number:</span><br>
+                  <%= f.irsidentificationnumber || ' ' %>
+                </div>
+
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-sm" style="border-right: 1px solid lightgray;">
+                    <span style="font-weight:600;">Facility Name:</span><br>
+                    <%= f.facilityname || ' ' %>(<%= f.city %>)
+                  </div>
+
+
+                  <div class="col-sm" style="border-right: 1px solid lightgray;">
+                    <span style="font-weight:600;">Contact: </span><br>
+                    <span style="font-style:italic;">(<%= f.signatorytitle || ' ' %>)</span><br>
+                    <%= f.contactpersonlastname || '' %>,
+                    <%= f.contactpersonfirstname || '' %>,
+                    <%= f.contactpersonmiddleinitial || '' %><br>
+                    <%= f.telephonenumber || ' ' %>
+                  </div>
+
+
+                  <div class="col-sm">
+                    <span style="font-weight:600;">Firms Code:</span><br>
+                    <%= f.firmscode || ' ' %>
+                  </div>
+
+                </div>
+          </p>
+          <hr>
+        </div>
+        <div class="card-body justify-content-center" style="text-align:center;margin-bottom:20px; margin-top:-10px;">
+          <%= link_to 'Edit Information', smplbw_edit_client_path(firmscode: f.firmscode), remote: true, class: "btn btn-md btn-undo-ship btn-complete"%>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+<% end %>
+
+
+<% else %>
+
+<div class="row">
+      <div class="card" style="width: 100%;">
+        <div class="card-body justify-content-center" style="text-align:center;">
+        <h5 class="card-title">Essential Configuration Data</h5>
+        <br>
+          <p class="card-text">
+            <div class="row justify-content-center">
+                <p style="font-style: italic;">No data has been added</p>
+              </div>
+              <br>
+          <hr>
+        </div>
+        <div class="card-body justify-content-center" style="text-align:center;margin-bottom:20px; margin-top:-10px;">
+          <%= link_to 'Add Information', smplbw_add_client_path, remote: true, class: "btn btn-md btn-undo-ship btn-complete" %>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+
+<% end %>
+
+    <div class="row">
+      <div class="card" style="width: 100%;">
+        <div class="card-body justify-content-center" style="text-align:center;">
+          <h5 class="card-title">Warehouse Data</h5>
+          <p class="card-text">
+              <hr>
+              <div class="row">
+                <div class="col-sm">
+                  <table class="data-table" style="width:100%;" cellpadding="0" cellspacing="0" style = "border:none;">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th class ="wms-table-header warehouse-header" width="auto;" style= "border:none !important; font-size: 14.28px;">Warehouse</th>
+                      <th class ="wms-table-header warehouse-header" width="auto;" style= "border:none !important; font-size: 14.28px;">Firmscode</th>
+                      <th class ="wms-table-header warehouse-header" width="auto;" style= "border:none !important; font-size: 14.28px;">Warehouse Name</th>
+                      <th class ="wms-table-header warehouse-header" width="auto;" style= "border:none !important; font-size: 14.28px;">Capacity</th>
+                    </tr>
+                    </thead>
+                  <tbody>
+                <% if @warehousesetup.any? %>
+                    <% @warehousesetup.each_with_index do |f, i| %>
+                      <tr class='text-style'>
+                        <td class="row-space">
+                          <i class="fa fa-pencil-alt fa-sm center icon-edit-warehouse" aria-hidden="true"></i>
+                          <i class="fa-solid fa-check fa-lg center icon-finish-edit-warehouse" aria-hidden="true"></i><br>
+                          <i class="fa fa-times fa-lg center icon-cancel-warehouse" aria-hidden="true"></i>
+                          <%#= link_to '<i class="fa fa-pencil-alt fa-sm center" aria-hidden="true"></i>'.html_safe, edit_user_path(f), remote: true, class: "icon-edit-warehouse" id: "warehouse_edit_icon" %>
+                        </td>
+                        <td class="row-space editable-field" style = "border:none;">
+                          <span class="display-mode"><%= f.warehouse %></span>
+                          <%= text_field_tag 'warehouse', f.warehouse, class: "edit-mode nice-text-field", style: "display: none;" %>
+                        </td>
+                        <td class="row-space editable-field" style = "border:none;">
+                          <span class="display-mode"><%= f.firmscode %></span>
+                          <%= text_field_tag 'firmscode', f.firmscode, class: "edit-mode nice-text-field", style: "display: none;" %>
+                        </td>
+                        <td class="row-space editable-field" style = "border:none;">
+                          <span class="display-mode"><%= f.warehousename %></span>
+                          <%= text_field_tag 'warehousename', f.warehousename, class: "edit-mode nice-text-field", style: "display: none;" %>
+                        </td>
+                        <td class="row-space editable-field" style = "border:none;">
+                          <span class="display-mode"><%= f.capacity %></span>
+                          <%= text_field_tag 'capacity', f.capacity, class: "edit-mode nice-text-field", style: "display: none;" %>
+                        </td>
+                      </tr>
+                      <% end %>
+
+                  <% else %>
+                  <tr class='text-style'>
+                    <td style = "border:none; font-style: italic;" colspan="5">No warehouse information currently setup</td>
+                  </tr>
+                  <% end %>
+
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+          </p>
+        </div>
+        <div class="card-body justify-content-center" style="text-align:center;margin-bottom:20px;">
+          <%= link_to 'Add New', add_new_warehousedata_path, remote: true, class: "btn btn-md btn-undo-ship btn-complete"%>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="card" style="width: 100%;">
+        <div class="card-body justify-content-center" style="text-align:center;">
+          <h5 class="card-title">Part Numbers</h5>
+          <p class="card-text">
+              <hr>
+              <div class="row">
+                <div class="col-sm">
+                  <table class="data-table" style="width:100%;" cellpadding="0" cellspacing="0" style = "border:none;">
+                    <thead>
+                    <tr>
+                      <th></th>
+                      <th class ="wms-table-header" width="auto;" style= "border:none !important; font-size: 14.28px;">Part Number</th>
+                      <th class ="wms-table-header" width="auto;" style= "border:none !important; font-size: 14.28px;">UOM</th>
+                    </tr>
+                    </thead>
+                  <tbody>
+                <% if @partnumbers.any? %>
+                    <% @partnumbers.each_with_index do |f, i| %>
+                      <tr class='text-style'>
+                        <td class="row-space">
+                          <i class="fa fa-pencil-alt fa-sm center icon-edit-partnumber" aria-hidden="true"></i>
+                          <i class="fa-solid fa-check fa-lg center icon-finish-edit-partnumber" aria-hidden="true"></i><br>
+                          <i class="fa fa-times fa-lg center icon-cancel-partnumber" aria-hidden="true"></i>
+                        </td>
+                        <td class="row-space editable-field" style = "border:none;">
+                          <span class="display-mode"><%= f.partnumber %></span>
+                          <%= text_field_tag 'partnumber', f.partnumber, class: "edit-mode nice-text-field", style: "display: none;" %>
+                        </td>
+                        <td class="row-space editable-field" style = "border:none;">
+                          <span class="display-mode"><%= f.uom %></span>
+                          <%= text_field_tag 'uom', f.uom, class: "edit-mode nice-text-field", style: "display: none;" %>
+                        </td>
+                      </tr>
+                      <% end %>
+
+                  <% else %>
+                  <tr class='text-style'>
+                    <td style = "border:none; font-style: italic;" colspan="3">No parts have been added</td>
+                  </tr>
+                  <% end %>
+
+                  </tbody>
+                  </table>
+                </div>
+              </div>
+              <br>
+            <div class="card-body justify-content-center" style="text-align:center;margin-bottom:20px;">
+              <%= link_to 'Add New', add_new_partnumber_path, remote: true, class: "btn btn-md btn-undo-ship btn-complete"%>
+            </div>
+      </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="card" style="width: 100%;">
+    <div class="card-body justify-content-center" style="text-align:center;">
+      <h5 class="card-title">Conversions</h5>
+      <p class="card-text">
+          <hr>
+          <div class="row">
+            <div class="col-sm">
+              <table class="data-table" style="width:100%;" cellpadding="0" cellspacing="0" style = "border:none;">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th class ="wms-table-header" width="auto;" style= "border:none !important; font-size: 14.28px;">From Uom</th>
+                  <th class ="wms-table-header" width="auto;" style= "border:none !important; font-size: 14.28px;">To Uom</th>
+                  <th class ="wms-table-header" width="auto;" style= "border:none !important; font-size: 14.28px;">Conversion Factor</th>
+                </tr>
+                </thead>
+              <tbody>
+            <% if @uomconversion.any? %>
+                <% @uomconversion.each_with_index do |f, i| %>
+                  <tr class='text-style'>
+                    <td class="row-space">
+                      <i class="fa fa-pencil-alt fa-sm center icon-edit-conversions" aria-hidden="true"></i>
+                      <i class="fa-solid fa-check fa-lg center icon-finish-edit-conversions" aria-hidden="true"></i><br>
+                      <i class="fa fa-times fa-lg center icon-cancel-conversions" aria-hidden="true"></i>
+                    </td>
+                    <td class="row-space editable-field" style = "border:none;">
+                      <span class="display-mode"><%= f.fromuom %></span>
+                      <%= text_field_tag 'fromuom', f.fromuom, class: "edit-mode nice-text-field", style: "display: none;" %>
+                    </td>
+                    <td class="row-space editable-field" style = "border:none;">
+                      <span class="display-mode"><%= f.touom %></span>
+                      <%= text_field_tag 'touom', f.touom, class: "edit-mode nice-text-field", style: "display: none;" %>
+                    </td>
+                    <td class="row-space editable-field" style = "border:none;">
+                      <span class="display-mode"><%= f.conversionfactor %></span>
+                      <%= text_field_tag 'conversionfactor', f.conversionfactor, class: "edit-mode nice-text-field", style: "display: none;" %>
+                    </td>
+                  </tr>
+                  <% end %>
+
+              <% else %>
+              <tr class='text-style'>
+                <td style = "border:none; font-style: italic;" colspan="4">No conversion factors currently setup</td>
+              </tr>
+              <% end %>
+
+              </tbody>
+              </table>
+            </div>
+          </div>
+      </p>
+    </div>
+    <div class="card-body justify-content-center" style="text-align:center;margin-bottom:20px;">
+      <%= link_to 'Add New', add_new_conversion_path, remote: true, class: "btn btn-md btn-undo-ship btn-complete"%>
+    </div>
+  </div>
+</div>
+
+<br><br>
+</div>
+
+<script>
+  $(document).ready(function() {
+    //script for warehouse data edit
+      var warehouseEditIcon = $(".icon-edit-warehouse")
+      var warehouseFinishEditIcon = $(".icon-finish-edit-warehouse")
+      var warehouseCancelIcon = $(".icon-cancel-warehouse")
+
+      $(warehouseEditIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+
+         // Toggle edit mode for all fields in the row
+         row.find(".editable-field .display-mode").toggle();
+         row.find(".editable-field .edit-mode").toggle();
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-warehouse").toggle();
+         row.find(".icon-edit-warehouse").toggle();
+         row.find(".icon-cancel-warehouse").toggle();
+      })
+
+      $(warehouseFinishEditIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+         var data_array = []
+         //var valueMaster = ""
+
+         row.find(".edit-mode").each(function () {
+            var fieldName = $(this).val();
+            data_array.push(fieldName);
+          });
+
+          row.find(".edit-mode").each(function () {
+             var attrName = $(this).attr("name");
+             if (attrName == 'warehouse') {
+               data_array.push(row.find(".display-mode").first().text());
+             }
+           });
+
+         $.ajax({
+           url: "/editWarehouseData",
+           method: "POST",
+           data: JSON.stringify({ arrayData: data_array }),
+           contentType: "application/json; charset=utf-8",
+           success: function () {
+             row.find(".display-mode").each(function (e) {
+               $(this).text(data_array[e]);
+             })
+             row.find(".editable-field .display-mode").toggle();
+             row.find(".editable-field .edit-mode").toggle();
+           },
+           error: function (xhr, status, error) {
+             console.error(xhr.responseText);
+             var cancelData = []
+
+             row.find(".display-mode").each(function () {
+               var fieldName = $(this).text();
+               cancelData.push(fieldName);
+             });
+
+             row.find(".edit-mode").each(function (e) {
+               $(this).val(cancelData[e]);
+              })
+             row.find(".editable-field .display-mode").toggle();
+             row.find(".editable-field .edit-mode").toggle();
+             alert("There was an error: Details in console")
+           }
+         });
+
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-warehouse").toggle();
+         row.find(".icon-edit-warehouse").toggle();
+         row.find(".icon-cancel-warehouse").toggle();
+      })
+
+      $(warehouseCancelIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+         var cancelData = []
+
+         row.find(".display-mode").each(function () {
+           var fieldName = $(this).text();
+           cancelData.push(fieldName);
+         });
+
+         row.find(".edit-mode").each(function (e) {
+           $(this).val(cancelData[e]);
+          })
+
+         // Toggle edit mode for all fields in the row
+         row.find(".editable-field .display-mode").toggle();
+         row.find(".editable-field .edit-mode").toggle();
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-warehouse").toggle();
+         row.find(".icon-edit-warehouse").toggle();
+         row.find(".icon-cancel-warehouse").toggle();
+      })
+    //end script for warehouse data edit
+
+    //script for part number data edit
+      var partnumberEditIcon = $(".icon-edit-partnumber")
+      var partnumberFinishEditIcon = $(".icon-finish-edit-partnumber")
+      var partnumberCancelIcon = $(".icon-cancel-partnumber")
+
+      $(partnumberEditIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+
+         // Toggle edit mode for all fields in the row
+         row.find(".editable-field .display-mode").toggle();
+         row.find(".editable-field .edit-mode").toggle();
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-partnumber").toggle();
+         row.find(".icon-edit-partnumber").toggle();
+         row.find(".icon-cancel-partnumber").toggle();
+      })
+
+      $(partnumberFinishEditIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+         var data_array = []
+         //var valueMaster = ""
+
+         row.find(".edit-mode").each(function () {
+            var fieldName = $(this).val();
+            data_array.push(fieldName);
+          });
+
+          row.find(".edit-mode").each(function () {
+             var attrName = $(this).attr("name");
+             if (attrName == 'partnumber') {
+               data_array.push(row.find(".display-mode").first().text());
+             }
+           });
+
+         $.ajax({
+           url: "/editPartnumberData",
+           method: "POST",
+           data: JSON.stringify({ arrayData: data_array }),
+           contentType: "application/json; charset=utf-8",
+           success: function () {
+             row.find(".display-mode").each(function (e) {
+               $(this).text(data_array[e]);
+             })
+             row.find(".editable-field .display-mode").toggle();
+             row.find(".editable-field .edit-mode").toggle();
+           },
+           error: function (xhr, status, error) {
+             console.error(xhr.responseText);
+             var cancelData = []
+
+             row.find(".display-mode").each(function () {
+               var fieldName = $(this).text();
+               cancelData.push(fieldName);
+             });
+
+             row.find(".edit-mode").each(function (e) {
+               $(this).val(cancelData[e]);
+              })
+             row.find(".editable-field .display-mode").toggle();
+             row.find(".editable-field .edit-mode").toggle();
+             alert("There was an error: Details in console")
+           }
+         });
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-partnumber").toggle();
+         row.find(".icon-edit-partnumber").toggle();
+         row.find(".icon-cancel-partnumber").toggle();
+      })
+
+      $(partnumberCancelIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+         var cancelData = []
+
+         row.find(".display-mode").each(function () {
+           var fieldName = $(this).text();
+           cancelData.push(fieldName);
+         });
+
+         row.find(".edit-mode").each(function (e) {
+           $(this).val(cancelData[e]);
+          })
+
+         // Toggle edit mode for all fields in the row
+         row.find(".editable-field .display-mode").toggle();
+         row.find(".editable-field .edit-mode").toggle();
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-partnumber").toggle();
+         row.find(".icon-edit-partnumber").toggle();
+         row.find(".icon-cancel-partnumber").toggle();
+      })
+    //end script for part number data edit
+
+    //script for conversions data edit
+      var conversionsEditIcon = $(".icon-edit-conversions")
+      var conversionsFinishEditIcon = $(".icon-finish-edit-conversions")
+      var conversionsCancelIcon = $(".icon-cancel-conversions")
+
+      $(conversionsEditIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+         var cancelData = []
+
+         row.find(".display-mode").each(function () {
+           var fieldName = $(this).text();
+           cancelData.push(fieldName);
+         });
+
+         row.find(".edit-mode").each(function (e) {
+           $(this).val(cancelData[e]);
+          })
+
+         // Toggle edit mode for all fields in the row
+         row.find(".editable-field .display-mode").toggle();
+         row.find(".editable-field .edit-mode").toggle();
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-conversions").toggle();
+         row.find(".icon-edit-conversions").toggle();
+         row.find(".icon-cancel-conversions").toggle();
+      })
+
+      $(conversionsFinishEditIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+         var data_array = []
+         //var valueMaster = ""
+
+         row.find(".edit-mode").each(function () {
+            var fieldName = $(this).val();
+            data_array.push(fieldName);
+          });
+
+          row.find(".edit-mode").each(function (e) {
+             var attrName = $(this).attr("name");
+             if (attrName == 'fromuom' || attrName == 'touom') {
+               data_array.push(row.find(".display-mode:eq(" + e + ")").text());
+             }
+           });
+
+         $.ajax({
+           url: "/editConversionsData",
+           method: "POST",
+           data: JSON.stringify({ arrayData: data_array }),
+           contentType: "application/json; charset=utf-8",
+           success: function () {
+             row.find(".display-mode").each(function (e) {
+               $(this).text(data_array[e]);
+             })
+             row.find(".editable-field .display-mode").toggle();
+             row.find(".editable-field .edit-mode").toggle();
+           },
+           error: function (xhr, status, error) {
+             console.error(xhr.responseText);
+             var cancelData = []
+
+             row.find(".display-mode").each(function () {
+               var fieldName = $(this).text();
+               cancelData.push(fieldName);
+             });
+
+             row.find(".edit-mode").each(function (e) {
+               $(this).val(cancelData[e]);
+              })
+             row.find(".editable-field .display-mode").toggle();
+             row.find(".editable-field .edit-mode").toggle();
+             alert("There was an error: Details in console")
+           }
+         });
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-conversions").toggle();
+         row.find(".icon-edit-conversions").toggle();
+         row.find(".icon-cancel-conversions").toggle();
+      })
+
+      $(conversionsCancelIcon).on("click", function (e) {
+        e.preventDefault();
+         var row = $(this).closest("tr");
+
+         // Toggle edit mode for all fields in the row
+         row.find(".editable-field .display-mode").toggle();
+         row.find(".editable-field .edit-mode").toggle();
+
+         //toggle icon visibility
+         row.find(".icon-finish-edit-conversions").toggle();
+         row.find(".icon-edit-conversions").toggle();
+         row.find(".icon-cancel-conversions").toggle();
+      })
+    //end script for conversions data edit
+  })
+</script>

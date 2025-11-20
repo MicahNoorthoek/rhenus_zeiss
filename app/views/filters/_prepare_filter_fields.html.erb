@@ -1,0 +1,5 @@
+<div class="filter-field">
+  <% field_name = "#{params[:scope]}[#{filters[:field_name]}#{filters[:filter_type]}]" %>
+  <% field_id = "#{params[:scope]}_#{filters[:field_name]}#{filters[:filter_type]}" %>
+  <%= hidden_field_tag field_name, filters[:field_value], id: field_id %>
+</div>

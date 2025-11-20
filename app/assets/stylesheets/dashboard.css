@@ -1,0 +1,785 @@
+#highlight {
+  background-color: #e4ecc5;
+ }
+.searchform {
+  width: 30%;
+}
+
+.form-control:focus {
+  border-color: #979796;
+  box-shadow: none;
+  radius: 0;
+}
+
+.linktext{
+  color: #404040;
+  border: none;
+  background-color: none;
+}
+
+.th-position {
+  text-align: top;
+}
+
+
+.margin-adj {
+  /* width: 800px; */
+  text-align: right;
+  margin-right: 10em;
+}
+.checkbox-size {
+  width:15px !important;
+  height:15px !important;
+}
+@media screen and (max-width:1255px) {
+  .margin-adj {
+      margin-right: 8em;
+  }
+}
+.btn-216header {
+  float:left !important;
+  width: 100px;
+}
+.assign-all-btn {
+  background: #899817;
+  border-radius: 0;
+  width: 40%;
+}
+
+.ptt-file-btn {
+  background: #899817;
+  width: 20%;
+  margin-left: 80px;
+}
+
+.fa-pencil {
+  text-align: left;
+}
+
+
+.comming-soon .card-header {
+  height: 44px;
+  background: #c7d785;
+}
+
+.comming-soon {
+  min-height: 50%;
+}
+
+.comming-soon .card-title {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+
+li.nav-item.navitemheadsm.row-format.all-assignments-tab {
+  padding: unset;
+  margin: unset;
+  margin-top: 4.2rem;
+  left: -28px;
+}
+
+li.nav-item.navitemheadsm.row-format.all-assignments-tab .col-4 {
+  float: right;
+  top: -75px;
+  left: 14px;
+
+}
+
+
+.list-group-mine .list-group-item {
+  background-color: #f4f4f1;
+  border-bottom: 1px;
+  color: #404040;
+  border-radius: 0px;
+}
+
+.list-group-mine .list-group-item:hover {
+  background-color: #c7d785;
+}
+
+
+.btncard {
+  width: 75%;
+  background: #e4ecc5;
+  float: left;
+}
+
+.linkformat {
+  color: #404040;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-title {
+  font-size: 1.5em;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn-new:hover {
+  color: #404040;
+  background-color: #aec859;
+}
+
+.archive .archive-date {
+  border: 1px solid;
+  padding: .8em .5em;
+  display: block;
+  font-size: 18px;
+  margin: 0 0.8em 0.8em;
+}
+.inst-info{
+  display: flex;
+  flex-wrap: wrap;
+}
+.linkbol{
+  font-weight: bold !important;
+  text-align: center;
+}
+.linkbol span{
+  display: inline-flex;
+  font-size: 15px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.inst-info span{
+  display: inline-flex;
+  font-size: 15px;
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.no-errors {
+  margin-left: 20%;
+}
+
+.harbor-maintenance-fee-card .card-header {
+  height: 44px;
+  background: #c7d785;
+}
+
+.table-responsive.resptbl-class.conveyances-table {
+  z-index: 999;
+}
+
+.report-card-view .card-header li{
+  width: 50% !important;
+  text-align: center;
+}
+
+.report-card-view .card-header .nav-item.active .nav-link {
+  background-color: #c7d785;
+}
+
+.report-card-view .card-title{
+  padding: 0em 0em 0.9em;
+  text-align: center;
+}
+
+.report-card-view .card-header{
+  padding: 0 6px;
+}
+
+.report-card-view .btncard {
+  height: 40px;
+  padding: 0 2em;
+}
+
+.report-card-view .report-input {
+  height: 40px;
+}
+
+.link-to-pdf{
+  border: 1px solid;
+  padding: 1em .5em;
+  display: block;
+  margin: 2em 2em 1em;
+}
+
+.multiple-report-card-view {
+  width: 140vh;
+  margin-left: -5px;
+   margin-bottom: 18px;
+  padding-left: 26px;
+  padding-right: 47px;
+}
+
+.report-card-view-3461 .card-header li, .annual-ftz-board .card-header li, .report-card-view-216 li{
+  width: 50%;
+  text-align: center;
+}
+
+.report-card-view-3461 .card-header .nav-item.active .nav-link, .annual-ftz-board .card-header .nav-item.active .nav-link{
+  background-color: #c7d785;
+}
+
+.report-card-view-3461 .card-title, .annual-ftz-board .card-title, .report-card-view-216 .card-title{
+  padding: 0em 0em 0.9em;
+  text-align: center;
+}
+
+.report-card-view-3461 .card-header, .annual-ftz-board .card-header, .report-card-view-216 .card-header{
+  padding: 0 6px;
+}
+
+.report-card-view-3461 .btncard, .annual-ftz-board .btncard, .report-card-view-216 .btncard {
+  height: 40px;
+}
+
+.report-card-view-3461 .report-input, .annual-ftz-board .report-input {
+  height: 40px;
+}
+
+
+.report-card-view-3461 .card-header li, .annual-reconciliation-report .card-header li, .report-card-view-216 li{
+  width: 50%;
+  text-align: center;
+}
+
+.report-card-view-3461 .card-header .nav-item.active .nav-link, .annual-reconciliation-report .card-header .nav-item.active .nav-link{
+  background-color: #c7d785;
+}
+
+.report-card-view-3461 .card-title, .annual-reconciliation-report .card-title, .report-card-view-216 .card-title{
+  padding: 0em 0em 0.9em;
+  text-align: center;
+}
+
+.report-card-view-3461 .card-header, .annual-reconciliation-report .card-header, .report-card-view-216 .card-header{
+  padding: 0 6px;
+}
+
+.report-card-view-3461 .btncard, .annual-reconciliation-report .btncard, .report-card-view-216 .btncard {
+  height: 40px;
+  margin-left: -10px;
+}
+
+.report-card-view-3461 .report-input, .annual-reconciliation-report .report-input {
+  height: 40px;
+}
+
+.weekly_estimate_document-cargo .cargo-release-number label,
+.weekly_estimate_document-cargo .field_with_errors label  {
+  flex: 0 0 41%;
+  font-size: 13px;
+}
+
+.btn216{
+  margin-left: 80px !important;
+}
+
+.weekly_estimate_document-cargo .cargo-release-number input{
+  flex: 0 0 50%;
+}
+
+.weekly_estimate_document-cargo .field_with_errors:nth-child(2) {
+  flex: 0 0 37%;
+}
+
+.weekly_estimate_document-cargo .cargo-release-number a.btn.btn.btn-light.btn-sm.btn-new.btncard,
+.weekly_estimate_document-cargo .field_with_errors a.btn.btn.btn-light.btn-sm.btn-new.btncard  {
+  flex: 0 0 50%;
+  padding: 0;
+  display: flex !important;
+
+  width: auto;
+  max-width: 50%;
+  text-align: center;
+  justify-content: space-evenly;
+}
+
+.weekly_estimate_document-entry_estimate label.entry-date,
+.weekly_estimate_document-entry_estimate .field_with_errors:nth-child(1) {
+  flex: 0 0 20%;
+  font-size: 13px;
+}
+.releaselabel {
+  padding-left: 20px;
+}
+
+.weekly_estimate_document-entry_estimate label.estimate_value{
+  flex: 0 0 27%;
+  margin-left: 10px;
+  font-size: 13px;
+}
+
+.weekly_estimate_document-entry_estimate input#weekly_estimate_document_elected_entry_date,
+.weekly_estimate_document .weekly_estimate_document-entry_estimate .field_with_errors:nth-child(2) {
+  flex: 0 0 70%;
+  font-size: 13px;
+}
+
+.weekly_estimate_document .weekly_estimate_document-entry_estimate .field_with_errors:nth-child(2) input#weekly_estimate_document_elected_entry_date {
+  flex: 0 0 100%;
+  max-width: 100%;
+  font-size: 12px;
+  padding-left: 6px;
+  padding-right: 3px;
+}
+
+input#weekly_estimate_document_estimated_entry_value {
+  min-width: 10px;
+}
+
+.available-container-title {
+  position: relative;
+}
+.available-container-title .form-check {
+  position: absolute;
+  right: 33%;
+}
+.available-container-title .checkbox-container {
+  text-align: center;
+  flex: 0 0 42%;
+  max-width: 42%;
+}
+.available-container-title .checkbox-container input {
+  position: relative;
+}
+th.setting-column {
+    display: flex;
+    align-items: center;
+    margin-top: 29px;
+    border: 0 !important;
+}
+th.setting-column a.icon-edit {
+  margin-left: 5px;
+}
+
+
+.chapter99-warning-modal {
+  .modal-content {
+    overflow-y: unset;
+  }
+
+  .privileged-foreign-warning {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    white-space: pre-line;
+  }
+
+  .privileged-foreign-btn {
+    display: flex;
+    justify-content: flex-end;
+
+    input.btn.btn-light.btn-sm.btn-search {
+      width: 42px;
+      margin-right: 10px;
+    }
+    input.btn.btn-light.btn-sm.btn-search:hover, button.btn.btn-light.btn-sm.btn-search:hover {
+      color: #000;
+    }
+  }
+}
+
+.eptt-tab{
+  height:50px;
+}
+
+.text-404040{
+  color: #404040;
+  text-decoration: none;
+}
+
+.text-404040:hover{
+  color: #404040;
+}
+
+#myDashTabAssign {
+  .nav-item.active .myDashTabAssigncol {
+    background-color: #ffffff !important;
+  }
+}
+#epttTab {
+  li.nav-item {
+    background: white
+  }
+}
+
+.inst-info span.span-font-adjust{
+  font-size: 13px;
+}
+
+.annual-ftz-board-custom-model {
+  .modal-body {
+    text-align: center
+  }
+  .btn-cancelconfirm, .commit {
+    background-color: #c7d785;
+    float: right;
+    margin-left: 10px;
+  }
+  .commit {
+    border-color: #c7d785;
+  }
+  .commit:hover, .commit:focus {
+    border-color: #c7d785;
+    background-color: #c7d785;
+  }
+}
+.btnftz {
+  margin-left: 10px !important;
+}
+.annual-ftz-board {
+  .btncard {
+    margin: 25px auto;
+  }
+  .annual-ftz-board-year .form-control {
+    width: 100%;
+  }
+
+}
+
+.annual-reconciliation-report {
+  .btncard {
+    margin: 25px auto;
+  }
+  .annual-recon-report-year .form-control {
+    width: 77%;
+  }
+}
+.report-card-view {
+  button.btn.btn.btn-light.btn-sm.btn-new.btncard.dropdown-toggle {
+    border-radius: 0px 2px 3px 0px;
+    width: 16px !important;
+    padding: 0px 15px;
+    text-align: center;
+    margin-left: 0;
+  }
+  .dropdown.file-dropdown {
+    width: 50px;
+  }
+
+  input.btn.btn.btn-light.btn-sm.btn-new.btncard {
+    border-radius: 2px 0px 0px 2px;
+  }
+
+  .dropdown-toggle::after {
+    left: 3px;
+    right: 0;
+    text-align: center;
+    position: absolute;
+    width: 15px;
+    height: 40px;
+    font-size: 23px;
+    color: #fff;
+  }
+  .toggle-file-btn {
+    padding-left: 0;
+    padding-right: 0;
+    width: 71%;
+    border-right: 1px solid #fff
+  }
+}
+
+.icon-addnew-qp {
+  margin-top: 0 !important;
+
+  .fa {
+    float: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.icon-info-qp {
+  .fa {
+    float: none;
+    padding: 0;
+  }
+}
+
+.new-and-previous-buttons {
+  margin-bottom: 10px;
+}
+
+.new-and-previous-buttons {
+ .fa-plus-circle {
+    margin-right: -20px;
+    padding-right: 1.5em;
+    padding-top: 0.8em;
+  }
+}
+
+.custom-tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.custom-tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.custom-tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.custom-tooltip .tooltiptext.visiblity {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sortable-bill-of-lading-proxy:hover {
+  cursor: pointer;
+}
+
+.linkDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+.file-dropdown-report-add{
+  position: relative;
+  left: -52px;
+}
+.file-dropdown-report-add-button{
+  width: 35px;
+}
+a.btn.btn.btn-light.btn-sm.btn-new.btncard.toggle-file-btn.annual-recon-view-current-report {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+.report-input-form{
+  width: 77% !important;
+}
+
+.fed_inbond_view_search {
+  width: 50%;
+}
+.review-link{
+  color:white;
+  text-trasnform: uppercase;
+  position: relative;
+  top: 10px;
+}
+.review-link:hover{
+  color: #D3D3D3;
+  text-decoration: none;
+}
+.warning-text{
+  position: relative;
+  left: 140px;
+  top: 10px;
+}
+.create-popup-add-btn{
+  position: relative;
+  top:-55px;
+}
+.loading-icon{
+  width: 65px;
+  height: 20px;
+  position: relative;
+}
+.disable-links {
+  pointer-events: none;
+}
+
+.processing-image a#physical_inventory_worksheet {
+    padding: unset;
+    margin: unset;
+}
+
+.assigned-select-box{
+  width: 150px !important;
+}
+.top-btn{
+  font-size: 40px !important;
+  opacity: 80% !important;
+  position: fixed;
+  right: -20px;
+  bottom: 30px;
+}
+.bin-assing-row {
+  background-color: #ddddd5 !important;
+}
+.recent-bin {
+  font-weight: bold;
+  font-size: 12px;
+  font-style: italic;
+}
+.bold-text {
+  font-weight: bold;
+}
+.pick-tickets-range-div{
+  width: 40%;
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  column-gap: 10px;
+  position: relative;
+  float: right;
+  top: -25px;
+}
+
+.reprint-pick-tickets-range-div{
+  width: 40%;
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  column-gap: 10px;
+  position: relative;
+  float: right;
+  top: 10px;
+  margin-bottom: 25px;
+}
+.error-ul-number ul{
+  padding-left: 0px !important;
+}
+.span-select {
+  width: 170px !important;
+}
+.select2-container--bootstrap.select2-container--focus .select2-selection,.select2-container--bootstrap.select2-container--open .select2-selection{
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #8bab05 !important;
+  border-color: #c7d785 !important;
+}
+.select2-container--bootstrap .select2-dropdown{
+  border-color: #c7d785 !important;
+}
+.select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
+    background-color: #c7d785;
+    color: #fff;
+}
+
+.print-shortage-pick-ticket {
+  margin-top: 10px;
+}
+.addNew-Icons{
+  margin-top: 10px !important;
+}
+.btn-sets{
+  position: relative;
+  top: -18px;
+}
+.tooggle_filters{
+  position: relative;
+  top: -8px !important;
+}
+.receipt-record-form {
+  height: 50px;
+}
+.sales-records-form {
+  height: 50px;
+}
+
+.cycle-count-modal {
+  width: 100% !important;
+}
+
+.save-changes-btn {
+  width: 60%;
+  margin-right: 200px;
+}
+.pick-ticket-date {
+  height: 30px !important;
+  width: 92% !important;
+}
+.cyc-count-inv-date {
+  width: 88% !important;
+}
+.query-instructions {
+  color: red;
+}
+
+.active-smplbw-option {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-weight: 600;
+  font-size: 13px; /* Adjust as needed */
+  text-decoration: none;
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  /*width: 200px;*/
+  width: 10vw;
+  height: 50px;
+  background-color: #c7d785; /* Initial color */
+    transition: background-color 0.3s ease;
+  /*margin-bottom: 20px;*/
+  /*border-radius: 10px;*/
+}
+
+
+.active-smplbw-logout-option {
+  text-decoration: none;
+}
+
+.active-smplbw-logout-option:active {
+  border-bottom: 2.5px solid #000000;
+}
+
+.active-smplbw-option:hover {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: rgba(199, 215, 133, 0.5); /* Faded version of the color */
+    color: #000000;
+}
+
+.active-smplbw-logout-option:hover {
+    text-decoration: none;
+}
+
+.active-smplbw-option-button-text {
+
+}
+
+.dashboard-landing-message-container {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  margin-top: 20px;
+  padding: 20px; /* Space from the top and left */
+  border-radius: 10px; /* Rounded corners */
+  background-color: #b8e2f2;
+}
+
+.dashboard-message {
+  font-size:20px;
+}
+
+.position-centerish {
+  display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+}
+
+.criteria-display-smplbw {
+  display: flex;
+}
+
+@media (max-width: 1189px) {
+  .col-md {
+    margin-left:25%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .col-md {
+    margin-left:20%;
+  }
+}
+

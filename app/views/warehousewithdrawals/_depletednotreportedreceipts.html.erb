@@ -1,0 +1,74 @@
+<style>
+  .space {
+    padding: 10px 10px 10px 10px;
+  }
+
+  .rowspace {
+    /*text-align: center;*/
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
+
+  tr:nth-child(even) {
+  background-color: #f2f2f2; /* light gray color for even rows */
+}
+
+</style>
+
+<div class="modal fade" id="discreHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-exlgdialog2" role="document" >
+      <div class="modal-content">
+         <div class="modal-header">
+           <h1 class="modal-title" style="font-size: 25px; align-items: center !important; text-align:center !important;" id="">Non-Reported Fully Depleted Receipts</h1>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <br>
+         <div class="modal-body">
+        <!--
+        <p class="justify-content-center" style="text-align:center; font-size: 20px;"><%#= @closedreceiptentries.pluck(:warehouse).first %></p>
+        <br>
+        -->
+          <div class="row justify-content-center">
+            <!-- table main table content -->
+            <div style="width:95%;">
+              <div class="lgtable filter-page cycle-count-modal">
+              <table class="data-table" cellpadding="0" cellspacing="0" style = "border:none !important;">
+                <thead>
+                  <tr>
+                    <th class="wms-table-header space" style="width:600px;">Tank Number</th>
+                    <th class="wms-table-header space" style="width:600px;">Entry Number</th>
+                    <th class="wms-table-header space" style="width:600px;">Entry Date</th>
+                    <th class="wms-table-header space" style="width:600px;">Total Qty On Hand</th>
+                    <th class="wms-table-header space" style="width:600px;">Reported Status</th>
+                    <th class="wms-table-header space" style="width:600px;">Last Ship Date</th>
+                  </tr>
+                </thead>
+              <tbody>
+              <%  @closedreceiptentries.each do |f| %>
+              <tr style = "border:none;">
+                <td class="rowspace" style = "border: none !important;"><%= f.warehouse %></td>
+                <td class="rowspace" style = "border: none !important;"><%= f.receiptentrynumber %></td>
+                <td class="rowspace" style = "border: none !important;"><%= f.entrydate.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                <td class="rowspace" style = "border: none !important;"><%= f.totalqtyonhand %></td>
+                <td class="rowspace" style = "border: none !important;"><%= f.reportedstatus %></td>
+                <td class="rowspace" style = "border: none !important;"><%= f.lastwithdrawal&.strftime('%Y-%m-%d %H:%M:%S') %></td>
+              </tr>
+              <% end %>
+              </tbody>
+              </table>
+              </div>
+              </div>
+            <!-- End table main table content -->
+        </div>
+      </div>
+
+        <div class="modal-footer editmdft">
+
+        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+
+    </div>
+  </div>
+ </div>

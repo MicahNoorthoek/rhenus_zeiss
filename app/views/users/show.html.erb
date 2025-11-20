@@ -1,0 +1,28 @@
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<div class="container"><br><br>
+
+  <h4 class="pgheader2">Manage Users</h4><br><br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Email</th>
+      <th scope="col">Delete User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+          <tr>
+            <th scope="row">1</th>
+            <td><%= user.username %></td>
+            <td><%= user.email %></td>
+            <td><%= link_to 'Delete User', user_path(user), method: :delete, data: {confirm: "Are you sure you want to delete this user?"} %></td>
+
+          </tr>
+
+      <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,42 @@
+<div class ="container">
+  <div class="row">
+    <div class="col-xs-16 input">
+    <%= form_for(@user, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+
+    <div class="form-group">
+      <div class="col-sm-16">
+        <%= f.text_field :company, class: "form-control", placeholder: "Enter Company" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-16">
+        <div style="text-align: center;">
+          <%= f.label :username, style: "text-shadow: none;" %>
+        </div>
+        <%= f.text_field :username, class: "form-control", placeholder: "Enter username" %>
+      </div>
+    </div>
+
+  <div class="form-group">
+
+    <div class="col-sm-16">
+      <%= f.email_field :email, class: "form-control", placeholder: "Enter Email" %>
+    </div>
+  </div>
+  <div class="form-group">
+
+    <div class="col-sm-16">
+      <%= f.password_field :password, class: "form-control", placeholder: "Enter Password" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-16">
+      <%= f.submit(@user.new_record? ? "Create New User" : "Update your Account", class: 'btn btn btn-light btn-md btn-search') %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+</div>
+</div>

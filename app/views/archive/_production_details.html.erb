@@ -1,0 +1,217 @@
+<turbo-frame id="production_details_modal">
+<style>
+	.modal-content {
+	overflow: auto;
+	background-color: white; 
+	}
+
+	.modal-content::-webkit-scrollbar {
+	height: 8px;
+	}
+
+	.modal-content::-webkit-scrollbar-track {
+	background: white; 
+	}
+
+	.modal-content::-webkit-scrollbar-thumb {
+	background: gray; 
+	border-radius: 4px;
+	}
+</style>
+
+<div class="modal fade" id="productiondetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal-dialog modal-lgdialog" role="document" style="width:1350px !important;"> -->
+<div class="modal-dialog modal-exlgdialog2" role="document" >
+
+  <div class="modal-content" style="overflow: auto; background-color: #fff;">
+    <div class="modal-header">
+    	<h5 class="modal-title" id="exampleModalLabel">Archived Production Details</h5>
+		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <br>
+    <div class="modal-body">
+			<div class="lgtable filter-page cycle-count-modal">
+<!--
+			<div class="row">
+				<div class="col">
+
+					<%#= search_form_for @rcci, as: :research_cycle_count_inventory, url: tool_kits_path, remote: true do |f| %>
+						<div class="row">
+							<div class="padding-adjust">
+								<%#= f.label :part_number_cont, "Part Number:", class: "fa-icon-adjust" %>
+							</div>
+
+							<div class="col padding-adjust">
+								<%#= f.select :part_number_cont, options_for_select(@parts.collect {|p| p.part_number} + [session[:research_cycle_count_inventory_part_no]], selected: session[:research_cycle_count_inventory_part_no]),{ autofocus: true, required: true, include_blank: ""}, {class: "form-control ", id: "selectResearchPartsInventory4"} %>
+							</div>
+
+							<div class="right-padding-adjust">
+                <%#= label_tag "begin_date", "Begin Date:", class: "fa-icon-adjust"%>
+              </div>
+              <div class="col padding-adjust datefield-input">
+                <%#= date_field_tag "begin_date", "", class: "form-control", placeholder: "" %>
+              </div>
+              <div class="right-padding-adjust">
+                <%#= label_tag "end_date", "End Date:", class: "fa-icon-adjust"%>
+              </div>
+              <div class="col padding-adjust  datefield-input">
+                <%#= date_field_tag "end_date", Date.current , class: "form-control", placeholder: "" %>
+              </div>
+
+							<%#= f.select :transaction_desc_in, options_for_select(@invdescriptions2, selected: params[:research_cycle_count_inventory].present? && params[:research_cycle_count_inventory][:transaction_desc_in]), {}, { class: 'hide', multiple: true } %>
+
+							<div class="col">
+								<%#= f.submit "Research", class:"btn btn-light btn-sm btn-search search-form-submit" %>
+							</div>
+              <div class="col px-0 right-padding-adjust">
+                <%#= link_to 'Add Adjustment'.html_safe, new_fed_adjustment_path, title: 'Add Adjustment', class: "btn btn-light btn-sm btn-search", remote: true %>
+              </div>
+              <div class="col px-0 padding-adjust">
+                <%#= link_to 'Add Bin Move'.html_safe, new_fed_bin_number_change_path, title: 'Add Bin Move', class: "btn btn-light btn-sm btn-search ml-2", remote: true %>
+              </div>
+
+							<div id="custom-filter-research_cycle_count_inventory-field" class="custom-filter-fields">
+								<%# if params[:research_cycle_count_inventory].present? %>
+									<%# params[:research_cycle_count_inventory].each do |k, v| %>
+										<%# if ((k.to_sym != :part_number_cont) && (k.to_sym != :transaction_desc_in) && (k.to_sym != :s)) %>
+											<div class="filter-field">
+												<%#= f.text_field k.to_sym, class: "form-control input-sm hide", value: v, placeholder: "Search..."%>
+											</div>
+										<%# end %>
+									<%# end %>
+								<%# end %>
+							</div>
+              <br>
+							<div class="col-2 d-flex justify-content-between">
+                <div style='padding-top:5px'>
+								<%#= link_to "Clear Search", tool_kits_path(modal: true), remote: true, class:"cancel-button btn btn-light btn-sm btn-search clear-search-button" %>
+                </div>
+                <i class="fas fa-filter llc-button-right mt-2 filter-icon-style" id="toggle_filter2" title="filter"></i>
+
+								<%#= link_to '<i class="fa fa-arrow-circle-down icon-download icon-addnew fa-2x icon-edit-down-arrow"></i>'.html_safe, excel_cycle_count_research_inventory_path(request.parameters.merge(format: :xlsx)), title: 'Download', class: "icon-addnew tooltips" %>
+							</div>
+              <%#= link_to '<i class="fas fa-print icon-addnew fa-2x icon-edit-down-arrow ml-5 px-3"></i>'.html_safe, print_pdf_of_cycle_count_inventory_research_path, title: 'Print', target: "_blank", class: "icon-addnew tooltips" %>
+						</div>
+
+					<%# end %>
+				</div>
+
+			</div>
+			<br>
+-->
+			<div class="table-responsive resptbl-class">
+<!--
+				<div class="custom-filter hide" id='custom-filter-div'>
+					<%# if params[:research_cycle_count_inventory].present? %>
+						<%# params[:research_cycle_count_inventory].each do |k, v| %>
+								<%# if ((k.to_sym != :part_number_cont) && (k.to_sym != :transaction_desc_in) && (k.to_sym != :s)) %>
+									<div class="applied-filters-row">
+										<div id="<%#= k.to_sym %>"><%#= k.humanize%> <b><%#= v%></b>
+											<i class="fa fa-times remove-filter-icon" id="remove-filter-research_cycle_count_inventory-icon" aria-hidden="true"></i>
+										</div>
+									</div>
+
+									<script type="text/javascript">
+										//$('.custom-filter').removeClass('hide');
+									</script>
+								<%# end %>
+						<% #end %>
+					<%# end %>
+					<i class="fas fa-plus fa-2x custom-filter-plus-icon plus-filter-icon" ></i>
+-->
+					<%#= render  partial: "filters/search_filter_options", locals: { data_scope: "research_cycle_count_inventory", data_search_form_id: "transaction_inventory_cycle_count_report_view_search", data_custom_search_form_fields: "custom-filter-research_cycle_count_inventory-field", data_filter_form_id: "custom-filter-sub-research_cycle_count_inventory-div", filter_div_id: "custom-filter-research_cycle_count_inventory-div", sub_filter_div_id: "custom-filter-sub-research_cycle_count_inventory-div", options_details: get_research_cycle_count_inventory_details } %>
+
+				</div>
+				<table id="ftztable" class="table table-striped table-sm table-hover display responsive no-wrap errortbl">
+					<thead class="thead-dark">
+						<thead>
+							<tr>
+								<th>SPC</th>
+								<th>ID</th>
+								<th>From ID</th>
+								<th>From</th>
+								<th>Line#</th>
+								<th>Codigo</th>
+								<th>Pallet</th>
+								<th>Lot</th>
+								<th>LBO</th>
+								<th>Freezer#</th>
+								<th>Rack#</th>
+								<th>Side</th>
+								<th>Location</th>
+								<th>Quantity</th>
+								<th>Remaining Quantity</th>
+								<th>UOM</th>
+								<th>COO</th>
+								<!--<th>Created</th>-->
+								<th>Archived</th>
+								<th>Manufacturer Mid Code</th>
+								<th>Warehouse</th>
+							</tr>
+						</thead>
+						<tbody id="myTable">
+							<% @archived_production_details.each do |f| %>
+								<% @type = SpcReceiptsDetailsArchive.find_by(id: f.receipt_id)&.production_identifier ? 'Production' : 'Receipt' %>
+								<tr>
+									<td><%= f.spc %></td>
+									<td><%= f.id %></td>
+									<% if @type == 'Receipt' %>
+										<td title="<%= SpcReceiptsDetailsArchive.where(id: f.receipt_id).first.spc %>"><a><%= link_to f.receipt_id, warehouse_archive_path(archivedreceipts: { spc_or_clientpo_cont: SpcReceiptsDetailsArchive.where(id: f.receipt_id).first.spc}) + '#outsidereceipt', style: "text-decoration: underline; color: blue;" %></a></td>
+									<% elsif @type == 'Production' %>
+										<td title="<%= SpcReceiptsDetailsArchive.where(id: f.receipt_id).first.production_identifier %>"><a><%= link_to f.receipt_id, warehouse_archive_path(archivedproduction: { production_identifier_cont: SpcReceiptsDetailsArchive.where(id: f.receipt_id).first.production_identifier}) + '#outsideproduction', style: "text-decoration: underline; color: blue;" %></a><br></td>
+									<% end %>
+									<td><%= @type %></td>
+									<td><%= f.lineno %></td>
+									<td><%= f.codigo %></td>
+									<td><%= f.pallet %></td>
+									<td><%= f.lot %></td>
+									<td><%= f.lbo %></td>
+									<td><%= f.freezernum %></td>
+									<td><%= f.racknum %></td>
+									<td><%= f.side %></td>
+									<td><%= f.location %></td>
+									<td><%= f.quantity %></td>
+									<td><%= f.quantity_remaining %></td>
+									<td><%= f.uom %></td>
+									<td><%= f.coo %></td>
+									<!--<td><%#= f.recording_timestamp %></td>-->
+									<td><%= f.archived_date %></td>
+									<td><%= f.manufacturer_mid_code %></td>
+									<td><%= f.warehouse %></td>
+								</tr>
+							<% end %>
+						</tbody>
+					</thead>
+				</table>
+			</div><!-- end table responsive -->
+			<br>
+
+
+			<div class="ftz_pagination">
+				<%#= js_will_paginate @cycle_count_inventory_reports, :previous_label => 'prev', :next_label => 'next', param_name: 'research_cycle_count_inventory_page' %>
+			</div>
+		</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" class="close" data-bs-dismiss="modal">Close</button>
+	</div>
+	</div>
+
+	
+
+</div>
+</div>
+</div>
+
+<script>
+  document.addEventListener("turbo:frame-load", function(event) {
+    console.log("Frame loaded: " + event.target.id);
+    if (event.target.id === "production_details_modal") {
+      var modalElement = document.getElementById("productiondetails");
+      if (modalElement) {
+        var modal = new bootstrap.Modal(modalElement);
+        modal.show();
+      }
+    }
+  });
+</script>
+</turbo-frame>

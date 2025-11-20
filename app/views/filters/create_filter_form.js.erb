@@ -1,0 +1,3 @@
+form_area = $("#<%= params[:filter_form_id]%>");
+form_area.html("")
+form_area.append("<%= j(render(partial: 'create_filter_form', locals: {field_name: params[:filed_name]})) %>")

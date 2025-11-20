@@ -1,0 +1,77 @@
+<style>
+  .custom-modal-width {
+    min-width: 75%; /* Set your desired width */
+}
+
+  .form-control {
+      margin-bottom: 15px;
+}
+</style>
+<div class="modal fade" id="newFedParts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog custom-modal-width" role="document">
+    <div class="modal-content" style="background-color: #fff;">
+      <div class="modal-header editmdhd">
+        <h5 class="modal-title" id="exampleModalLabel">New Part Number</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6 justify-content-center">
+            <%= form_for add_new_warehousedata_path do |f| %>
+
+              <%= f.label :partnumber, "Part Number" %>
+              <%= f.text_field :partnumber, class: "form-control", placeholder: "", autofocus: true %>
+
+            </div>
+            <div class="col-6 justify-content-center">
+              <%= f.label :uom, "UOM" %>
+              <%= f.text_field :uom, class: "form-control", placeholder: "", autofocus: true%>
+
+              </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <div class='position-centerish' style='height:50px;'>
+                    <%= f.submit "Add New", class: 'btn btn btn-light btn-sm btn-new', style: "width: 50%;", id: "addnew" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+      </div>
+
+          <div class="modal-footer editmdft">
+          <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  $(document).ready(function() {
+
+    $("#addnew").on("click", function(e) {
+      e.preventDefault();
+
+      const formData = {
+        partnumber: $("#_add_new_warehousedata_partnumber").val(),
+        uom: $("#_add_new_warehousedata_uom").val()
+      };
+
+      $.ajax({
+        url: "/add_new_partnumber", // Update with your controller's path
+        method: "POST",
+        data: formData,
+        success: function () {
+          location.reload()
+        },
+        error: function (xhr, status, error) {
+          console.error(xhr.responseText);
+        }
+      });
+    })
+  })
+</script>
