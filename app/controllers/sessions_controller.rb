@@ -12,7 +12,6 @@ class SessionsController < ApplicationController
       
       SystemLog.create(procedure_name: 'sessions_controller', log_message: "#{user.username}")
       if user.user_lock
-        SystemLog.create(procedure_name: 'sessions_controller', log_message: "why are we here #{user.username}")
         flash[:danger] = "Exceeded login attempts - Please contact support"
         redirect_to login_path and return
       end

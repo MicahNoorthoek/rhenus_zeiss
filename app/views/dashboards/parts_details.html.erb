@@ -1,0 +1,72 @@
+<html lang="en">
+  <style>
+    thead tr th {
+      font-size: 14px;
+    }
+
+  </style>
+<body class="container-fluid" style="width:100vw !important;">
+  <div class="content-squish-details justify-content-center">
+    <h6 class = "pghead2" style="font-size: 18px; margin-bottom:40px;"><a style="color:#0061e0; font-style:italic;" href="<%= dashboard_path %>">Home</a> / Part Details</h6>
+       <div class="row">
+          <div class="col padding-adjust">
+            <%= search_form_for @pd, as: :parts, url: parts_details_path(comment: @comment)  do |f| %>
+              <div class="row">
+                <div class="col-7 padding-adjust">
+                  <div class="input-group">
+                  <%= f.text_field :part_number_cont, class: "form-control input-sm", placeholder: "Search by part number..."%>
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" style="height:30px; background-color: #c7d785;" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                  </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <%= link_to "Clear Search", request.path, class:"cancel-button btn btn-light btn-sm btn-search" %>
+                </div>
+              </div> <!-- end second row -->
+            <% end %>
+          </div>
+          <div class="col">
+          </div>
+        </div><!-- end row-->
+
+         <table class="table table-hover">
+          <thead>
+                  <tr>
+                      <th>Part Number</th>
+                      <th>Condition ID</th>
+                      <th>Blue Yonder Bal</th>
+                      <th>PFTZ Bal</th>
+                      <th>Status</th>
+                      <th>Comments</th>
+                      <th></th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                 <% @partdetails.each do |s| %>
+                  <tr>
+                      <td><%= s.part_number %></td>
+                      <td><%= s.condition_id %></td>
+                      <td><%= s.by_bal %></td>
+                      <td><%= s.pftz_bal %></td>
+                      <td><%= s.status %></td>
+                      <td><%= s.comments %></td>
+                      <td><%= link_to 'Not Coded Yet', parts_details_path(comment: s.comments), class: "btn btn-outline-secondary btn-sm" %></td>
+                  </tr>
+                  <% end %>
+              </tbody>
+          </table>
+
+          <div class="ftz_pagination">
+            <%= will_paginate @partdetails, :previous_label => 'prev', :next_label => 'next', param_name: 'parts_details_page' %>
+          </div>
+
+
+  
+</body>
+</html>
+<script>
+  $(document).ready(function() {
+  });
+</script>

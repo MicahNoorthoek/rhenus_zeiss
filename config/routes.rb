@@ -6,17 +6,6 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
-
-  # COMMENTED OUT BY MICAH NOORTHOEK 10/18/2023
-  #require 'sidekiq/web'
-  #require 'sidekiq-scheduler'
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'welcome/index', to: 'welcome#index'
   root 'sessions#new'
@@ -37,10 +26,7 @@ Rails.application.routes.draw do
   resources :verified_users
   resources :selected_emails
 
-
   get 'refresh_page', to: 'dashboards#refresh_page'
-
-
 
   get 'active'  => 'sessions#active'
   get 'timeout' => 'sessions#timeout'
@@ -48,8 +34,6 @@ Rails.application.routes.draw do
   #mount Sidekiq::Web => '/sidekiq'
 
     get 'dashboards/:id/edit', to: 'dashboards#edit', as: 'dashboards_edit'
-
- 
 
   namespace :agent do
     get 'login', to: 'sessions#new'
@@ -59,7 +43,6 @@ Rails.application.routes.draw do
 
     root "dashboard#index"
   end
-
 
   #login Sessions
   get 'login', to: 'sessions#new'
@@ -90,7 +73,6 @@ Rails.application.routes.draw do
   put 'update_password', to: 'passwords#update_password', as: 'update_password'
   resources :passwords, only: [:create]
 
- 
 
   get 'admin_override', to: 'admin#admin_override'
   get 'log_user_out', to: 'admin#log_user_out'
@@ -102,6 +84,7 @@ Rails.application.routes.draw do
 
   get 'lock_users', to: 'admin#lock_users'
   get 'finalize_lock_users', to: 'admin#finalize_lock_users'
+  get 'parts_details', to: 'dashboards#parts_details'
 
 
 end
