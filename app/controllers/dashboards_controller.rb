@@ -7,7 +7,6 @@ class DashboardsController < ApplicationController
     def index
       Rails.logger.debug "Index action reached"
       @reconciliation = Reconciliation.select("COUNT(part_number) AS count_of_part_number, comments, MIN(part_number) AS min_of_part_number, MAX(part_number) AS max_of_part_number").group(:comments).order(:comments)
-
     end
 
 
