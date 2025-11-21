@@ -6,6 +6,7 @@ class DashboardsController < ApplicationController
     require 'will_paginate'
     def index
       session[:comment] = nil
+      session[:selectedpart] = nil
       Rails.logger.debug "Index action reached"
       @reconciliation = Reconciliation.select("COUNT(part_number) AS count_of_part_number, comments, MIN(part_number) AS min_of_part_number, MAX(part_number) AS max_of_part_number").group(:comments).order(:comments)
     end
@@ -24,6 +25,26 @@ class DashboardsController < ApplicationController
         redirect_to dashboard_path 
       end
     end
+
+
+    def balance_details
+      session[:selectedpart] = params[:selectedpart] if params[:selectedpart].present?
+      @selectedPart = params[:selectedpart].presence || session[:selectedpart]
+      if @selectedPart.present?
+        record = SelectedPart.first_or_initialize
+        record.update(part_number: @selectedPart)
+
+        @balance_details = BalanceDetail.where(part_number: @selectedPart)
+
+        #@bd = BalanceDetail.ransack(params[:parts], search_key: :parts)
+        #@balancedetails = @bd.result.paginate(page: params[:balance_details_page], per_page: 50)
+      else
+        SystemLog.create(procedure_name: 'dashboard_controller', log_message: "Tried to display balance details for part: #{@selectedPart}, but was unable to!")
+        flash[:error] = "Error: Was not able to display details!"
+        redirect_to dashboard_path 
+      end
+    end
+   
    
   
 

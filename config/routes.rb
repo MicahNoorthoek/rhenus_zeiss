@@ -85,6 +85,7 @@ Rails.application.routes.draw do
   get 'lock_users', to: 'admin#lock_users'
   get 'finalize_lock_users', to: 'admin#finalize_lock_users'
   get 'parts_details', to: 'dashboards#parts_details'
+  get 'balance_details', to: 'dashboards#balance_details'
 
 
 end

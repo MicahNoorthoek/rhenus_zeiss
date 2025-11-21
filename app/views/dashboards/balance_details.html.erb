@@ -1,0 +1,47 @@
+<html lang="en">
+  <style>
+    thead tr th {
+      font-size: 14px;
+    }
+
+  </style>
+<body class="container-fluid" style="width:100vw !important;">
+  <div class="content-squish-details justify-content-center">
+    <h6 class = "pghead2" style="font-size: 18px; margin-bottom:40px;"><a style="color:#0061e0; font-style:italic;" href="<%= dashboard_path %>">Home</a> > <a style="color:#0061e0; font-style:italic;" href="<%= parts_details_path(comment: session[:comment]) %>">Part Details</a> > Balance Details </h6>
+        
+
+      <table class="table table-hover">
+          <thead>
+                  <tr>
+                      <th>Client ID</th>
+                      <th>Part Number</th>
+                      <th>Balance Quantity</th>
+                      <th>Condition ID</th>
+                      <th>Balance Date</th>
+                      <th>ID</th>
+                      <th>Source</th>
+                  </tr>
+              </thead>
+
+              <tbody>
+                 <% @balance_details.each do |s| %>
+                  <tr>
+                      <td><%= s.client_id %></td>
+                      <td><%= s.part_number %></td>
+                      <td><%= s.balance_qty %></td>
+                      <td><%= s.condition_id %></td>
+                      <td><%= s.balance_date %></td>
+                      <td><%= s.id %></td>
+                      <td><%= s.source %></td>
+                  </tr>
+                  <% end %>
+              </tbody>
+          </table>
+
+  
+</body>
+</html>
+<script>
+  $(document).ready(function() {
+  });
+</script>
