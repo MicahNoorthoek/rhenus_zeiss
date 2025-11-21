@@ -20,7 +20,7 @@ class DashboardsController < ApplicationController
         record = SelectedComment.find_or_initialize_by(userid: current_user_id)
         record.update(comments: @comment)
 
-        @pd = PartsDetail.ransack(params[:parts], search_key: :parts)
+        @pd = PartsDetail.where(userid: current_user_id).ransack(params[:parts], search_key: :parts)
         @partdetails = @pd.result.paginate(page: params[:parts_details_page], per_page: 50)
       else
         SystemLog.create(procedure_name: 'dashboard_controller', log_message: "Tried to display details for comment: #{@comment}, but was unable to!")
@@ -39,7 +39,7 @@ class DashboardsController < ApplicationController
         record = SelectedPart.find_or_initialize_by(userid: current_user_id)
         record.update(part_number: @selectedPart)
 
-        @balance_details = BalanceDetail.where(part_number: @selectedPart)
+        @balance_details = BalanceDetail.where(part_number: @selectedPart, userid: current_user_id)
 
         #@bd = BalanceDetail.ransack(params[:parts], search_key: :parts)
         #@balancedetails = @bd.result.paginate(page: params[:balance_details_page], per_page: 50)
