@@ -48,13 +48,7 @@
                                   <div class="form-group login-username d-flex justify-content-center">
                                     <div class="input-group mb-3">
                                       <span class="input-group-text"><i class="fa-regular fa-building"></i></span>
-                                      <%# @form300refdata = Form300referencedata.where(firmscode: session[:firmscode]).all %>
-                                      <%# company = @form300refdata.pluck(:companyname) %>
-                                      <%# if company == [] %>
-                                        <%= f.text_field :company, class: "form-control", placeholder: "Enter Company", autofocus: true  %>
-                                      <%# else %>
-                                        <%#= f.text_field :company, class: "form-control", value: company  %>
-                                      <%# end %>         
+                                        <%= f.text_field :company, class: "form-control", placeholder: "Enter Company", autofocus: true  %>      
                                     </div>
                                   </div>
                                 </div>

@@ -36,14 +36,16 @@ class UsersController < ApplicationController
   end
 
   def create
+    begin
+    #SystemLog.create(:procedure_name => 'users_controlled', :log_message => "begin: #{user_params.inspect}")
     if user_params[:email].present?
       user_by_email = User.find_by(email: user_params[:email])
 
     if !user_by_email.present?
     @user = User.create(user_params)
 
-    verifyemail = VerifiedUser.where(:email => @user.email)
-
+    verifyemail = VerifiedUser.where("LOWER(email) = LOWER(?)", @user.email)
+    #SystemLog.create(:procedure_name => 'users_controlled', :log_message => "verifyemail: #{verifyemail.inspect}")
     if verifyemail.exists?
       if @user.save
         @user_signin = User.all
@@ -61,7 +63,7 @@ class UsersController < ApplicationController
       end
 
     else
-
+        SystemLog.create(:procedure_name => 'users_controlled', :log_message => "unauthorized email: #{@user.email}")
         @auth = SelectedAuthorization.first
         @auth.update(selected_authorization: false)
         User.where(:email => @user.email).delete_all
@@ -77,6 +79,13 @@ class UsersController < ApplicationController
     else
       redirect_to createuser_38923489d8234k234_path
       flash[:danger] = "Email must not be empty."
+    end
+    rescue => exception
+      SystemLog.create(:procedure_name => 'users_controlled', :log_message => "error #{exception.message}")
+      @auth = SelectedAuthorization.first
+      @auth.update(selected_authorization: true)
+      redirect_to createuser_38923489d8234k234_path
+      flash[:danger] = "An error occurred while creating the account."
     end
   end
 
