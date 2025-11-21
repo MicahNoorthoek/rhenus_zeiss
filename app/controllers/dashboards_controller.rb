@@ -15,8 +15,11 @@ class DashboardsController < ApplicationController
       session[:comment] = params[:comment] if params[:comment].present?
       @comment = params[:comment].presence || session[:comment]
       if @comment.present?
-        record = SelectedComment.first_or_initialize
+
+        current_user_id = current_user.id
+        record = SelectedComment.find_or_initialize_by(userid: current_user_id)
         record.update(comments: @comment)
+
         @pd = PartsDetail.ransack(params[:parts], search_key: :parts)
         @partdetails = @pd.result.paginate(page: params[:parts_details_page], per_page: 50)
       else
@@ -31,7 +34,9 @@ class DashboardsController < ApplicationController
       session[:selectedpart] = params[:selectedpart] if params[:selectedpart].present?
       @selectedPart = params[:selectedpart].presence || session[:selectedpart]
       if @selectedPart.present?
-        record = SelectedPart.first_or_initialize
+
+        current_user_id = current_user.id
+        record = SelectedPart.find_or_initialize_by(userid: current_user_id)
         record.update(part_number: @selectedPart)
 
         @balance_details = BalanceDetail.where(part_number: @selectedPart)
