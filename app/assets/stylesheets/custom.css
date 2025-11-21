@@ -1,3 +1,7 @@
+  #logo2 {
+    display: none;
+  }
+
 .custom-filter-plus-icon{
   padding-left: 20px;
 }
@@ -1075,7 +1079,9 @@ a:active { color: black; }
   #logo {
     display: none;
   }
-
+  #logo2 {
+    display: block;
+  }
  
 }
 
