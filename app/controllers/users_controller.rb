@@ -46,53 +46,14 @@ class UsersController < ApplicationController
 
     if verifyemail.exists?
       if @user.save
-        #ReportMailer.with(user: @user).welcome_email.deliver_now
-
-
         @user_signin = User.all
-        @THEuser
-
-        @login_block = false
-     #   @user_signin.each do |user_check|
-     #     if user_check.logged_in == true
-     #       @login_block = true
-     #       @THEuser = user_check.id
-     #       break  # No need to continue the loop if one user is logged in
-     #     end
-     #   end
-
-     #   if @login_block == false || @THEuser == @user.id
-     if @login_block == false
+    
           session[:user_id] = @user.id
-
-          auth_warehouse_for_user = Useraccess.where(email: User.where(id: session[:user_id]).pluck(:email).first).order(warehouse: :desc).pluck(:warehouse).first
-  
-          session[:warehouse] = auth_warehouse_for_user
-          SystemLog.create(:procedure_name => 'users_controller', :log_message => "session declared selected warehouse: #{auth_warehouse_for_user}")
-
-          selected_warehouse = Selectedwarehouse.where(userid: session[:user_id]).first || Selectedwarehouse.new
-          if Selectedwarehouse.count == 0
-            Selectedwarehouse.create(warehouse: auth_warehouse_for_user, userid: session[:user_id])
-          else
-            selected_warehouse.update(warehouse: auth_warehouse_for_user, userid: session[:user_id])
-          end
-
 
             user = User.find_by(id: session[:user_id])
             user.update_column(:logged_in, true)
             flash[:success] = "Successfully created new user"
             redirect_to dashboard_path
-
-        else
-          #@auth = SelectedAuthorization.first
-          #@auth.update(selected_authorization: false)
-
-          user = User.find_by(id: @user.id)
-          user.update_column(:logged_in, false)
-
-          flash[:success] = "Successfully created new user! A seperate user is currently logged on. For data integrity purposes SMPLBW allows only one user at a time"
-          redirect_to root_path
-        end
 
       else
          flash[:danger] = "Did not create new user"
@@ -137,23 +98,6 @@ class UsersController < ApplicationController
     render inline: 'location.reload();'
   end
 
-  def toggle_auto_email
-    @user = User.find(params[:id])
-    @user.toggle!(:auto_email)
-    render inline: 'location.reload();'
-  end
-
-  def toggle_undo_shipment_lock
-    @user = User.find(params[:id])
-    @user.toggle!(:undo_shipments_lock)
-    render inline: 'location.reload();'
-  end
-
-  def toggle_client_admin
-    @user = User.find(params[:id])
-    @user.toggle!(:client_admin)
-    render inline: 'location.reload();'
-  end
 
   def all_user_lock
     update_params = {user_lock: params[:is_locked]}

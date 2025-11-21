@@ -23,7 +23,7 @@ class User < ApplicationRecord
   scope :get_user_by_last_sign_in_before, -> (days) { where("last_sign_in_at < ?", days.days.ago) }
 
   def auto_timeout
-    15.minutes
+    20.minutes
   end
   
   private

@@ -12,38 +12,12 @@
 </head>
 
 <body>
-  <% @availablewarehousesperuser = Useraccess.where(email: @current_user.email) %>
-  <% @selectedwarehouse = Selectedwarehouse.where(userid: @current_user.id).pluck(:warehouse).first %>
-  <% @availableRoles = UserWarehouseRole.where(warehouse: @selectedwarehouse, user_email: @current_user.email).order(orderid: :asc).all %>
-
-  <%#= @availablewarehousesperuser.each do |f| f.warehouse end %>
-    <%#= @selectedwarehouse %>
-
   <div class="row myBackgroundNavBarTop content-squish justify-content-center">
     <div class="col-3">
-      <% if @availablewarehousesperuser.first.present? %>
-        <p class="selected-warehouse-indicator">
-          <span id="minimize">Selected</span> Warehouse:
-          <span>
-            <%= select_tag :warehouse_select,
-              options_for_select(@availablewarehousesperuser.map { |warehouse| [warehouse.warehouse] }, @selectedwarehouse),
-              class: 'custom-dropdown', id: "warehouse_select_dropdown" %>
-          </span>
-        </p>
-      <% else %>
-        <p class="selected-warehouse-indicator">
-          <span id="minimize">Selected</span> Warehouse:
-          <span>
-            <%= select_tag :warehouse_select,
-              options_for_select([['User-setup pending', '']]),
-              class: 'custom-dropdown', id: "warehouse_select_dropdown" %>
-          </span>
-        </p>
-      <% end %>
     </div>
-
+    
     <div class="col d-flex justify-content-center">
-      <div class="logo-wms" id="logo">SPC-WMS</div>
+      <div class="logo-wms" id="logo">Zeiss Recon</div>
     </div>
 
     <div class="col-3">
@@ -63,40 +37,6 @@
     </div>
   </div>
 
-  <!-- Sidebar Navigation -->
-  <div class="nav-div content-squish d-flex justify-content-center" id="pad-marg">
-    <div class="collapse show" id="collapseExample">
-      <nav id='navigation' class='side-navigation'>
-        
-        <% if @availablewarehousesperuser.first.present? %> 
-          <!-- Show Tabs Based on User Roles -->
-          <% @availableRoles.each do |role| %>
-            <% user_tab = role.user_tabs %>
-            <p class="active-smplbw-option-button-text btn-pad">
-              <%= link_to user_tab.html_safe, path_for_user_tab(user_tab), class: "active-smplbw-option" %>
-            </p>
-          <% end %>
-
-          <% if @availableRoles.any? %>
-            <p class="active-smplbw-option-button-text btn-pad">
-              <%= link_to "Archived".html_safe, warehouse_archive_path, class: "active-smplbw-option" %>
-            </p>
-            <p class="active-smplbw-option-button-text btn-pad">
-              <%= link_to "Inventory".html_safe, inventory_screen_path, class: "active-smplbw-option" %>
-            </p>
-          <% end %>
-
-        <% else %>
-          <div class='only-option'>
-            <p class="active-smplbw-option-button-text">
-              <%= link_to 'Dashboard'.html_safe, dashboard_path, class: "active-smplbw-option" %>
-            </p>
-          </div>
-        <% end %>
-
-      </nav>
-    </div>
-  </div>
 
 </body>
 </html>

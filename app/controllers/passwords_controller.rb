@@ -9,7 +9,7 @@ class PasswordsController < ApplicationController
         @url = "#{urlcompany}reset_password"
 
 
-        SendlinkMailer.with(email: email).sendforgetpasswordlink.deliver_now
+     #   SendlinkMailer.with(email: email).sendforgetpasswordlink.deliver_now
         SelectedAuthorization.first_or_create
         SelectedAuthorization.update(:selected_authorization => true)
         #UserTimerWorker.perform_in(15.minutes)

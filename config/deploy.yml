@@ -1,8 +1,8 @@
 # Name of your application. Used to uniquely configure containers.
-service: spcwms_update
+service: zeissrecon_update
 
 # Name of the container image.
-image: your-user/spcwms_update
+image: your-user/zeissrecon_update
 
 # Deploy to these servers.
 servers:

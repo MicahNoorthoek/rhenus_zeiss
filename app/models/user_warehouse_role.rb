@@ -1,2 +1,0 @@
-class UserWarehouseRole < ApplicationRecord
-end

@@ -29,54 +29,8 @@ class ApplicationController < ActionController::Base
     user = current_user
     user&.update!(user_actions: Time.zone.now)
 
-    selected_warehouse = Selectedwarehouse.find_or_initialize_by(userid: user.id)
-    authorized_access = Useraccess.exists?(email: user.email, warehouse: selected_warehouse.warehouse)
-
-    unless authorized_access
-      correct_warehouse = Useraccess.where(email: user.email).order(warehouse: :desc).pluck(:warehouse).first
-      session[:warehouse] = correct_warehouse
-
-      selected_warehouse.update!(warehouse: correct_warehouse, userid: user.id)
-    end
   end
 
-  def authorizedScreens
-    selected_warehouse = Selectedwarehouse.where(userid: current_user.id).pluck(:warehouse).first
-    authorized_screens = UserWarehouseRole.where(warehouse: selected_warehouse, user_email: current_user.email).pluck(:user_tabs)
-
-    permissions = {
-      "Receipts" => false,
-      "Shipments" => false,
-      "Production" => false,
-      "Archive" => true # Default to archive being allowed
-    }
-
-    authorized_screens.each do |screen|
-      permissions[screen] = true if permissions.key?(screen)
-    end
-
-    validate_screen_access(permissions)
-  end
-
-  def validate_screen_access(permissions)
-    if request.path.include?('receipt') && !permissions["Receipts"]
-      unauthorized_access("Receipts")
-    elsif request.path.include?('withdrawals') && !permissions["Shipments"]
-      unauthorized_access("Shipments")
-    elsif request.path.include?('production') && !permissions["Production"]
-      unauthorized_access("Production")
-    elsif request.path.include?('archive') && !permissions["Archive"]
-      unauthorized_access("Archive")
-    else
-      SystemLog.create(procedure_name: 'application', log_message: "User(#{current_user.username}) allowed in current screen: #{request.path}")
-    end
-  end
-
-  def unauthorized_access(screen)
-    SystemLog.create(procedure_name: 'application', log_message: "User(#{current_user.username}) tried accessing unauthorized screen: #{request.path}")
-    flash[:danger] = "Unauthorized Action!"
-    redirect_to dashboard_path
-  end
 
   def render_layout
     logged_in? && current_user.agent? ? 'agent_application' : 'application'
@@ -96,13 +50,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_user_undo_shipments
-    if logged_in? && current_user.undo_shipments_lock?
-      flash[:info] = "Corrections are being made by another user. Please wait until completed."
-      respond_to do |format|
-        format.html { redirect_to request.referrer || root_path }
-        format.js { render inline: 'location.replace(location.pathname);' }
-      end
-    end
-  end
 end

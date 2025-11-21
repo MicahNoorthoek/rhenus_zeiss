@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="icon" type="image/x-icon" href="<%= asset_path('logo_colored.png') %>">
-    <title>SPC</title>
+    <title>Zeiss Recon</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -37,18 +37,6 @@
   </head>
 
   <body class ="<%=controller_name %> <%=action_name %>">
-    <turbo-frame id="delete_modal_frame"></turbo-frame>
-    <turbo-frame id="select_criteria_modal"></turbo-frame>
-    <turbo-frame id="produce_part_modal"></turbo-frame>
-    <turbo-frame id="positive_release_modal"></turbo-frame>
-    <turbo-frame id="verify_user_modal"></turbo-frame>
-    <turbo-frame id="edit_user_modal"></turbo-frame>
-    <turbo-frame id="edit_user_access"></turbo-frame>
-
-    <turbo-frame id="receipt_details_modal"></turbo-frame>
-    <turbo-frame id="shipment_details_modal"></turbo-frame>
-    <turbo-frame id="production_details_modal"></turbo-frame>
-
     <% if current_user %>
       <%= auto_session_timeout_js %>
     <% end %>
@@ -65,8 +53,9 @@
       <%= render 'shared/flash' %>
     </div>
 
-    
+    <div style="margin-top: 20px;">
     <%= yield %>
+    </div>
 
     <style>
       body {

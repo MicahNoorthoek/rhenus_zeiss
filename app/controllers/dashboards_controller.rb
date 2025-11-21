@@ -2,33 +2,12 @@ class DashboardsController < ApplicationController
 
     before_action :require_user
     #before_action :last_sign_in
-    before_action :authorizedScreens
 
     require 'will_paginate'
     def index
       Rails.logger.debug "Index action reached"
-      #SendwithdrawalMailer.sendwithdrawal.deliver_now
-      #SystemLog.create(:procedure_name => 'generate_form_300_report_controller', :log_message => "#{session[:form300reports]}")
-      if session[:ftzboardreports] == 'CLEAREDTOREPORT'
-        @generate_reports = 'CLEAREDTOREPORT'
-      else
-        @generate_reports = ''
-      end
+      @reconciliation = Reconciliation.select("COUNT(part_number) AS count_of_part_number, comments, MIN(part_number) AS min_of_part_number, MAX(part_number) AS max_of_part_number").group(:comments).order(:comments)
 
-      @selected_warehouse = Selectedwarehouse.where(userid: current_user.id).pluck(:warehouse).first
-
-      # COMMENTED OUT BY VENERA SONKINA ON 10/22/2024
-      #USED WITH ALTERNATE DASHBOARD LAYOUT
-      #@discrepancies = Discrepancies.all
-      #@warehousereceiptheaders = Warehousereceiptheader.where("quantityonhand <= 0 AND closedreporteddate IS NULL")
-      #Useraccess.where(email: User.where(id: session[:user_id]).pluck(:email).first).order(firmscode: :desc).pluck(:firmscode).first
-      #available_firmscodes = Useraccess.where(email: User.where(id: session[:user_id]).pluck(:email).first).order(firmscode: :desc).pluck(:firmscode)
-      #SystemLog.create(:procedure_name => 'dashboards_controller', :log_message => "#{available_firmscodes.count}")
-      #@form300referencedata = Form300referencedata.where(firmscode: available_firmscodes).all
-      
-      #@useraccess_ifpending = Warehousesetup.where(firmscode: Useraccess.where(email: @current_user.email).pluck(:firmscode))
-
-      #@firmscodeCount = form300referencedata.where(firmscode: available_firmscodes).count
     end
 
 

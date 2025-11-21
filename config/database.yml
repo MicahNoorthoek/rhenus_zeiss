@@ -18,7 +18,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  schema_search_path: spcwms
+  schema_search_path: public
   
 
 production:
@@ -89,10 +89,10 @@ production:
 
 development:
   <<: *default
-  database: d3fk0fljona65i #spc-wms2 
-  username: u2gnr5f273pd21 #micah
-  password: p6cf0a8646026e009b2a816cb2cbb8ab2000291c6fd45203f10e853ce224037db #localdb
-  host: c5hilnj7pn10vb.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com #localhost 
+  database: dbuu5rv1lofok9 #spc-wms2 
+  username: ucmsj8qmgm036g #micah
+  password: p5041061f78f0adb7d86f20ba096b3aeed7a0908ec789a2693a25775b450d1dd2 #localdb
+  host: ec2-52-70-203-204.compute-1.amazonaws.com #localhost 
   port: 5432 #5433 
   #schema_search_path: spcwms
   # Connect on a TCP socket. Omitted by default since the client uses a

@@ -1,3 +1,3 @@
 class SelectedEmail < ApplicationRecord
-  self.table_name = 'selected_emails'
+  self.table_name = 'reconciliation'
 end
