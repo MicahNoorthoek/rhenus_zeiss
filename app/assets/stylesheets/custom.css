@@ -312,6 +312,13 @@ margin-top: -55px;
 .doc-modal-head {
 background-color: #c7d785;
 }
+
+/* Style only the Balance backdrop */
+.balance-backdrop {
+  opacity: 0.2;
+  background-color: rgba(51,51,51,0.2); /* tweak color/opacity */
+}
+
 .btn-doc-option {
 height: 100% !important;
 width: 80%;
@@ -1062,6 +1069,12 @@ background: linear-gradient(to right, #81C784, #2E7D32);
 
 .modal-footer {
   border-top: none !important;
+}
+
+/* Softer backdrop for the Balance Details modal */
+.balance-backdrop {
+  opacity: 0.2;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .icon-details {

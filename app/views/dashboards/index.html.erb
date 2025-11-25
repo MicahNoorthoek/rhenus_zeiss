@@ -32,7 +32,7 @@
                       <td><%= s.min_of_part_number %></td>
                       <td><%= s.max_of_part_number %></td>
                       <!--<td><button class="btn btn-search">List of parts</button></td>-->
-                      <td><%= link_to 'Parts List', parts_details_path(comment: s.comments), class: "btn btn-outline-secondary btn-sm"%></td>
+                      <td><%= link_to 'Parts List', parts_details_path(comment: s.comments), class: "btn btn-outline-secondary btn-sm", style: "color: #000000;"%></td>
                   </tr>
                   <% end %>
               </tbody>

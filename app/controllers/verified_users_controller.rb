@@ -9,10 +9,10 @@ class VerifiedUsersController < ApplicationController
         flash[:success] = "New verified User has been created."
         email = @verifiedusers.email
         #SendlinkMailer.with(email: email).sendlink.deliver_now
-        redirect_to smplbw_users_path
+        redirect_to manage_users_redirect_path
     else
       flash[:danger] = "New verified User has not been created. User may already exist."
-      redirect_to smplbw_users_path
+      redirect_to manage_users_redirect_path
     end
   end
 

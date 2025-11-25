@@ -50,4 +50,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def manage_users_redirect_path
+    return request.referer if request.referer.present?
+    return zeiss_users_path if respond_to?(:zeiss_users_path)
+    return smplbw_users_path if respond_to?(:smplbw_users_path)
+
+    admin_path
+  end
 end

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <style>
+     .searchform {
+        width: 30%;
+      }
+
+     .form-control:focus {
+        border-color: #979796;
+        box-shadow: none;
+        radius: 0;
+      }
+
+     .linktext{
+        color: #404040;
+        border: none;
+        background-color: none;
+      }
+
+      .aBitOfSpace {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+
+
+    <%#= render 'authorization' %>
+    <% curauth = SelectedAuthorization.pluck(:selected_authorization) %>
+
+      <div class="" style="margin-left: 8% !important;margin-right: 8% !important;">
+        <h6 class = "pghead2" style="margin-bottom:40px;"> <a style="color:#0061e0; font-style:italic;" href="<%= dashboard_path %>">Home</a> > <a style="color:#0061e0; font-style:italic;" href="<%= admin_path %>">Admin</a> > Users</h6>
+        <div class="content-squish-users-sp">
+        <div class="row">
+
+          <%= search_form_for @u, as: :users, url: zeiss_users_path  do |f| %>
+
+
+            
+              <div class="row"> <!-- first row in search_form -->
+                <div class="col-5 padding-adjust">
+                  <div class="input-group">
+                    <%= f.text_field :username_cont, class: "form-control input-sm", placeholder: "Search username..."%>
+                    <div class="input-group-btn">
+                      <button class="btn btn-default" style="height:30px; background-color: #c7d785;" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-4">
+                  <%= link_to "Clear Search", request.path, class:"cancel-button btn btn-light btn-sm btn-search" %>                  
+                </div>
+              </div> <!-- end first row in search_form -->
+            
+            
+
+          <% end %>
+
+            
+          
+        </div>
+        
+      
+        <div class="row aBitOfSpace">
+          <% if @useraccess_available %>
+            <div class="col-2">
+              <% if @verified_user_action_needed_count > 0 %>
+                <%= link_to smplbw_firmscode_setup_path, class: 'btn btn-light btn-sm btn-format' do %>
+                  Action Needed <span class="badge text-bg-light"><%= @verified_user_action_needed_count %></span>
+                  <span class="sr-only">unread messages</span>
+                <% end %>
+              <% else %>
+                <%= link_to smplbw_firmscode_setup_path, class: 'btn btn-light btn-sm btn-format' do %>
+                  All <span class="firmscodeString">Warehouse</span> Access
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+<!-- , #data: { turbo: false }  -->
+          <div class="col-1" >
+            <div class="dropdown">
+              <button class="btn dropdown-toggle btn btn-light btn-sm btn-format" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User Actions
+              </button>
+              <% curauth = SelectedAuthorization.pluck(:selected_authorization) %>
+              <div class="dropdown-menu justify-content-center" style="background-color: #ffffff; margin-top:5px; width:175px; text-align:center;" aria-labelledby="dropdownMenuButton">
+                <div class="" style="width:auto;">
+                  <% if curauth == [false] %>
+                    <%= link_to "Allow User Creation", verify_delete_path(caller: "user_creation"), method: :get, data: { turbo_frame: "delete_modal_frame" }, class: "btn btn-light btn-sm btn-format", style: "margin: 5px; width:150px;"%>
+                  <% else %>
+                    <%= link_to "Restrict User Creation", verify_delete_path(caller: "user_creation"), method: :get, data: { turbo_frame: "delete_modal_frame" }, class: "btn btn-light btn-sm btn-format", style: "margin: 5px; width:150px;"%>
+                  <% end %>
+                </div>
+                <%= link_to "Add New User", verify_user_path, method: :get, data: { turbo_frame: "verify_user_modal" }, class: "btn btn-light btn-sm btn-format", style: "margin: 5px; width:150px;" %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+
+        <br>
+        <div class="table-responsive resptbl-class">
+          <table id="ftztable" class="table table-striped table-sm table-hover display responsive no-wrap">
+            <thead class="thead-dark">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Company</th>
+                  <th>Admin</th>
+                  <% if @useraccess_available %>
+                    <th>User Warehouse Manager</th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody id="myTable">
+                <% @users.each do |f| %>
+                  <tr>
+                    <td class="pad-tr">
+                      <%= link_to '<i class="fa fa-pencil-alt fa-sm center" aria-hidden="true"></i>'.html_safe, edit_user_path(f), data: { turbo_frame: "edit_user_modal" }, class: "icon-edit"%>
+                    </td>
+                    <td class="pad-tr"><%= f.username %></td>
+                    <td class="pad-tr"><%= f.email %></td>
+                    <td class="pad-tr"><%= f.company %></td>
+                    <td class="pad-tr"><%= f.admin? ? 'true' : 'false' %></td>
+                    <% if @useraccess_available %>
+                      <td class="pad-tr">
+                        <% if Useraccess.where(email: f.email).pluck(:warehouse).first == '0000' %>
+                          <%= link_to edit_user_firmscode_path(email: f.email), remote: true, class: 'btn btn-light btn-sm btn-format' do %>
+                            Action Needed <span class="badge badge-light"><%= @verified_user_action_needed_count %></span>
+                            <span class="sr-only">unread messages</span>
+                          <% end %>
+                        <% else %>
+                          <%= link_to edit_user_firmscode_path(email: f.email), data: { turbo_frame: "edit_user_access" }, class: 'btn btn-light btn-sm btn-format' do %>
+                            Manage User Warehouse Access
+                          <% end %>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </thead>
+          </table>
+        </div>
+
+
+        <div class="ftz_pagination">
+
+          <%= will_paginate @users, :previous_label => 'prev', :next_label => 'next', param_name: 'users_page' %>
+
+        </div>
+
+
+</div>
+
+
+  </body>
+</html>
+<turbo-frame id="verify_user_modal"></turbo-frame>
+<turbo-frame id="delete_modal_frame"></turbo-frame>
+<turbo-frame id="edit_user_modal"></turbo-frame>
+<turbo-frame id="edit_user_access"></turbo-frame>

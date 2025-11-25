@@ -37,6 +37,9 @@
   </head>
 
   <body class ="<%=controller_name %> <%=action_name %>">
+    <turbo-frame id="edit_user_modal"></turbo-frame>
+
+    
     <% if current_user %>
       <%= auto_session_timeout_js %>
     <% end %>

@@ -1,77 +1,88 @@
-<turbo-frame id='edit_user_modal'>
-<div class="modal fade" id="editFedParts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header editmdhd">
-        <h5 class="modal-title" id="exampleModalLabel"><%= is_new_record ? 'ADD' : 'Edit' %> User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <% @errormsgs = @user.errors %>
-        <% if @errormsgs.full_messages.any? %>
-
-          <% @errormsgs.full_messages.each do |e|%>
-            <div class= "errormsgs">
-              <ul>
-               <%= e %>
-              </ul>
-            </div>
+<turbo-frame id="edit_user_modal">
+  <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 520px;">
+      <div class="modal-content" style="background-color: #fff;">
+        <div class="modal-header editmdhd alert alert-primary" style="padding-bottom: 15px;">
+          <h1 class="modal-title justify-content-center" style="font-size: 25px; align-items: center !important; text-align:center !important; text-shadow: none;" id="editUserModalLabel"><%= is_new_record ? 'Add' : 'Edit' %> User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <% @errormsgs = @user.errors %>
+          <% if @errormsgs.full_messages.any? %>
+            <% @errormsgs.full_messages.each do |e|%>
+              <div class="errormsgs">
+                <ul>
+                 <%= e %>
+                </ul>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
-        <%= form_for @user, remote: true do |f| %>
-          <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-12">
-              <div class="form-group edit-user-style">
-                <%= f.label :company, 'Company' %>
-                <%= f.text_field :company, class: "form-control", autofocus: true %>
-              </div>
+          <%= form_for @user, remote: true do |f| %>
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-12">
+                  <div class="form-group edit-user-style">
+                    <%= f.label :company, 'Company' %>
+                    <%= f.text_field :company, class: "form-control", autofocus: true %>
+                  </div>
 
-              <div class="form-group edit-user-style">
-                <%= f.label :username %>
-                <%= f.text_field :username, class: "form-control", autofocus: true %>
-              </div>
+                  <div class="form-group edit-user-style">
+                    <%= f.label :username %>
+                    <%= f.text_field :username, class: "form-control", autofocus: true %>
+                  </div>
 
-              <div class="form-group edit-user-style">
-                <%= f.label :email %>
-                <%= f.email_field :email, class: "form-control", autofocus: true %>
-              </div>
+                  <div class="form-group edit-user-style">
+                    <%= f.label :email %>
+                    <%= f.email_field :email, class: "form-control", autofocus: true %>
+                  </div>
 
-              <div class="form-group edit-user-style">
-                <%= link_to "Send Forgot Password Link", passwords_path(email: f.object.email), class: 'btn btn btn-light btn-sm btn-new btn-authorizeuser', style: 'text-align:center; width:auto; padding-left: 10px !important; margin-left: 0px !important;'%>
+                  <div class="form-group edit-user-style">
+                    <%= link_to "Send Forgot Password Link", passwords_path(email: f.object.email), class: 'btn btn btn-light btn-sm btn-new btn-authorizeuser', style: 'text-align:center; width:auto; padding-left: 10px !important; margin-left: 0px !important;' %>
+                  </div>
+                </div>
+              </div>  
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-6">
+                  <div class="form-group edit-user-style">
+                    <%= f.hidden_field :admin, value: false %>
+                    <%= f.label :admin %>
+                    <%= f.check_box :admin, { class: "", style: "width:20px !important;" }, true, false %>
+                  </div>
+                </div>
+              </div>  
+              <br>
+              <div class="row justify-content-center">
+                <div class="col-6">
+                  <div class="form-group justify-content-center" style="text-align: center;">
+                    <%= f.submit is_new_record ? 'Add' : 'Save Changes', class: 'btn btn btn-light btn-sm btn-edit' %>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>  
-          <div class="row" style="margin-top: 10px;">
-            <div class="col-6">
+            </div>  
+          <% end %>
+        </div>
 
-              <div class="form-group edit-user-style">
-                <%= f.hidden_field :admin, value: false %>
-                <%= f.label :admin %>
-                <%= f.check_box :admin, {:class => "", :style => "width:20px !important;"}, true, false %>
-              </div>
-            </div>
-          </div>  
-          <br>
-          <div class="row justify-content-center">
-            <div class="col-6">
+        <div class="modal-footer editmdft">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
 
-              <div class="form-group justify-content-center" style="text-align: center;">
-                <%= f.submit is_new_record ? 'ADD' : 'Save Changes', class: 'btn btn btn-light btn-sm btn-edit' %>
-              </div>
-            </div>
-          </div>
-          </div>  
-
-          
-        <% end %>
       </div>
-
-      <div class="modal-footer editmdft">
-        <button type="button" class="btn btn-secondary" onComplete="$('#divId').modal('hide');$('body').removeClass('modal-open');$('.modal-backdrop').remove();" class="close" data-bs-dismiss="modal">Close</button>
-      </div>
-
     </div>
   </div>
-</div>
 </turbo-frame>
+<script>
+  (() => {
+    var modalElement = document.getElementById("editUserModal");
+    if (modalElement) {
+      bootstrap.Modal.getOrCreateInstance(modalElement).show();
+    }
+  })();
+
+  // Ensure the modal opens when loaded via Turbo frame navigation
+  document.addEventListener("turbo:frame-load", function (event) {
+    if (event.target.id === "edit_user_modal") {
+      const modalEl = document.getElementById("editUserModal");
+      if (modalEl) { bootstrap.Modal.getOrCreateInstance(modalEl).show(); }
+    }
+  });
+</script>

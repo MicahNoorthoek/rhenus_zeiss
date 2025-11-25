@@ -20,38 +20,17 @@ class AdminController < ApplicationController
 
       flash[:success] = "New Users can no longer be created."
     end
-    redirect_to smplbw_users_path
+    redirect_to manage_users_redirect_path
 
 
   end
 
   def smplbw_users
-    @u = User.ransack(params[:users])
-    @users = @u.result.paginate(page: params[:users_page], per_page: 10)
+    load_manage_users_context
+  end
 
-    @locked_user = User.where(user_lock: true).first
-
-    #SystemLog.create(:procedure_name => 'admin_controller', :log_message => "test #{@locked_user.user_lock}")
-
-    if @locked_user.present?
-      SystemLog.create(:procedure_name => 'admin_controller', :log_message => "on")
-      @ifUserLocked = 'on'
-    else
-      SystemLog.create(:procedure_name => 'admin_controller', :log_message => "off")
-      @ifUserLocked = 'off'
-    end
-
-    @verifiedusers_email = VerifiedUser.pluck(:email)
-    @verified_user_action_needed = Useraccess.where(email: @verifiedusers_email, warehouse: '0000').pluck(:email)
-    @verified_user_action_needed_count = @verified_user_action_needed.count
-
-
-    @verifiedusers = VerifiedUser.new
-    @authusr = SelectedAuthorization.all
-    @currentusers = VerifiedUser.select(:email).order(email: :asc)
-    @selectedemail = SelectedEmail.new
-    @restpasswordusers = User.select(:email).order(email: :asc)
-
+  def zeiss_users
+    load_manage_users_context
   end
 
   def receipt_headers_view
@@ -183,7 +162,11 @@ class AdminController < ApplicationController
       @username = "Not set"
     end
 
-    render partial: "admin/edit_user_firmscode"
+    respond_to do |format|
+      format.turbo_stream { render partial: "admin/edit_user_firmscode" }
+      format.html { render partial: "admin/edit_user_firmscode" }
+      format.js
+    end
   end
 
 
@@ -289,7 +272,7 @@ class AdminController < ApplicationController
   def finalize_lock_users
     @users = User.update(:user_lock => true)
     flash[:success] = "All users have been locked"
-    redirect_to smplbw_users_path
+    redirect_to manage_users_redirect_path
   end
 
   def checkifloggedout
@@ -303,6 +286,38 @@ class AdminController < ApplicationController
       SystemLog.create(:procedure_name => 'admin_controller', :log_message => "redirect #{user.logged_in}")
       render json: { status: 'user logged out' }
     end
+  end
+
+  private
+
+  def load_manage_users_context
+    @u = User.ransack(params[:users])
+    @users = @u.result.paginate(page: params[:users_page], per_page: 10)
+
+    @locked_user = User.where(user_lock: true).first
+    @ifUserLocked = @locked_user.present? ? 'on' : 'off'
+
+    @useraccess_available = begin
+      ActiveRecord::Base.connection.data_source_exists?(Useraccess.table_name)
+    rescue ActiveRecord::StatementInvalid
+      false
+    end
+
+    if @useraccess_available
+      @verifiedusers_email = VerifiedUser.pluck(:email)
+      @verified_user_action_needed = Useraccess.where(email: @verifiedusers_email, warehouse: '0000').pluck(:email)
+      @verified_user_action_needed_count = @verified_user_action_needed.count
+    else
+      @verifiedusers_email = []
+      @verified_user_action_needed = []
+      @verified_user_action_needed_count = 0
+    end
+
+    @verifiedusers = VerifiedUser.new
+    @authusr = SelectedAuthorization.all
+    @currentusers = VerifiedUser.select(:email).order(email: :asc)
+    @selectedemail = SelectedEmail.new
+    @restpasswordusers = User.select(:email).order(email: :asc)
   end
 
 end

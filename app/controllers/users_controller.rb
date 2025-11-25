@@ -14,7 +14,11 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    #render partial: "users/edit"  
+    respond_to do |format|
+      format.turbo_stream { render partial: "users/user_form", locals: { is_new_record: @user.new_record? } }
+      format.html { render partial: "users/user_form", locals: { is_new_record: @user.new_record? }, layout: false }
+      format.js   # renders app/views/users/edit.js.erb
+    end
   end
 
 
@@ -132,4 +136,4 @@ class UsersController < ApplicationController
     end
   end
 
-  end
+end

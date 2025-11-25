@@ -16,7 +16,10 @@
   }
 </style>
 <body style="">
-<div class="content-squish">
+ <div class="" style="margin-left: 8% !important;margin-right: 8% !important;">
+        <h6 class = "pghead2" style="margin-bottom:40px;"> <a style="color:#0061e0; font-style:italic;" href="<%= dashboard_path %>">Home</a> > <a  href="<%= admin_path %>">Admin</a></h6>
+    
+      <div class="content-squish">
             <div class = "container">
               <h6 class = "pghead" >Admin Playground</h6>
               <!--
@@ -33,37 +36,10 @@
               <% if logged_in? && current_user.admin? %>
               <div class="row">
                 <div class="col-sm admin-btn">
-                  <%= link_to 'Manage Users', smplbw_users_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
+                  <%= link_to 'Manage Users', zeiss_users_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
                 </div>
-                <div class="col-sm admin-btn">
-                  <%= link_to 'Client Setup', client_setup_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
-                  
-                </div>
-                <div class="col-sm admin-btn">
-                  <%= link_to 'System Logs', system_log_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
-                </div>
-                <!--
-                <div class="col-sm admin-btn">
-                  <%#= link_to 'All Receipts', all_receipt_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
-                </div>
-                -->
-              </div>
-<!--
-              <div class="row">
-                <div class="col-sm admin-btn">
-                  <%#= link_to 'All Withdrawals', all_withdrawals_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
-                </div>
-                <div class="col-sm admin-btn">
-                  <%#= link_to 'Receipt Headers', receipt_headers_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
-                </div>
-                <div class="col-sm admin-btn">
-                  <%#= link_to 'Withdrawal Headers', withdrawals_headers_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
-                </div>
-                <div class="col-sm admin-btn">
-                  <%#= link_to 'Reported Balances', balances_view_path, class: "btn btn-md btn-undo-ship admin-link btn-complete"%>
-                </div>
-              </div>
--->
+       
+
               <% end %>
             </div><!-- container -->
 </div>

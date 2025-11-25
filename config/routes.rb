@@ -67,7 +67,13 @@ Rails.application.routes.draw do
   get 'admin', to: 'admin#index'
   #get :supports, to: "admin#index"
   get 'authorize_user', to: 'admin#authorize_user'
-
+  get 'smplbw_users', to: 'admin#smplbw_users'
+  get 'zeiss_users', to: 'admin#zeiss_users'
+  get 'smplbw_firmscode_setup', to: 'admin#smplbw_firmscode_setup'
+  get 'edit_user_firmscode', to: 'admin#edit_user_firmscode'
+  post 'to_the_controller', to: 'admin#add_edited_user_firmscode'
+  delete 'delete_user_firmscode', to: 'admin#delete_user_firmscode'
+  get 'verify_delete', to: 'delete_modal#delete'
   get 'passwords', to: 'passwords#create'
   get 'reset_password', to: 'passwords#edit', as: 'reset_password'
   put 'update_password', to: 'passwords#update_password', as: 'update_password'

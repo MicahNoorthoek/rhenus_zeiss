@@ -103,6 +103,17 @@ window.restrictSpcAndClientpoSubmission = function (x) {
     }
   });
 
+  // Show the edit user modal whenever the turbo frame updates
+  document.addEventListener("turbo:frame-load", function (event) {
+    if (event.target.id === "edit_user_modal") {
+      const modal = document.querySelector("#editUserModal");
+      if (modal) {
+        const bootstrapModal = new bootstrap.Modal(modal);
+        bootstrapModal.show();
+      }
+    }
+  });
+
 
 
   document.addEventListener("turbo:load", function () {

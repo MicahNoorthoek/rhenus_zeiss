@@ -21,7 +21,7 @@ class PasswordsController < ApplicationController
     else
       flash[:danger] = "Email has not been sent"
     end
-    redirect_to smplbw_users_path
+    redirect_to manage_users_redirect_path
   end
 
   def edit

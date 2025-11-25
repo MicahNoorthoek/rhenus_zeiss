@@ -48,6 +48,10 @@ class DashboardsController < ApplicationController
         flash[:error] = "Error: Was not able to display details!"
         redirect_to dashboard_path 
       end
+      
+      if turbo_frame_request?
+      render 'dashboards/balance_details', layout: false
+      end
     end
    
    
